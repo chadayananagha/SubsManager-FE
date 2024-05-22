@@ -6,15 +6,22 @@ export default {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["", ""],
-    // themes: [
-    //   {
-    //     lemonade: {
-    //       primary: "#793ef9",
-    //       warning: "#37cdbe",
-    //     },
-    //   },
-    //   { night: { primary: "green", warning: "red" } },
-    // ],
+    themes: [
+      {
+        business: {
+          ...require("daisyui/src/theming/themes")["business"],
+          "--rounded-box": "1rem",
+          "--rounded-btn": "0.5rem",
+          "--rounded-badge": "1.9rem",
+        },
+      },
+      {
+        fantasy: {
+          ...require("daisyui/src/theming/themes")["fantasy"],
+          primary: "#0075C2",
+          "base-100": "rgb(243 244 246)",
+        },
+      },
+    ],
   },
 };

@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* @layer {
+  .main-container {
+    @apply h-[800px] bg-yellow-500;
+  }
+} */
