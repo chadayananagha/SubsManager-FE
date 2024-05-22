@@ -7,3 +7,42 @@
     @apply h-[800px] bg-yellow-500;
   }
 } */
+/* .bg-theme-business {
+  background-color: #2f3745;
+}
+
+.bg-theme-fantasy {
+  background-color: #e2e8f0;
+} */
+.bg-theme-business {
+  background-image: url("https://png.pngtree.com/thumb_back/fh260/background/20221201/pngtree-black-shiny-wallpaper-background-design-image_1484065.jpg");
+  background-size: cover;
+}
+
+.bg-theme-fantasy {
+  background-image: url("https://t3.ftcdn.net/jpg/04/06/60/72/360_F_406607245_daS9yMQ9g8MMZz3XWf2LVXxFy5cAdLQ7.jpg");
+  background-size: cover;
+}
+
+[data-theme="business"] .bg-themed {
+  @apply bg-theme-business;
+}
+
+[data-theme="fantasy"] .bg-themed {
+  @apply bg-theme-fantasy;
+}
+.btn-hover-business:hover {
+  background-color: black;
+}
+
+.btn-hover-fantasy:hover {
+  background-color: #c0c1c2;
+}
+
+[data-theme="business"] .btn-hover {
+  @apply btn-hover-business;
+}
+
+[data-theme="fantasy"] .btn-hover {
+  @apply btn-hover-fantasy;
+}
