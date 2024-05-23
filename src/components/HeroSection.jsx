@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -23,12 +24,16 @@ const HeroSection = () => {
               </p>
             </div>
             <div className="flex gap-6 justify-center">
-              <button className="btn btn-color text-black text-2xl px-10 rounded-3xl flex justify-center items-center">
-                Login
-              </button>
-              <button className="btn btn-primary text-white text-2xl px-10 rounded-3xl">
-                Sign up
-              </button>
+              <Link to="/login">
+                <button className="btn btn-color text-black text-2xl px-10 rounded-3xl flex justify-center items-center">
+                  Login
+                </button>
+              </Link>
+              <Link to="/signup">
+                <button className="btn btn-primary text-white text-2xl px-10 rounded-3xl">
+                  Sign up
+                </button>
+              </Link>
             </div>
           </div>
         </div>
