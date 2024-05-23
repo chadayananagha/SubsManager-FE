@@ -34,7 +34,7 @@ const Login = () => {
       <div className="bg-themed w-[50%] sm:flex justify-center pt-56 pb-48 hidden md:px-16 ">
         <div>
           <h1 className="text-5xl font-bold text-center pb-8">
-            Hi <span className="text-primary">User!</span>
+            Hi <span className="text-primary">User</span>,
           </h1>
           <h1 className="text-5xl font-bold text-center text-balance ">
             Welcome to the world of sharing!
