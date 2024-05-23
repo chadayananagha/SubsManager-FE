@@ -60,7 +60,16 @@ const Login = () => {
           <button className="btn-hover border-none btn btn-primary text-white rounded-3xl sm:w-96 w-full py-2 px-4 mt-4">
             Login
           </button>
-          <p>Or connect with social media</p>
+          <a href="#" className="text-primary font-bold">
+            Forgot password?
+          </a>
+          <p className="mt-16">
+            Don't have an account ?
+            <a className="font-bold text-primary" href="/signup">
+              SignUp
+            </a>
+          </p>
+          {/* <p>Or connect with social media</p>
           <button className="btn bg-red-500 text-white rounded-3xl sm:w-96 w-full py-2 px-4 mt-4 flex items-center justify-center">
             <svg
               className="w-5 h-5 mr-2"
@@ -99,7 +108,7 @@ const Login = () => {
               />
             </svg>
             Sign in with Facebook
-          </button>
+          </button> */}
         </form>
       </div>
     </div>

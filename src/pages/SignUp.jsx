@@ -92,6 +92,12 @@ const SignUp = () => {
             </svg>
             Sign in with Facebook
           </button>
+          <p>
+            Already have an account ?
+            <a className="font-bold text-primary" href="/login">
+              Login
+            </a>
+          </p>
         </form>
       </div>
       <div className="bg-themed w-[50%] sm:flex justify-center pt-80 pb-48 hidden md:px-16">
