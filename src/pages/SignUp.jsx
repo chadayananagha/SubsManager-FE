@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 const SignUp = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -24,7 +25,12 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex m-24">
+    <motion.div
+      initial={{ opacity: 0, y: "-10%" }}
+      animate={{ opacity: 1, y: "0" }}
+      transition={{ duration: 0.8 }}
+      className="flex m-24"
+    >
       <div className="flex flex-col sm:py-36 py-24 sm:px-52 px-4 w-full sm:w-[50%] items-center">
         <h1 className="text-5xl font-bold mb-12">SignUp</h1>
         <form
@@ -92,7 +98,7 @@ const SignUp = () => {
             </svg>
             Sign in with Facebook
           </button>
-          <p>
+          <p className="text-center">
             Already have an account ?
             <a className="font-bold text-primary" href="/login">
               {" "}
@@ -109,7 +115,7 @@ const SignUp = () => {
           </h1>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
