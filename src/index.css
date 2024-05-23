@@ -7,3 +7,19 @@
     @apply h-[800px] bg-yellow-500;
   }
 } */
+
+.btn-business {
+  background-color: #c0c1c2;
+}
+
+.btn-fantasy {
+  background-color: #c0c1c2;
+}
+
+[data-theme="business"] .btn-color {
+  @apply btn-business;
+}
+
+[data-theme="fantasy"] .btn-color {
+  @apply btn-fantasy;
+}
