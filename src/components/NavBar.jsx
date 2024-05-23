@@ -1,8 +1,79 @@
+import { useState, useEffect } from "react";
 import ThemeToggler from "./ThemeToggler";
+import Sidebar from "./Sidebar";
+import { Link } from "react-router-dom";
+import { FiMenu } from "react-icons/fi";
+import { FiArrowRightCircle } from "react-icons/fi";
 const NavBar = () => {
+  //*Change burgerMenu on hover
+  const [isHovered, setIsHovered] = useState(false);
+
+  //*SideBar State
+  const [isSidebarOpen, setIsSideBarOpen] = useState(false);
+
+  //*Set the state for the scrolling
+  const [isScrolling, setIsScrolling] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolling(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  //*Open and close sidebar
+  const handleSidebar = () => {
+    setIsSideBarOpen((prev) => !prev);
+  };
   return (
-    <div>
-      <ThemeToggler />
+    <div
+      className={`fixed top-0 left-0 z-50  w-full p-4 flex justify-between items-center transition-all duration-500 ${
+        isScrolling ? "  drop-shadow-xl bg-base-100 " : "bg-transparent"
+      }`}
+    >
+      <Link className="md:ml-24" to="/">
+        LOGO
+      </Link>
+
+      {/* //!Hamburger Menu  */}
+      <button
+        className="lg:hidden"
+        onClick={handleSidebar}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <FiArrowRightCircle
+          className={` absolute text-3xl transition-all duration-1000 ${
+            !isHovered ? "opacity-0" : "opacity-1000"
+          }`}
+        />
+
+        <FiMenu
+          className={` text-3xl transition-all duration-1000 ${
+            isHovered ? "opacity-0" : "opacity-1000"
+          }`}
+        />
+      </button>
+      <div className="hidden lg:flex gap-6 mr-24">
+        <ThemeToggler />
+        <Link
+          to="/login"
+          className=" relative text-nowrap btn btn-primary   justify-center items-center overflow-hidden group px-8"
+        >
+          <span className="   py-4 flex justify-center items-center opacity-100 group-hover:opacity-0 group-hover:-translate-y-full transition-all duration-1000">
+            Start sharing
+          </span>
+          <span className=" py-4 absolute  opacity-0  group-hover:opacity-100  group-hover:flex group-hover:justify-center group-hover:items-center  translate-y-full  group-hover:translate-y-0  transition-all duration-1000 ">
+            Right now
+          </span>
+        </Link>
+      </div>
+
+      <Sidebar isSidebarOpen={isSidebarOpen} handleSidebar={handleSidebar} />
     </div>
   );
 };

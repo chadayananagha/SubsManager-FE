@@ -16,8 +16,9 @@ const ThemeToggler = () => {
 
   const nightTheme = theme === "business";
   return (
-    <label className="flex cursor-pointer gap-2">
+    <label className="flex justify-center items-center cursor-pointer gap-2">
       <svg
+        className={`${theme === "fantasy" ? "text-yellow-500" : "opacity-60"}`}
         xmlns="http://www.w3.org/2000/svg"
         width="20"
         height="20"
@@ -32,13 +33,14 @@ const ThemeToggler = () => {
         <path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
       </svg>
       <input
-        onClick={toggleTheme}
+        onChange={toggleTheme}
         checked={nightTheme}
         type="checkbox"
         value="synthwave"
         className="toggle theme-controller"
       />
       <svg
+        className={`${theme === "business" ? "text-yellow-500" : "opacity-60"}`}
         xmlns="http://www.w3.org/2000/svg"
         width="20"
         height="20"
