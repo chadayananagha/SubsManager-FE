@@ -42,7 +42,7 @@ const Login = () => {
           <input
             type="email"
             placeholder="Email"
-            className="input input-bordered sm:w-96 rounded-3xl"
+            className="input input-bordered sm:w-96 rounded-3xl bg-base-200"
             id="email"
             name="email"
             value={formData.email}
@@ -51,7 +51,7 @@ const Login = () => {
           <input
             type="password"
             placeholder="Password"
-            className="input input-bordered sm:w-96 rounded-3xl"
+            className="input input-bordered sm:w-96 rounded-3xl bg-base-200"
             id="password"
             name="password"
             value={formData.password}
@@ -66,6 +66,7 @@ const Login = () => {
           <p className="mt-16">
             Don't have an account ?
             <a className="font-bold text-primary" href="/signup">
+              {" "}
               SignUp
             </a>
           </p>

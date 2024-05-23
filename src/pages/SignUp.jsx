@@ -34,7 +34,7 @@ const SignUp = () => {
           <input
             type="email"
             placeholder="Email"
-            className="input input-bordered sm:w-96 rounded-3xl"
+            className="input input-bordered sm:w-96 rounded-3xl bg-base-200"
             id="email"
             name="email"
             value={formData.email}
@@ -43,7 +43,7 @@ const SignUp = () => {
           <input
             type="password"
             placeholder="Password"
-            className="input input-bordered sm:w-96 rounded-3xl"
+            className="input input-bordered sm:w-96 rounded-3xl bg-base-200"
             id="password"
             name="password"
             value={formData.password}
@@ -53,7 +53,7 @@ const SignUp = () => {
             Register
           </button>
           <p>Or connect with social media</p>
-          <button className="btn bg-red-500 text-white rounded-3xl sm:w-96 w-full py-2 px-4 mt-4 flex items-center justify-center">
+          <button className="btn bg-red-800 text-white rounded-3xl sm:w-96 w-full py-2 px-4 mt-4 flex items-center justify-center">
             <svg
               className="w-5 h-5 mr-2"
               xmlns="http://www.w3.org/2000/svg"
@@ -95,6 +95,7 @@ const SignUp = () => {
           <p>
             Already have an account ?
             <a className="font-bold text-primary" href="/login">
+              {" "}
               Login
             </a>
           </p>
