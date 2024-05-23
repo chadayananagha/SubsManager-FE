@@ -4,6 +4,7 @@ const SignUp = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    username: "",
   });
 
   const handleChange = (e) => {
@@ -20,6 +21,7 @@ const SignUp = () => {
     setFormData({
       email: "",
       password: "",
+      username: "",
     });
     console.log("Form data:", formData);
   };
@@ -37,6 +39,15 @@ const SignUp = () => {
           className="flex flex-col items-center gap-8"
           onSubmit={handleSubmit}
         >
+          <input
+            type="text"
+            placeholder="Username"
+            className="input input-bordered sm:w-96 rounded-3xl bg-base-200"
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+          />
           <input
             type="email"
             placeholder="Email"
