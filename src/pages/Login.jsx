@@ -24,7 +24,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex m-24">
       <div className="bg-themed w-[50%] sm:flex justify-center pt-80 pb-48 hidden md:px-16">
         <div>
           <h1 className="text-5xl font-bold text-center pb-8">Hi User!</h1>

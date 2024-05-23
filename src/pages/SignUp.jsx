@@ -24,7 +24,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex m-24">
       <div className="flex flex-col sm:py-36 py-24 sm:px-52 px-4 w-full sm:w-[50%] items-center">
         <h1 className="text-5xl font-bold mb-12">SignUp</h1>
         <form
