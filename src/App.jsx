@@ -3,6 +3,7 @@ import MainLayout from './layout/MainLayout';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import SignUp from './pages/SignUp';
+import Contact from './pages/Contact';
 import FAQ from './pages/FAQ';
 import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
@@ -24,8 +25,10 @@ function App() {
 					/>
 					<Route path='/signup' element={<SignUp />} />
 					<Route path='/contact' element={<Contact />} />
+					<Route path='/contact' element={<Contact />} />
 					<Route path='/subsmanager' element={<SubsManager />} />
 					<Route path='/faq' element={<FAQ />} />
+					<Route path='/contact' element={<Contact />} />
 				</Route>
 			</Routes>
 		</div>

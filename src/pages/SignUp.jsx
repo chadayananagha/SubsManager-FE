@@ -13,7 +13,6 @@ const SignUp = () => {
     username: "",
     email: "",
     password: "",
-    username: "",
   });
 
   const navigate = useNavigate();
@@ -42,9 +41,9 @@ const SignUp = () => {
       const data = response.data;
       console.log(data);
 
-      localStorage.setItem("token", data.token);
+      // localStorage.setItem("token", data.token);
       setIsLoading(false);
-      login(data.token);
+      login(data.token, data.userId);
       toast.success("Registered successfully");
       setTimeout(() => {
         navigate("/");
