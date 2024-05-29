@@ -7,22 +7,24 @@ import Contact from "./pages/Contact";
 import FAQ from "./pages/FAQ";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
+import { Toaster } from "react-hot-toast";
 function App() {
   const { token } = useContext(AuthContext);
   return (
     <div>
+      <Toaster position="top-center" reverseOrder={false} />
+
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="*" element={<Home />} />
-          {/* {!token && <Route path="/login" element={<Login />} />} */}
-          <Route
+          {!token && <Route path="/login" element={<Login />} />}
+          {/* <Route
             path="/login"
             element={<Login />}
             // element={!token ? <Login /> : <Navigate to="/" />}
-          />
+          /> */}
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
         </Route>

@@ -38,12 +38,9 @@ const Login = () => {
       );
       const data = response.data;
       console.log(data);
-
-      // localStorage.setItem("token", data.token);
-      // localStorage.setItem("userId", data.userId);
       setIsLoading(false);
       login(data.token, data.userId);
-      toast.success("Successfully logged in!");
+      toast.success("Successfully logged in!", { duration: 1000 });
       //*After .6s second navigate to desired path
       setTimeout(() => {
         navigate("/");
@@ -65,7 +62,6 @@ const Login = () => {
 
   return (
     <div>
-      <Toaster position="top-center" reverseOrder={false} />
       <div
         className={`${
           isLoading

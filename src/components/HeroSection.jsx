@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { toast, Toaster } from "react-hot-toast";
 
 const HeroSection = () => {
-  const { token } = useContext(AuthContext);
+  const { token, logout } = useContext(AuthContext);
+
+  //*logout Function
+  const handleLogout = () => {
+    logout();
+    toast.success("Successfully logged out!");
+  };
   return (
     <div>
       <div className="hero min-h-screen bg-base">
@@ -27,17 +34,22 @@ const HeroSection = () => {
             </div>
             <div className="flex gap-6 justify-center">
               {token ? (
-                <button
-                  to="/login"
-                  className=" relative text-nowrap btn btn-primary   justify-center items-center overflow-hidden group px-8"
-                >
-                  <span className="   py-4 flex justify-center items-center opacity-100 group-hover:opacity-0 group-hover:-translate-y-full transition-all duration-1000">
-                    Start sharing
-                  </span>
-                  <span className=" py-4 absolute  opacity-0  group-hover:opacity-100  group-hover:flex group-hover:justify-center group-hover:items-center  translate-y-full  group-hover:translate-y-0  transition-all duration-1000 ">
-                    Right now
-                  </span>
-                </button>
+                <div>
+                  <button onClick={handleLogout} className="btn btn-accent">
+                    Log out
+                  </button>
+                  <button
+                    to="/login"
+                    className=" relative text-nowrap btn btn-primary   justify-center items-center overflow-hidden group px-8"
+                  >
+                    <span className="   py-4 flex justify-center items-center opacity-100 group-hover:opacity-0 group-hover:-translate-y-full transition-all duration-1000">
+                      Start sharing
+                    </span>
+                    <span className=" py-4 absolute  opacity-0  group-hover:opacity-100  group-hover:flex group-hover:justify-center group-hover:items-center  translate-y-full  group-hover:translate-y-0  transition-all duration-1000 ">
+                      Right now
+                    </span>
+                  </button>
+                </div>
               ) : (
                 <>
                   <Link to="/login">

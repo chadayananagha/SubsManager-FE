@@ -43,6 +43,7 @@ const AuthContextProvider = (props) => {
   //*Logout
   const logout = () => {
     setToken(null);
+    setUserId(null);
   };
   return (
     <AuthContext.Provider value={{ userId, token, login, logout }}>

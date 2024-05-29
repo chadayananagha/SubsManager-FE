@@ -12,6 +12,7 @@ const NavBar = () => {
   const authContext = useContext(AuthContext);
   const { logout, token } = authContext;
   const { decodedToken } = useJwt(token);
+  // console.log(decodedToken?.username);
 
   //*Log out
   const handleClick = () => {
