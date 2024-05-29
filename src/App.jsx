@@ -6,6 +6,8 @@ import SignUp from './pages/SignUp';
 import FAQ from './pages/FAQ';
 import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
+import Contact from './pages/Contact';
+import SubsManager from './pages/SubsManager';
 function App() {
 	const { token } = useContext(AuthContext);
 	return (
@@ -21,6 +23,8 @@ function App() {
 						// element={!token ? <Login /> : <Navigate to="/" />}
 					/>
 					<Route path='/signup' element={<SignUp />} />
+					<Route path='/contact' element={<Contact />} />
+					<Route path='/subsmanager' element={<SubsManager />} />
 					<Route path='/faq' element={<FAQ />} />
 				</Route>
 			</Routes>
