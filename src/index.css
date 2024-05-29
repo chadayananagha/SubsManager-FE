@@ -62,3 +62,17 @@
 [data-theme="fantasy"] .btn-hover {
   @apply btn-hover-fantasy;
 }
+.bg-color-fantasy {
+  background-color: white;
+}
+.bg-color-business {
+  background-color: #c0c1c2;
+}
+
+[data-theme="business"] .bg-color {
+  @apply bg-color-business;
+}
+
+[data-theme="fantasy"] .bg-color {
+  @apply bg-color-fantasy;
+}
