@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import SignUp from './pages/SignUp';
 import FAQ from './pages/FAQ';
 import Contact from './pages/Contact';
+import SubsManager from './pages/SubsManager';
 function App() {
 	return (
 		<div>
@@ -15,6 +16,7 @@ function App() {
 					<Route path='/signup' element={<SignUp />} />
 					<Route path='/faq' element={<FAQ />} />
 					<Route path='/contact' element={<Contact />} />
+					<Route path='/subsmanager' element={<SubsManager />} />
 				</Route>
 			</Routes>
 		</div>
