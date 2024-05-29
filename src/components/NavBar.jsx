@@ -1,10 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ThemeToggler from "./ThemeToggler";
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
 import { FiArrowRightCircle } from "react-icons/fi";
+import { FaUser } from "react-icons/fa";
+import { AuthContext } from "../context/AuthContext";
+import { useJwt } from "react-jwt";
 const NavBar = () => {
+  //*context
+  const authContext = useContext(AuthContext);
+  const { logout, token } = authContext;
+  const { decodedToken } = useJwt(token);
+
+  //*Log out
+  const handleClick = () => {
+    localStorage.removeItem(token);
+    logout();
+  };
+
   //*Change burgerMenu on hover
   const [isHovered, setIsHovered] = useState(false);
 
@@ -35,7 +49,7 @@ const NavBar = () => {
         isScrolling ? "  drop-shadow-xl bg-base-100 " : "bg-transparent"
       }`}
     >
-      <Link className="md:ml-24" to="/">
+      <Link className="md:ml-24 " to="/">
         LOGO
       </Link>
 
@@ -58,7 +72,7 @@ const NavBar = () => {
           }`}
         />
       </button>
-      <div className="hidden lg:flex gap-6 mr-24">
+      <div className="hidden lg:flex justify-end gap-6 mr-16 flex-1">
         <ThemeToggler />
         <Link
           to="/login"
@@ -72,6 +86,20 @@ const NavBar = () => {
           </span>
         </Link>
       </div>
+      {token ? (
+        <div
+          onClick={handleSidebar}
+          className="avatar placeholder hidden lg:block cursor-pointer"
+        >
+          <div className="bg-zinc-300 border border-zinc-200 text-neutral-content rounded-full w-12 overflow-hidden ">
+            <span className="text-4xl  text-base-100 mt-2">
+              <FaUser />
+            </span>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
 
       <Sidebar isSidebarOpen={isSidebarOpen} handleSidebar={handleSidebar} />
     </div>
