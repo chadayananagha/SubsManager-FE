@@ -14,12 +14,6 @@ const NavBar = () => {
   const { decodedToken } = useJwt(token);
   // console.log(decodedToken?.username);
 
-  //*Log out
-  const handleClick = () => {
-    localStorage.removeItem(token);
-    logout();
-  };
-
   //*Change burgerMenu on hover
   const [isHovered, setIsHovered] = useState(false);
 

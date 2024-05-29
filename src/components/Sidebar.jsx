@@ -1,16 +1,24 @@
 import { IoMdClose } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import ThemeToggler from "./ThemeToggler";
+import { toast } from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import Side3 from "../assets/Side3.png";
 import { useJwt } from "react-jwt";
 const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
-  const { token } = useContext(AuthContext);
+  const { token, logout } = useContext(AuthContext);
   //*Decode the Token
   const { decodedToken } = useJwt(token);
   //*Get the username from decoded token
+
+  //*logout Function
+  const handleLogout = () => {
+    logout();
+    handleSidebar();
+    toast.success("Successfully logged out!");
+  };
   const username = decodedToken?.username;
   return (
     <div
@@ -34,10 +42,7 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
       </div>
       {token ? (
         <>
-          <div
-            onClick={handleSidebar}
-            className="avatar placeholder flex flex-col justify-center items-center gap-8 cursor-pointer absolute top-24 "
-          >
+          <div className="avatar placeholder flex flex-col justify-center items-center gap-8 cursor-pointer absolute top-24 ">
             <p className="text-2xl ">
               Welcome{" "}
               <span className="font-extrabold tracking-wider text-primary text-2xl">
@@ -49,11 +54,11 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
                 <FaUser />
               </span>
             </div>
+          </div>
+          <div className="flex flex-col gap-4 mt-36 absolute  justify-center items-center ">
             <Link to="/faq" className="sideBarNav p-4">
               Edit Profile
             </Link>
-          </div>
-          <div className="flex flex-col gap-4 mt-24 absolute  justify-center items-center ">
             <NavLink
               to="/manage"
               className={({ isActive }) =>
@@ -94,7 +99,12 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
             >
               <p className="p-4">About</p>
             </NavLink>
-            <button className="btn btn-error">Log out</button>
+            <button
+              onClick={handleLogout}
+              className="z-10 btn btn-error px-16 text-lg "
+            >
+              Log out
+            </button>
           </div>
         </>
       ) : (
