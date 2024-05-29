@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import Contact from "./pages/Contact";
 import FAQ from "./pages/FAQ";
+import UserProfile from "./pages/UserProfile";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/profile" element={<UserProfile />} />
         </Route>
       </Routes>
     </div>
