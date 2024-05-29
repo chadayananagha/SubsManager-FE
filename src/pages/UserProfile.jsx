@@ -25,10 +25,10 @@ export function UserProfile() {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          "https://subsmanager-be.onrender.com/user/YOUR_USER_ID"
+          "https://subsmanager-be.onrender.com/users/6654a1233cf8ee665ca24f05"
         ); // Replace YOUR_USER_ID with the actual user ID
         setUserData(response.data);
-        setEditData(response.data); // Initialize editData with fetched data
+        setEditData(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -51,7 +51,7 @@ export function UserProfile() {
   const handleSave = async () => {
     try {
       const response = await axios.put(
-        `https://subsmanager-be.onrender.com/user/${userData._id}`,
+        `https://subsmanager-be.onrender.com/users/6654a1233cf8ee665ca24f05`,
         editData
       );
       setUserData(response.data);
@@ -63,19 +63,19 @@ export function UserProfile() {
 
   return (
     <>
-      <div className="relative mt-24 h-72 w-full overflow-hidden rounded-xl bg-coverpt bg-center ">
-        <div className="absolute inset-0 h-full w-full bg-primary" />
+      <div className="relative  h-72 w-full overflow-hidden rounded-xl ">
+        <div className="absolute inset-0 h-full w-full bg-base" />
       </div>
       <Card className="mx-3 -mt-16 mb-6 lg:mx-4 border border-blue-gray-100">
         <CardBody className="p-12">
           <div className="mb-10 flex items-center justify-between flex-wrap gap-6">
             <div className="flex items-center gap-10">
               <Avatar
-                src={userData.profilePic || "default-profile-pic-url"}
-                alt={userData.username || "User"}
+                src={userData.profilePic || "./src/assets/avatar.png"}
+                alt={userData.username || "Userphoto"}
                 size="xl"
                 variant="rounded"
-                className="rounded-lg shadow-lg shadow-blue-gray-500/40"
+                className="rounded-full shadow-lg shadow-blue-gray-500/40"
               />
               <div>
                 <Typography variant="h2" color="blue-gray" className="mb-1">
