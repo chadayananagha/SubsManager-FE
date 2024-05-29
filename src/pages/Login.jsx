@@ -39,10 +39,10 @@ const Login = () => {
       const data = response.data;
       console.log(data);
 
-      localStorage.setItem("token", data.token);
-      // localStorage.setItem('userId', data.userId)
+      // localStorage.setItem("token", data.token);
+      // localStorage.setItem("userId", data.userId);
       setIsLoading(false);
-      login(data.token);
+      login(data.token, data.userId);
       toast.success("Successfully logged in!");
       //*After .6s second navigate to desired path
       setTimeout(() => {

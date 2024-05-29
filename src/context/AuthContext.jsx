@@ -4,6 +4,7 @@ export const AuthContext = createContext();
 
 const AuthContextProvider = (props) => {
   const [token, setToken] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   //*Get the token from localStorage and set the token state to its value
   useEffect(() => {
@@ -11,6 +12,11 @@ const AuthContextProvider = (props) => {
     console.log(`Stored token: ${storedToken}`);
     if (storedToken) {
       setToken(storedToken);
+    }
+
+    const storedUserId = localStorage.getItem("userId");
+    if (storedUserId) {
+      setUserId(storedUserId);
     }
   }, []);
 
@@ -21,11 +27,17 @@ const AuthContextProvider = (props) => {
     } else {
       localStorage.removeItem("token");
     }
-  }, [token]);
+    if (userId) {
+      localStorage.setItem("userId", userId);
+    } else {
+      localStorage.removeItem("userId");
+    }
+  }, [token, userId]);
 
   //*Login
-  const login = (newToken) => {
+  const login = (newToken, newUserId) => {
     setToken(newToken);
+    setUserId(newUserId);
   };
 
   //*Logout
@@ -33,7 +45,7 @@ const AuthContextProvider = (props) => {
     setToken(null);
   };
   return (
-    <AuthContext.Provider value={{ token, login, logout }}>
+    <AuthContext.Provider value={{ userId, token, login, logout }}>
       {props.children}
     </AuthContext.Provider>
   );
