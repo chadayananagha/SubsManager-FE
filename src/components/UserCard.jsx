@@ -1,9 +1,11 @@
 import React from "react";
+import { FaCircle, FaTimes } from "react-icons/fa";
 
 const UserCard = ({ users, showModal, setShowModal, selectedPlatform }) => {
   if (!users || users.length === 0) {
     return null;
   }
+
   return (
     <dialog
       id="my_modal_5"
@@ -12,9 +14,15 @@ const UserCard = ({ users, showModal, setShowModal, selectedPlatform }) => {
     >
       {users.map((user) => (
         <div
-          className="modal-box shadow-[0_0_0_10000px_rgba(0,0,0,.40)]"
+          className="modal-box shadow-[0_0_0_10000px_rgba(0,0,0,.40)] relative"
           key={user._id}
         >
+          <button
+            className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
+            onClick={() => setShowModal(false)}
+          >
+            <FaTimes size={24} />
+          </button>
           <h3 className="font-bold text-2xl mb-4">
             Owner:&nbsp;{user.username}
           </h3>
@@ -25,51 +33,55 @@ const UserCard = ({ users, showModal, setShowModal, selectedPlatform }) => {
             .map((subscription) => {
               const remainingSlots =
                 subscription.plan.maxMembers - subscription.members.length;
+              const slots = Array.from(
+                Array(subscription.plan.maxMembers).keys()
+              );
 
               return (
                 <div key={subscription._id}>
-                  <p className="flex mb-4">
+                  <p className="flex my-2">
                     <span className="font-bold">Platform: </span>&nbsp;
                     {subscription.platformName}
                   </p>
                   <hr className="transition-opacity duration-500" />
-                  <p className="flex mb-4">
+                  <p className="flex  my-2">
                     <span className="font-bold">Plan Name: </span>&nbsp;
                     {subscription.plan.planName}
                   </p>
                   <hr className="transition-opacity duration-500" />
-                  <p className="flex mb-4">
+                  <p className="flex  my-2">
                     <span className="font-bold">Price: </span>&nbsp;
                     {subscription.plan.price}€/month
                   </p>
                   <hr className="transition-opacity duration-500" />
-                  <p className="flex mb-4">
+                  <p className="flex  my-2">
                     <span className="font-bold">Expires on: </span>&nbsp;
                     {subscription.expirationDate}
                   </p>
                   <hr className="transition-opacity duration-500" />
-                  <p className="flex mb-4">
+                  <p className="flex my-2">
                     <span className="font-bold">Max Members: </span>&nbsp;
                     {subscription.plan.maxMembers}
                   </p>
                   <hr className="transition-opacity duration-500" />
-                  <p className="flex mb-4">
-                    <span className="font-bold">Remaining Slots: </span>&nbsp;
-                    {remainingSlots}/{subscription.plan.maxMembers}
-                  </p>
-
-                  <hr class="bg-primary h-1 border-0 transition-opacity duration-500" />
+                  <div className="flex flex-wrap my-2">
+                    <span className="font-bold"> Remaining slots:</span>&nbsp;
+                    {slots.map((slot, index) => (
+                      <FaCircle
+                        key={index}
+                        style={{
+                          color: index < remainingSlots ? "green" : "red",
+                        }}
+                        className="mr-1 mt-1"
+                      />
+                    ))}
+                  </div>
+                  <hr className="bg-primary h-1 border-0 transition-opacity duration-500" />
                 </div>
               );
             })}
           <div className="modal-action">
-            <button
-              className="btn btn-primary"
-              onClick={() => setShowModal(false)}
-            >
-              Close
-            </button>
-            <button className="btn btn-primary">Chat</button>
+            <button className="btn btn-primary">Message</button>
           </div>
         </div>
       ))}
