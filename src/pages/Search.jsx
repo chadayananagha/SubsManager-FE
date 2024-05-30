@@ -8,6 +8,7 @@ import {
   fetchCategories,
   fetchCategoryPlatforms,
   fetchUsers,
+  fetchUserById,
 } from "../utils/api";
 
 const Search = () => {
@@ -17,9 +18,10 @@ const Search = () => {
   const [allPlatforms, setAllPlatforms] = useState([]);
   const [filteredPlatforms, setFilteredPlatforms] = useState([]);
   const [selectedPlatform, setSelectedPlatform] = useState(null);
-  const [users, setUsers] = useState([]);
+  const [usersByPlatform, setUsersByPlatform] = useState({});
   const [searchResults, setSearchResults] = useState([]);
-  const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const [showUserCard, setShowUserCard] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -33,11 +35,13 @@ const Search = () => {
         "https://subsmanager-be.onrender.com/subscriptions"
       );
       const subscriptions = await data.json();
-      const platforms = subscriptions.map(
-        (subscription) => subscription.platformName
-      );
+      const platforms = [
+        ...new Set(
+          subscriptions.map((subscription) => subscription.platformName)
+        ),
+      ];
       setAllPlatforms(platforms);
-      setLoading(false); // Set loading to false after data is loaded
+      setLoading(false);
     };
 
     loadCategories();
@@ -46,51 +50,76 @@ const Search = () => {
 
   useEffect(() => {
     if (selectedPlatform) {
-      const loadUsers = async () => {
+      const loadUsersForPlatform = async () => {
         setLoading(true);
         const users = await fetchUsers(selectedPlatform);
-        setUsers(users);
+        setUsersByPlatform((prevState) => ({
+          ...prevState,
+          [selectedPlatform]: users,
+        }));
         setLoading(false);
       };
-      loadUsers();
+      loadUsersForPlatform();
     }
   }, [selectedPlatform]);
 
   const handleCategoryClick = async (category) => {
     setSelectedCategory(category);
-    setSelectedPlatform(null); // Clear selected platform when category changes
-    setUsers([]); // Clear users when category changes
-    setSearchResults([]); // Clear search results when a category is clicked
-    setSearchInput(""); // Clear search input when a category is clicked
+    setSelectedPlatform(null);
+    setUsersByPlatform({});
+    setSearchResults([]);
+    setSearchInput("");
 
     setLoading(true);
     if (category === "All") {
       setFilteredPlatforms(allPlatforms);
     } else {
       const platforms = await fetchCategoryPlatforms(category);
-      setFilteredPlatforms(platforms);
+      const uniquePlatforms = [...new Set(platforms)];
+      setFilteredPlatforms(uniquePlatforms);
     }
     setLoading(false);
   };
 
-  const handlePlatformClick = (platformName) => {
+  const handlePlatformClick = async (platformName) => {
     setSelectedPlatform(platformName);
-    setShowModal(true); // Show the modal when a platform is clicked
+
+    try {
+      setLoading(true);
+      const users = await fetchUsers(platformName);
+      setUsersByPlatform((prevState) => ({
+        ...prevState,
+        [platformName]: users,
+      }));
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUserClick = async (userId) => {
+    try {
+      setLoading(true);
+      const user = await fetchUserById(userId);
+      setSelectedUser({ ...user, platform: selectedPlatform }); // Add platform to the user details
+      setShowUserCard(true);
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleInputChange = (e) => {
     setSearchInput(e.target.value);
-    setSelectedCategory(null); // Clear selected category when searching
-    setSelectedPlatform(null); // Clear selected platform when searching
-    setUsers([]); // Clear users when input changes
-    if (e.key === "Enter") {
-      setSearchInput(""); // Clear the search input on Enter
-    } else {
-      const results = allPlatforms.filter((platform) =>
-        platform.toLowerCase().includes(e.target.value.toLowerCase())
-      );
-      setSearchResults(results);
-    }
+    setSelectedCategory(null);
+    setSelectedPlatform(null);
+    setUsersByPlatform({});
+    const results = allPlatforms.filter((platform) =>
+      platform.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setSearchResults(results);
   };
 
   if (loading) {
@@ -103,11 +132,11 @@ const Search = () => {
 
   return (
     <>
-      <div className="mt-28 flex justify-evenly flex-wrap gap-4">
-        <div className="flex justify-center items-center text-4xl font-bold text-center">
+      <div className="mt-28 flex justify-between flex-wrap gap-4 lg:mx-16">
+        <div className="flex text-4xl font-bold mx-4 lg:mx-[-1px]">
           Select the Subscription!
         </div>
-        <div>
+        <div className="mx-4">
           <label className="input input-bordered flex items-center gap-2">
             <input
               type="text"
@@ -162,11 +191,32 @@ const Search = () => {
         ))}
       </div>
 
-      {selectedPlatform && showModal && Array.isArray(users) && (
+      <div className="user-list md:mx-auto mx-4 max-w-lg">
+        {selectedPlatform &&
+          Array.isArray(usersByPlatform[selectedPlatform]) && (
+            <ul className="text-center">
+              <h1 className="text-center text-4xl font-bold mb-8">
+                Available Users
+              </h1>
+              {usersByPlatform[selectedPlatform].map((user, index) => (
+                <li
+                  key={index}
+                  onClick={() => handleUserClick(user._id)}
+                  className="bg-color p-4 cursor-pointer transition-all duration-300 transform hover:translate-y-0 hover:shadow-md hover:bg-primary text-black hover:text-white mb-4 rounded border border-slate-300"
+                >
+                  {user.username}
+                </li>
+              ))}
+            </ul>
+          )}
+      </div>
+
+      {showUserCard && selectedUser && (
         <UserCard
-          users={users}
-          showModal={showModal}
-          setShowModal={setShowModal}
+          users={[selectedUser]}
+          showModal={showUserCard}
+          setShowModal={setShowUserCard}
+          selectedPlatform={selectedPlatform} // Pass selectedPlatform to UserCard
         />
       )}
     </>

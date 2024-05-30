@@ -38,3 +38,14 @@ export const fetchUsers = async (platformName) => {
     return [];
   }
 };
+export const fetchUserById = async (userId) => {
+  try {
+    const url = `https://subsmanager-be.onrender.com/users/${userId}`;
+    const response = await fetch(url);
+    const userData = await response.json();
+    return userData;
+  } catch (error) {
+    console.error("Error fetching user by ID:", error);
+    return null;
+  }
+};
