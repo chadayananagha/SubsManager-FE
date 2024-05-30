@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import Contact from "./pages/Contact";
+import Search from "./pages/Search";
 import FAQ from "./pages/FAQ";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
@@ -25,6 +26,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/search" element={<Search />} />
         </Route>
       </Routes>
     </div>

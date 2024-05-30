@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import CategoryCard from "../components/CategoryCard";
 import PlatformCard from "../components/PlatformCard";
+import Loading from "../components/Loading";
 import categoryIcons from "../data/CategoryIcons";
+import UserCard from "../components/UserCard";
 import {
   fetchCategories,
   fetchCategoryPlatforms,
@@ -18,11 +20,12 @@ const Search = () => {
   const [users, setUsers] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadCategories = async () => {
       const uniqueCategories = await fetchCategories();
-      setCategories(["All", ...uniqueCategories]); // Add "All" category manually
+      setCategories(["All", ...uniqueCategories]);
     };
 
     const loadAllPlatforms = async () => {
@@ -34,6 +37,7 @@ const Search = () => {
         (subscription) => subscription.platformName
       );
       setAllPlatforms(platforms);
+      setLoading(false); // Set loading to false after data is loaded
     };
 
     loadCategories();
@@ -43,8 +47,10 @@ const Search = () => {
   useEffect(() => {
     if (selectedPlatform) {
       const loadUsers = async () => {
+        setLoading(true);
         const users = await fetchUsers(selectedPlatform);
         setUsers(users);
+        setLoading(false);
       };
       loadUsers();
     }
@@ -57,13 +63,14 @@ const Search = () => {
     setSearchResults([]); // Clear search results when a category is clicked
     setSearchInput(""); // Clear search input when a category is clicked
 
+    setLoading(true);
     if (category === "All") {
-      // If "All" category is selected, set all platforms
       setFilteredPlatforms(allPlatforms);
     } else {
       const platforms = await fetchCategoryPlatforms(category);
       setFilteredPlatforms(platforms);
     }
+    setLoading(false);
   };
 
   const handlePlatformClick = (platformName) => {
@@ -85,6 +92,14 @@ const Search = () => {
       setSearchResults(results);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="pt-24 h-screen flex justify-center items-center bg-base-200/100 absolute w-screen z-20">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -148,51 +163,11 @@ const Search = () => {
       </div>
 
       {selectedPlatform && showModal && Array.isArray(users) && (
-        <dialog
-          id="my_modal_5"
-          className="modal modal-bottom sm:modal-middle"
-          open
-        >
-          {users.map((user) => (
-            <div
-              className="modal-box shadow-[0_0_0_10000px_rgba(0,0,0,.40)]"
-              key={user._id}
-            >
-              <h3 className="font-bold text-lg">{user.username}</h3>
-              {user.sharedSubscriptions.map((subscription) => {
-                const remainingSlots =
-                  subscription.plan.maxMembers - subscription.members.length;
-
-                return (
-                  <div key={subscription._id}>
-                    <p className="flex">
-                      <p className="font-bold">Plan Name: </p>&nbsp;
-                      {subscription.plan.planName}
-                    </p>
-                    <p className="flex">
-                      <p className="font-bold">Price: </p>&nbsp;
-                      {subscription.plan.price}€/month
-                    </p>
-                    <p className="flex">
-                      <p className="font-bold">Max Members: </p>&nbsp;
-                      {subscription.plan.maxMembers}
-                    </p>
-                    <p className="flex">
-                      <p className="font-bold"> Remaining Slots: </p>&nbsp;
-                      {remainingSlots}/{subscription.plan.maxMembers}
-                    </p>
-                  </div>
-                );
-              })}
-              <div className="modal-action">
-                <button className="btn" onClick={() => setShowModal(false)}>
-                  Close
-                </button>
-                <button className="btn">Chat</button>
-              </div>
-            </div>
-          ))}
-        </dialog>
+        <UserCard
+          users={users}
+          showModal={showModal}
+          setShowModal={setShowModal}
+        />
       )}
     </>
   );

@@ -9,7 +9,9 @@ const MainLayout = () => {
       <NavBar />
 
       <Outlet />
+      {/* <div className="md:flex hidden"> */}
       <Footer />
+      {/* </div> */}
     </div>
   );
 };
