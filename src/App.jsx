@@ -7,7 +7,6 @@ import Contact from './pages/Contact';
 import FAQ from './pages/FAQ';
 import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
-import Contact from './pages/Contact';
 import SubsManager from './pages/SubsManager';
 function App() {
 	const { token } = useContext(AuthContext);
