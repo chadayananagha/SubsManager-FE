@@ -4,9 +4,10 @@ export const fetchCategories = async () => {
       "https://subsmanager-be.onrender.com/subscriptions"
     );
     const data = await response.json();
-    const uniqueCategories = [
-      ...new Set(data.map((subscription) => subscription.category)),
-    ];
+    const publicCategories = data
+      .filter((subscription) => subscription.public) // Filter only public subscriptions
+      .map((subscription) => subscription.category);
+    const uniqueCategories = [...new Set(publicCategories)];
     return uniqueCategories;
   } catch (error) {
     console.error("Error fetching categories:", error);
@@ -19,7 +20,9 @@ export const fetchCategoryPlatforms = async (category) => {
     const url = `https://subsmanager-be.onrender.com/subscriptions?category=${category}`;
     const response = await fetch(url);
     const data = await response.json();
-    const platforms = data.map((subscription) => subscription.platformName);
+    const platforms = data
+      .filter((subscription) => subscription.public) // Filter public subscriptions
+      .map((subscription) => subscription.platformName);
     return platforms;
   } catch (error) {
     console.error("Error fetching category platforms:", error);

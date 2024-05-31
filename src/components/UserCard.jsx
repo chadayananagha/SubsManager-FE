@@ -1,21 +1,31 @@
 import React from "react";
-import { FaCircle, FaTimes } from "react-icons/fa";
+import { FaCircle, FaTimes, FaUser } from "react-icons/fa";
 
 const UserCard = ({ users, showModal, setShowModal, selectedPlatform }) => {
   if (!users || users.length === 0) {
     return null;
   }
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-GB", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+  };
   return (
     <dialog
       id="my_modal_5"
       className="modal modal-bottom sm:modal-middle"
       open={showModal}
+      onClick={() => setShowModal(false)}
     >
       {users.map((user) => (
         <div
           className="modal-box shadow-[0_0_0_10000px_rgba(0,0,0,.40)] relative"
           key={user._id}
+          onClick={(e) => e.stopPropagation()}
         >
           <button
             className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
@@ -23,7 +33,8 @@ const UserCard = ({ users, showModal, setShowModal, selectedPlatform }) => {
           >
             <FaTimes size={24} />
           </button>
-          <h3 className="font-bold text-2xl mb-4">
+          <h3 className="font-bold text-2xl mb-4 flex items-center">
+            <FaUser className="mr-2" />
             Owner:&nbsp;{user.username}
           </h3>
           {user.sharedSubscriptions
@@ -56,7 +67,8 @@ const UserCard = ({ users, showModal, setShowModal, selectedPlatform }) => {
                   <hr className="transition-opacity duration-500" />
                   <p className="flex  my-2">
                     <span className="font-bold">Expires on: </span>&nbsp;
-                    {subscription.expirationDate}
+                    {formatDate(subscription.expirationDate)}
+                    {/* {subscription.expirationDate} */}
                   </p>
                   <hr className="transition-opacity duration-500" />
                   <p className="flex my-2">

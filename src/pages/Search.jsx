@@ -37,7 +37,9 @@ const Search = () => {
       const subscriptions = await data.json();
       const platforms = [
         ...new Set(
-          subscriptions.map((subscription) => subscription.platformName)
+          subscriptions
+            .filter((subscription) => subscription.public) // Filter public subscriptions
+            .map((subscription) => subscription.platformName)
         ),
       ];
       setAllPlatforms(platforms);
