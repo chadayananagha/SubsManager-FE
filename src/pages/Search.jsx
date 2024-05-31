@@ -197,7 +197,7 @@ const Search = () => {
         {selectedPlatform &&
           Array.isArray(usersByPlatform[selectedPlatform]) && (
             <ul className="text-center">
-              <h1 className="text-center text-4xl font-bold mb-8">
+              <h1 className="text-center text-3xl font-bold mb-8">
                 Available Users
               </h1>
               {usersByPlatform[selectedPlatform].map((user, index) => (

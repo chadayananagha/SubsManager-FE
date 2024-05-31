@@ -33,10 +33,10 @@ const UserCard = ({ users, showModal, setShowModal, selectedPlatform }) => {
           >
             <FaTimes size={24} />
           </button>
-          <h3 className="font-bold text-2xl mb-4 flex items-center">
+          <div className="font-bold text-2xl mb-4 flex justify-center items-center">
             <FaUser className="mr-2" />
-            Owner:&nbsp;{user.username}
-          </h3>
+            <p className="flex-1 text-center">Owner:&nbsp;{user.username}</p>
+          </div>
           {user.sharedSubscriptions
             .filter(
               (subscription) => subscription.platformName === selectedPlatform
@@ -51,33 +51,34 @@ const UserCard = ({ users, showModal, setShowModal, selectedPlatform }) => {
               return (
                 <div key={subscription._id}>
                   <p className="flex my-2">
-                    <span className="font-bold">Platform: </span>&nbsp;
-                    {subscription.platformName}
+                    <span className="font-bold">Platform </span>&nbsp;
+                    <p>{subscription.platformName}</p>
                   </p>
                   <hr className="transition-opacity duration-500" />
                   <p className="flex  my-2">
-                    <span className="font-bold">Plan Name: </span>&nbsp;
+                    <span className="font-bold">Plan Name </span>&nbsp;
                     {subscription.plan.planName}
                   </p>
                   <hr className="transition-opacity duration-500" />
                   <p className="flex  my-2">
-                    <span className="font-bold">Price: </span>&nbsp;
+                    <span className="font-bold">Price </span>&nbsp;
                     {subscription.plan.price}€/month
                   </p>
                   <hr className="transition-opacity duration-500" />
                   <p className="flex  my-2">
-                    <span className="font-bold">Expires on: </span>&nbsp;
+                    <span className="font-bold">Expires on </span>&nbsp;
                     {formatDate(subscription.expirationDate)}
                     {/* {subscription.expirationDate} */}
                   </p>
                   <hr className="transition-opacity duration-500" />
                   <p className="flex my-2">
-                    <span className="font-bold">Max Members: </span>&nbsp;
+                    <span className="font-bold">Max Members </span>&nbsp;
                     {subscription.plan.maxMembers}
                   </p>
                   <hr className="transition-opacity duration-500" />
                   <div className="flex flex-wrap my-2">
-                    <span className="font-bold"> Remaining slots:</span>&nbsp;
+                    <span className="font-bold mr-4"> Remaining slots</span>
+                    &nbsp;
                     {slots.map((slot, index) => (
                       <FaCircle
                         key={index}
