@@ -1,7 +1,13 @@
 import React from "react";
 import { FaCircle, FaTimes, FaUser } from "react-icons/fa";
 
-const UserCard = ({ users, showModal, setShowModal, selectedPlatform }) => {
+const UserCard = ({
+  users,
+  showModal,
+  setShowModal,
+  selectedPlatform,
+  openChat,
+}) => {
   if (!users || users.length === 0) {
     return null;
   }
@@ -35,7 +41,7 @@ const UserCard = ({ users, showModal, setShowModal, selectedPlatform }) => {
           </button>
           <div className="font-bold text-2xl mb-4 flex justify-center items-center">
             <FaUser className="mr-2" />
-            <p className="flex-1 text-center">Owner:&nbsp;{user.username}</p>
+            <p className="flex-1 text-center">Owner: {user.username}</p>
           </div>
           {user.sharedSubscriptions
             .filter(
@@ -44,48 +50,56 @@ const UserCard = ({ users, showModal, setShowModal, selectedPlatform }) => {
             .map((subscription) => {
               const remainingSlots =
                 subscription.plan.maxMembers - subscription.members.length;
-              const slots = Array.from(
-                Array(subscription.plan.maxMembers).keys()
-              );
+              const slots = [...Array(subscription.plan.maxMembers).keys()];
 
               return (
                 <div key={subscription._id}>
                   <p className="flex my-2">
-                    <span className="font-bold">Platform </span>&nbsp;
-                    <p>{subscription.platformName}</p>
-                  </p>
-                  <hr className="transition-opacity duration-500" />
-                  <p className="flex  my-2">
-                    <span className="font-bold">Plan Name </span>&nbsp;
-                    {subscription.plan.planName}
-                  </p>
-                  <hr className="transition-opacity duration-500" />
-                  <p className="flex  my-2">
-                    <span className="font-bold">Price </span>&nbsp;
-                    {subscription.plan.price}€/month
-                  </p>
-                  <hr className="transition-opacity duration-500" />
-                  <p className="flex  my-2">
-                    <span className="font-bold">Expires on </span>&nbsp;
-                    {formatDate(subscription.expirationDate)}
-                    {/* {subscription.expirationDate} */}
+                    <span className="font-bold">Platform</span>
+                    <p className="ml-4">{subscription.platformName}</p>
                   </p>
                   <hr className="transition-opacity duration-500" />
                   <p className="flex my-2">
-                    <span className="font-bold">Max Members </span>&nbsp;
-                    {subscription.plan.maxMembers}
+                    <span className="font-bold">Plan Name</span>
+                    <p className="ml-4">{subscription.plan.planName}</p>
+                  </p>
+                  <hr className="transition-opacity duration-500" />
+                  <p className="flex my-2">
+                    <span className="font-bold">Total Price</span>
+                    <p className="ml-4">{subscription.plan.price} €/month</p>
+                  </p>
+                  <hr className="transition-opacity duration-500" />
+                  <p className="flex my-2">
+                    <span className="font-bold">Price per slot</span>
+                    <p className="ml-4">
+                      {(
+                        subscription.plan.price / subscription.plan.maxMembers
+                      ).toFixed(2)}{" "}
+                      €/month
+                    </p>
+                  </p>
+                  <hr className="transition-opacity duration-500" />
+                  <p className="flex my-2">
+                    <span className="font-bold">Expires on</span>
+                    <p className="ml-4">
+                      {formatDate(subscription.expirationDate)}
+                    </p>
+                  </p>
+                  <hr className="transition-opacity duration-500" />
+                  <p className="flex my-2">
+                    <span className="font-bold">Max Members</span>
+                    <p className="ml-4">{subscription.plan.maxMembers}</p>
                   </p>
                   <hr className="transition-opacity duration-500" />
                   <div className="flex flex-wrap my-2">
-                    <span className="font-bold mr-4"> Remaining slots</span>
-                    &nbsp;
-                    {slots.map((slot, index) => (
+                    <span className="font-bold mr-4">Remaining slots</span>
+                    {slots.map((index) => (
                       <FaCircle
                         key={index}
                         style={{
                           color: index < remainingSlots ? "green" : "red",
                         }}
-                        className="mr-1 mt-1"
+                        className="mt-1 ml-1"
                       />
                     ))}
                   </div>
@@ -94,7 +108,9 @@ const UserCard = ({ users, showModal, setShowModal, selectedPlatform }) => {
               );
             })}
           <div className="modal-action">
-            <button className="btn btn-primary">Message</button>
+            <button className="btn btn-primary" onClick={openChat}>
+              Message
+            </button>
           </div>
         </div>
       ))}

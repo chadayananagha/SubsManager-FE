@@ -4,6 +4,7 @@ import PlatformCard from "../components/PlatformCard";
 import Loading from "../components/Loading";
 import categoryIcons from "../data/CategoryIcons";
 import UserCard from "../components/UserCard";
+import ChatWindow from "../components/ChatWindow";
 import {
   fetchCategories,
   fetchCategoryPlatforms,
@@ -23,7 +24,16 @@ const Search = () => {
   const [showUserCard, setShowUserCard] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showChatWindow, setShowChatWindow] = useState(false);
 
+  const handleOpenChat = () => {
+    setShowChatWindow(true);
+    setShowUserCard(false);
+  };
+
+  const handleCloseChat = () => {
+    setShowChatWindow(false);
+  };
   useEffect(() => {
     const loadCategories = async () => {
       const uniqueCategories = await fetchCategories();
@@ -219,8 +229,10 @@ const Search = () => {
           showModal={showUserCard}
           setShowModal={setShowUserCard}
           selectedPlatform={selectedPlatform} // Pass selectedPlatform to UserCard
+          openChat={handleOpenChat}
         />
       )}
+      {showChatWindow && <ChatWindow onClose={handleCloseChat} />}
     </>
   );
 };
