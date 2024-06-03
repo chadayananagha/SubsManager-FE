@@ -23,7 +23,7 @@ const UserCard = ({
   return (
     <dialog
       id="my_modal_5"
-      className="modal modal-bottom sm:modal-middle"
+      className="modal modal-bottom sm:modal-middle px-2"
       open={showModal}
       onClick={() => setShowModal(false)}
     >

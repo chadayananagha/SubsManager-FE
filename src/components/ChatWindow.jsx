@@ -25,7 +25,7 @@ const ChatWindow = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex justify-center items-center z-50 bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex justify-center items-center z-50 bg-black bg-opacity-50 px-2">
       <div className="relative bg-color p-6 rounded-lg shadow-lg max-w-lg w-full">
         <button
           className="absolute top-0 right-0 mt-4 mr-4 text-black font-bold text-2xl"
