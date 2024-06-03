@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { IoMdCloseCircle } from 'react-icons/io';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 const AddSubsForm = ({ closeForm, handleSubmit }) => {
 	const [formData, setFormData] = useState({
@@ -50,12 +51,15 @@ const AddSubsForm = ({ closeForm, handleSubmit }) => {
 	return (
 		<div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center'>
 			<div className='bg-base-100 p-6 rounded shadow-lg w-full max-w-md sm:max-w-lg lg:max-w-xl'>
+				{/* <IoMdCloseCircle className='hover:cursor-pointer' /> */}
 				<button
-					className='btn float-right text-xl p-2 hover:cursor-pointer'
+					type='button'
 					onClick={closeForm}
+					className='float-right hover:cursor-pointer hover:bg-primary rounded'
 				>
-					<IoMdCloseCircle className='hover:cursor-pointer' />
+					<AiOutlineCloseCircle size={22} />
 				</button>
+
 				<h2 className='text-2xl mb-4'>Add Your Subscription</h2>
 				<form onSubmit={onSubmit}>
 					<div className='mb-4'>
@@ -145,7 +149,7 @@ const AddSubsForm = ({ closeForm, handleSubmit }) => {
 					</div>
 					<button
 						className='btn bg-primary text-white px-4 py-2 rounded-md shadow-sm font-semibold hover:bg-sky-700'
-						onClick={handleSubmit}
+						type='submit'
 					>
 						Submit
 					</button>
