@@ -26,12 +26,13 @@ const ChatWindow = ({ onClose }) => {
 
   return (
     <div className="fixed inset-0 flex justify-center items-center z-50 bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
+      <div className="relative bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
         <button
-          className="absolute top-0 right-0 mr-4 mt-4 text-gray-600 hover:text-gray-800"
+          className="absolute top-0 right-0 mt-4 mr-4 text-black font-bold text-2xl hover:text-gray-700"
           onClick={onClose}
+          aria-label="Close"
         >
-          Close
+          &times;
         </button>
         <div className="chat-content h-64 overflow-y-auto">
           {chatContent.map((msg, index) => (
