@@ -26,9 +26,9 @@ const ChatWindow = ({ onClose }) => {
 
   return (
     <div className="fixed inset-0 flex justify-center items-center z-50 bg-black bg-opacity-50">
-      <div className="relative bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
+      <div className="relative bg-color p-6 rounded-lg shadow-lg max-w-lg w-full">
         <button
-          className="absolute top-0 right-0 mt-4 mr-4 text-black font-bold text-2xl hover:text-gray-700"
+          className="absolute top-0 right-0 mt-4 mr-4 text-black font-bold text-2xl"
           onClick={onClose}
           aria-label="Close"
         >
@@ -50,7 +50,7 @@ const ChatWindow = ({ onClose }) => {
         <div className="flex mt-4 gap-2">
           <input
             type="text"
-            className="flex-grow border rounded-l-lg p-2 bg-transparent"
+            className="flex-grow border rounded-lg p-2 bg-transparent"
             placeholder="Type your message..."
             value={message}
             onChange={handleInputChange}
