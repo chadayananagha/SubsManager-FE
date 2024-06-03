@@ -47,16 +47,16 @@ const ChatWindow = ({ onClose }) => {
             </div>
           ))}
         </div>
-        <div className="flex mt-4">
+        <div className="flex mt-4 gap-2">
           <input
             type="text"
-            className="flex-grow border rounded-l-lg p-2"
+            className="flex-grow border rounded-l-lg p-2 bg-transparent"
             placeholder="Type your message..."
             value={message}
             onChange={handleInputChange}
           />
           <button
-            className="bg-blue-500 text-white font-bold py-2 px-4 rounded-r-lg"
+            className="btn bg-primary font-bold py-2 px-4 border-none"
             onClick={handleSendMessage}
           >
             Send

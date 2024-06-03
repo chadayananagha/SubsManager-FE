@@ -108,7 +108,7 @@ const UserCard = ({
               );
             })}
           <div className="modal-action">
-            <button className="btn btn-primary" onClick={openChat}>
+            <button className="btn bg-primary" onClick={openChat}>
               Message
             </button>
           </div>
