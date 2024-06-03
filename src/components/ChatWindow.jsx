@@ -40,7 +40,7 @@ const ChatWindow = ({ onClose }) => {
               key={index}
               className={`message ${msg.sentByUser ? "sent" : "received"}`}
             >
-              <div className="message-content">
+              <div className="message-content text-black">
                 <p>{msg.content}</p>
                 <span className="timestamp">{msg.timestamp}</span>
               </div>
@@ -50,7 +50,7 @@ const ChatWindow = ({ onClose }) => {
         <div className="flex mt-4 gap-2">
           <input
             type="text"
-            className="flex-grow border rounded-lg p-2 bg-transparent"
+            className="flex-grow border rounded-lg p-2 bg-transparent text-black border-black"
             placeholder="Type your message..."
             value={message}
             onChange={handleInputChange}
