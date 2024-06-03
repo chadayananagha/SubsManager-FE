@@ -2,12 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @layer {
-  .main-container {
-    @apply h-[800px] bg-yellow-500;
-  }
-} */
-
+/* herosection */
 .btn-business {
   background-color: #c0c1c2;
 }
@@ -23,13 +18,8 @@
 [data-theme="fantasy"] .btn-color {
   @apply btn-fantasy;
 }
-/* .bg-theme-business {
-  background-color: #2f3745;
-}
 
-.bg-theme-fantasy {
-  background-color: #e2e8f0;
-} */
+/* signup&loginpage */
 .bg-theme-business {
   background-image: url("https://png.pngtree.com/thumb_back/fh260/background/20221201/pngtree-black-shiny-wallpaper-background-design-image_1484065.jpg");
   background-size: cover;
@@ -47,6 +37,7 @@
 [data-theme="fantasy"] .bg-themed {
   @apply bg-theme-fantasy;
 }
+/* signup page */
 .btn-hover-business:hover {
   background-color: #171717;
 }
@@ -62,6 +53,7 @@
 [data-theme="fantasy"] .btn-hover {
   @apply btn-hover-fantasy;
 }
+/* search page */
 .bg-color-fantasy {
   background-color: white;
 }
