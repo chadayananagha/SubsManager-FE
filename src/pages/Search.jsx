@@ -202,11 +202,31 @@ const Search = () => {
           />
         ))}
       </div>
-      <div className="user-list md:mx-auto mx-4 max-w-lg">
+
+      {/* <div className="user-list md:mx-auto mx-4 max-w-lg">
         {selectedPlatform &&
           Array.isArray(usersByPlatform[selectedPlatform]) && (
             <ul className="text-center">
               <h1 className="text-center text-3xl font-bold mb-8">
+                Available Users
+              </h1>
+              {usersByPlatform[selectedPlatform].map((user, index) => (
+                <li
+                  key={index}
+                  onClick={() => handleUserClick(user._id)}
+                  className="bg-color p-4 cursor-pointer transition-all duration-300 transform hover:translate-y-0 hover:shadow-md hover:bg-primary text-black hover:text-white mb-4 rounded border border-slate-300"
+                >
+                  {user.username}
+                </li>
+              ))}
+            </ul>
+          )}
+      </div> */}
+      <div className="user-list md:mx-auto mx-4 max-w-lg">
+        {selectedPlatform &&
+          Array.isArray(usersByPlatform[selectedPlatform]) && (
+            <ul className="text-center">
+              <h1 className="text-center text-3xl font-bold mb-8 text-gray-800">
                 Available Users
               </h1>
               {usersByPlatform[selectedPlatform].map((user, index) => (
