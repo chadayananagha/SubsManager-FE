@@ -5,7 +5,7 @@ import HeroSection from '../components/HeroSection';
 
 const MainLayout = () => {
 	return (
-		<div>
+		<div className='flex flex-col min-h-screen'>
 			<NavBar />
 
 			<Outlet />

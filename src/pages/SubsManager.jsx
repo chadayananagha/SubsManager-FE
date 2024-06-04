@@ -6,7 +6,7 @@ import AddSubsForm from '../components/AddSubsForm';
 import toast, { Toaster } from 'react-hot-toast';
 import { MdDelete } from 'react-icons/md';
 import { FaRegUser } from 'react-icons/fa6';
-
+// import money from '../../public/money.avif';
 const SubsManager = () => {
 	const { userId, token } = useContext(AuthContext);
 	const [user, setUser] = useState(null); /** to set logged in user */
@@ -104,13 +104,19 @@ const SubsManager = () => {
 	};
 
 	return (
-		<div className='min-h-screen'>
-			<div className='max-w-2xl mx-auto p-8 bg-base-200 shadow-lg rounded-lg mt-28 mb-28'>
+		<div
+			className='min-h-screen'
+			// style={{
+			// 	backgroundImage: "url('../../public/money.avif')",
+			// 	backgroundRepeat: 'no-repeat',
+			// }}
+		>
+			<div className='max-w-2xl mx-auto p-8 bg-base-200 shadow-lg rounded-lg mt-28 mb-28x'>
 				<Toaster position='top-center' reverseOrder={false} />
 				{loading ? (
 					<Loading /> /* Loading spinner*/
 				) : (
-					<div className='wrapper'>
+					<div className='wrapper flex-1'>
 						{/* displaying the logged in username */}
 						<span className='flex items-center justify-between mb-4'>
 							<div className='flex items-center space-x-2'>
