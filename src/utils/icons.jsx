@@ -20,7 +20,7 @@ import {
 } from "react-icons/si";
 
 export const categoryIcons = {
-  // All: <MdApps className="absolute float-right text-red-300 text-4xl" />,
+  All: <MdApps className="absolute top-2 -right-2 text-5xl" />,
   "Select your category": (
     <IoMdArrowDropdown className="absolute top-1/2 bottom-1/2 -translate-y-1/2 right-4 text-3xl" />
   ),
