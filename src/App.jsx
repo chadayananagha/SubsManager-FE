@@ -15,7 +15,6 @@ function App() {
 			<Routes>
 				<Route path='/' element={<MainLayout />}>
 					<Route path='/' element={<Home />} />
-					<Route path='*' element={<Home />} />
 					{/* {!token && <Route path="/login" element={<Login />} />} */}
 					<Route
 						path='/login'
@@ -23,8 +22,6 @@ function App() {
 						// element={!token ? <Login /> : <Navigate to="/" />}
 					/>
 					<Route path='/signup' element={<SignUp />} />
-					<Route path='/contact' element={<Contact />} />
-					<Route path='/contact' element={<Contact />} />
 					<Route path='/subsmanager' element={<SubsManager />} />
 					<Route path='/faq' element={<FAQ />} />
 					<Route path='/contact' element={<Contact />} />
