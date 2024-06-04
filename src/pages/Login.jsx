@@ -8,7 +8,7 @@ import axios from "axios";
 
 const Login = () => {
   const authContext = useContext(AuthContext);
-  const { login, logout } = authContext;
+  const { login } = authContext;
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
@@ -38,12 +38,9 @@ const Login = () => {
       );
       const data = response.data;
       console.log(data);
-
-      // localStorage.setItem("token", data.token);
-      // localStorage.setItem("userId", data.userId);
       setIsLoading(false);
       login(data.token, data.userId);
-      toast.success("Successfully logged in!");
+      toast.success("Successfully logged in!", { duration: 1000 });
       //*After .6s second navigate to desired path
       setTimeout(() => {
         navigate("/");
@@ -64,12 +61,11 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <Toaster position="top-center" reverseOrder={false} />
+    <>
       <div
         className={`${
           isLoading
-            ? "pt-24 h-screen flex justify-center items-center bg-base-200/50 absolute w-screen z-20"
+            ? "pt-24 min-h-screen flex justify-center items-center bg-base-200/50 absolute w-full z-20 "
             : "hidden"
         }`}
       >
@@ -79,18 +75,14 @@ const Login = () => {
         initial={{ opacity: 0, y: "-10%" }}
         animate={{ opacity: 1, y: "0" }}
         transition={{ duration: 0.8 }}
-        className="flex m-24"
+        className="flex flex-wrap justify-center items-center lg:mx-24 min-h-screen"
       >
-        <div className="bg-themed w-[50%] sm:flex justify-center pt-56 pb-48 hidden md:px-16 ">
-          <div>
-            <h1 className="text-5xl font-bold text-center pb-8">
-              Hi <span className="text-primary">User!</span>
-            </h1>
-            <h1 className="text-5xl font-bold text-center text-balance ">
-              Welcome to the world of sharing!
-            </h1>
-          </div>
-        </div>
+        <img
+          src="/images/Login.svg"
+          alt="Login illustration"
+          className=" hover:grayscale-0 w-1/2 transition duration-500 hidden lg:block
+          "
+        />
         <div className="flex flex-col sm:py-36 py-24 sm:px-52 px-4 w-full sm:w-[50%] items-center">
           <h1 className="text-5xl font-bold mb-12">Login</h1>
           <form
@@ -100,7 +92,7 @@ const Login = () => {
             <input
               type="email"
               placeholder="Email"
-              className="input input-bordered sm:w-96 rounded-3xl bg-base-200"
+              className="input input-bordered sm:w-96 bg-base-200"
               id="email"
               name="email"
               value={formData.email}
@@ -109,7 +101,7 @@ const Login = () => {
             <input
               type="password"
               placeholder="Password"
-              className="input input-bordered sm:w-96 rounded-3xl bg-base-200"
+              className="input input-bordered sm:w-96  bg-base-200"
               id="password"
               name="password"
               value={formData.password}
@@ -118,17 +110,11 @@ const Login = () => {
             {error && <p className="text-red-500 mt-4">{error}</p>}
             <button
               type="submit"
-              className="btn-hover border-none btn btn-primary text-white rounded-3xl sm:w-96 w-full py-2 px-4 mt-4"
+              className="btn-hover border-none btn btn-primary text-white  sm:w-96 w-full py-2 px-4 mt-4"
             >
               Login
             </button>
-            <button
-              onClick={logout}
-              type="submit"
-              className="btn-hover border-none btn btn-primary text-white rounded-3xl sm:w-96 w-full py-2 px-4 mt-4"
-            >
-              Logout
-            </button>
+
             <a href="#" className="text-primary font-bold">
               Forgot password?
             </a>
@@ -142,7 +128,7 @@ const Login = () => {
           </form>
         </div>
       </motion.div>
-    </div>
+    </>
   );
 };
 

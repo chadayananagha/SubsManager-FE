@@ -7,9 +7,10 @@ const MainLayout = () => {
 	return (
 		<div className='flex flex-col min-h-screen'>
 			<NavBar />
-
 			<Outlet />
+			{/* <div className="md:flex hidden"> */}
 			<Footer />
+			{/* </div> */}
 		</div>
 	);
 };
