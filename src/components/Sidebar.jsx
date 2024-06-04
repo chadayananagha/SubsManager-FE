@@ -5,7 +5,6 @@ import { toast } from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import Side3 from "../assets/Side3.png";
 import { useJwt } from "react-jwt";
 const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
   const { token, logout } = useContext(AuthContext);
@@ -19,6 +18,7 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
     handleSidebar();
     toast.success("Successfully logged out!");
   };
+
   const username = decodedToken?.username;
   return (
     <div
@@ -56,7 +56,7 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
             </div>
           </div>
           <div className="flex flex-col gap-4 mt-36 absolute  justify-center items-center ">
-            <Link to="/faq" className="sideBarNav p-4">
+            <Link to="/profile" className="sideBarNav p-4">
               Edit Profile
             </Link>
             <NavLink
@@ -111,12 +111,12 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
         <div className="flex flex-col gap-4 absolute top-1/4 justify-center items-center ">
           <div className="flex gap-8 justify-center items-center">
             <Link onClick={handleSidebar} to="/login">
-              <button className="btn btn-color text-black text-2xl px-4 rounded-3xl">
+              <button className="btn btn-color text-black text-2xl px-4 ">
                 Login
               </button>
             </Link>
             <Link onClick={handleSidebar} to="/signup">
-              <button className="btn btn-primary text-white text-2xl px-4 rounded-3xl">
+              <button className="btn btn-primary text-white text-2xl px-4 ">
                 Sign up
               </button>
             </Link>
@@ -164,8 +164,8 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
       )}
       <img
         className="grayscale opacity-40 absolute -bottom-24 h-1/3"
-        src={Side3}
-        alt=""
+        src="/images/Side3.png"
+        alt="Sidebar illustration"
       />
     </div>
   );

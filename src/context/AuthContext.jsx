@@ -9,7 +9,7 @@ const AuthContextProvider = (props) => {
   //*Get the token from localStorage and set the token state to its value
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
-    console.log(`Stored token: ${storedToken}`);
+    // console.log(`Stored token: ${storedToken}`);
     if (storedToken) {
       setToken(storedToken);
     }

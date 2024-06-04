@@ -13,11 +13,12 @@ const HeroSection = () => {
   };
   return (
     <div>
-      <div className="hero min-h-screen bg-base">
+      <div className="hero  bg-base">
         <div className="hero-content flex-col lg:flex-row-reverse bg-base">
           <img
             className="max-w-sm rounded-lg mix-blend-multiply lg:ml-8"
-            src="./src/assets/heroPic.png"
+            src="/images/heroPic.png"
+            alt="Hero Illustration"
           />
           <div className="flex flex-col items-center lg:items-start gap-24">
             <div className="flex flex-col gap-4">
@@ -38,8 +39,9 @@ const HeroSection = () => {
                   <button onClick={handleLogout} className="btn btn-accent">
                     Log out
                   </button>
-                  <button
-                    to="/login"
+
+                  <Link
+                    to="/create"
                     className=" relative text-nowrap btn btn-primary   justify-center items-center overflow-hidden group px-8"
                   >
                     <span className="   py-4 flex justify-center items-center opacity-100 group-hover:opacity-0 group-hover:-translate-y-full transition-all duration-1000">
@@ -48,17 +50,18 @@ const HeroSection = () => {
                     <span className=" py-4 absolute  opacity-0  group-hover:opacity-100  group-hover:flex group-hover:justify-center group-hover:items-center  translate-y-full  group-hover:translate-y-0  transition-all duration-1000 ">
                       Right now
                     </span>
-                  </button>
+                  </Link>
                 </div>
               ) : (
                 <>
                   <Link to="/login">
-                    <button className="btn btn-color text-black text-2xl px-10 rounded-3xl flex justify-center items-center">
+                    <button className="btn btn-color text-black text-2xl px-10  flex justify-center items-center">
                       Login
                     </button>
                   </Link>
+
                   <Link to="/signup">
-                    <button className="btn btn-primary text-white text-2xl px-10 rounded-3xl">
+                    <button className="btn btn-primary text-white text-2xl px-10 ">
                       Sign up
                     </button>
                   </Link>
