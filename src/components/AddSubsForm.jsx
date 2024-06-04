@@ -49,7 +49,7 @@ const AddSubsForm = ({ closeForm, handleSubmit }) => {
 	};
 
 	return (
-		<div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center'>
+		<div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
 			<div className='bg-base-100 p-6 rounded shadow-lg w-full max-w-md sm:max-w-lg lg:max-w-xl'>
 				{/* <IoMdCloseCircle className='hover:cursor-pointer' /> */}
 				<button
