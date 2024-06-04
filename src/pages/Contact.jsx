@@ -1,5 +1,5 @@
 import { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -40,9 +40,8 @@ const Contact = () => {
     postFormData();
   };
   return (
-    <div className="max-w-lg mx-auto p-8 bg-base-200 shadow-md rounded-lg mt-28 mb-8 flex-1">
+    <div className="max-w-lg w-1/2 mx-auto p-8 bg-base-200 shadow-md rounded-lg mt-28 mb-8 flex-1">
       <h2 className="text-2xl font-bold mb-6 text-center">Contact Us</h2>
-      <Toaster position="top-center" reverseOrder={false} />
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <input

@@ -75,7 +75,7 @@ const SignUp = () => {
         transition={{ duration: 0.8 }}
         className="flex flex-wrap justify-center items-center lg:mx-24 min-h-screen"
       >
-        <div className="flex flex-col sm:py-36 py-24 sm:px-52 px-4 w-full sm:w-[50%] items-center">
+        <div className="flex flex-col  sm:px-52 px-4 w-full sm:w-[50%] items-center">
           <h1 className="text-5xl font-bold mb-12">SignUp</h1>
           <form
             className="flex flex-col items-center gap-8"
@@ -166,14 +166,6 @@ const SignUp = () => {
           alt="Signup Illustration"
           className=" w-1/2  hidden lg:block"
         />
-        {/* <div className="bg-themed w-[50%] sm:flex justify-center pt-80 pb-48 hidden md:px-16">
-        <div>
-          <h1 className="text-5xl font-bold text-center pb-8">Hi User!</h1>
-          <h1 className="text-5xl font-bold text-center">
-            Welcome to the world of sharing!
-          </h1>
-        </div>
-      </div> */}
       </motion.div>
     </>
   );

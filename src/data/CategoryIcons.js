@@ -5,8 +5,7 @@ import {
   FaBuilding,
 } from "react-icons/fa";
 import { MdOutlineSportsSoccer, MdLocalMovies, MdApps } from "react-icons/md";
-import { IoDocumentText } from "react-icons/io5";
-
+import { HiMiniSquaresPlus } from "react-icons/hi2";
 const categoryIcons = {
   All: MdApps,
   Music: FaMusic,
@@ -14,7 +13,7 @@ const categoryIcons = {
   Entertainment: MdLocalMovies,
   Gaming: FaGamepad,
   "e-Learning": FaGraduationCap,
-  Other: IoDocumentText,
+  Other: HiMiniSquaresPlus,
   Office: FaBuilding,
 };
 

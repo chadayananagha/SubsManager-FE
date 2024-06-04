@@ -11,6 +11,7 @@ import {
   fetchUsers,
   fetchUserById,
 } from "../utils/api";
+import { categoryIcons as categoryIcons2 } from "../utils/icons";
 
 const Search = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -207,9 +208,14 @@ const Search = () => {
                     handleCategoryClick(category);
                     setIsDropdownOpen(false);
                   }}
-                  className="p-2 cursor-pointer hover:bg-primary hover:text-white"
+                  className="group p-2 cursor-pointer hover:bg-primary hover:text-white"
                 >
-                  {category}
+                  <div className="relative overflow-hidden">
+                    <span>{category}</span>{" "}
+                    <span className="absolute right-0 -top-4 text-primary group-hover:text-base-100">
+                      {categoryIcons2[category]}
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>

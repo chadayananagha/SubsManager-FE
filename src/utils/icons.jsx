@@ -1,11 +1,13 @@
+import { MdLocalMovies, MdOutlineSportsSoccer, MdApps } from "react-icons/md";
 import {
-  MdLocalMovies,
-  MdComputer,
-  MdOutlineSportsSoccer,
-} from "react-icons/md";
-import { FaMusic, FaSpotify, FaPlaystation, FaXbox } from "react-icons/fa";
+  FaMusic,
+  FaSpotify,
+  FaPlaystation,
+  FaXbox,
+  FaGraduationCap,
+  FaBuilding,
+} from "react-icons/fa";
 import { IoLogoGameControllerA, IoMdArrowDropdown } from "react-icons/io";
-import { FaBookOpen } from "react-icons/fa6";
 import { HiMiniSquaresPlus } from "react-icons/hi2";
 import { RiNetflixFill } from "react-icons/ri";
 import { TbBrandHbo, TbBrandDisney } from "react-icons/tb";
@@ -18,6 +20,7 @@ import {
 } from "react-icons/si";
 
 export const categoryIcons = {
+  // All: <MdApps className="absolute float-right text-red-300 text-4xl" />,
   "Select your category": (
     <IoMdArrowDropdown className="absolute top-1/2 bottom-1/2 -translate-y-1/2 right-4 text-3xl" />
   ),
@@ -26,8 +29,10 @@ export const categoryIcons = {
   Gaming: (
     <IoLogoGameControllerA className="absolute top-0 -right-2 text-6xl" />
   ),
-  "e-Learning": <FaBookOpen className="absolute top-2 -right-2 text-4xl" />,
-  Office: <MdComputer className="absolute top-2 -right-2 text-4xl" />,
+  "e-Learning": (
+    <FaGraduationCap className="absolute top-2 -right-2 text-4xl" />
+  ),
+  Office: <FaBuilding className="absolute top-2 -right-2 text-4xl" />,
   Sports: (
     <MdOutlineSportsSoccer className="absolute top-2 -right-2 text-5xl" />
   ),

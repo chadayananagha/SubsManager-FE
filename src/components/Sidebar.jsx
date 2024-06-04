@@ -60,7 +60,8 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
               Edit Profile
             </Link>
             <NavLink
-              to="/manage"
+              onClick={() => handleSidebar()}
+              to="/subsmanager"
               className={({ isActive }) =>
                 isActive ? "activeSideBarNav" : "sideBarNav"
               }
@@ -68,6 +69,7 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
               <p className="p-4">Manage Subscriptions</p>
             </NavLink>
             <NavLink
+              onClick={() => handleSidebar()}
               to="/search"
               className={({ isActive }) =>
                 isActive ? "activeSideBarNav" : "sideBarNav"
@@ -76,6 +78,7 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
               <p className="p-4">Search for subscriptions</p>
             </NavLink>
             <NavLink
+              onClick={() => handleSidebar()}
               to="/contact"
               className={({ isActive }) =>
                 isActive ? "activeSideBarNav" : "sideBarNav"
@@ -84,6 +87,7 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
               <p className="p-4">Contact</p>
             </NavLink>
             <NavLink
+              onClick={() => handleSidebar()}
               to="/faq"
               className={({ isActive }) =>
                 isActive ? "activeSideBarNav" : "sideBarNav"
@@ -92,6 +96,7 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
               <p className="p-4">FAQ</p>
             </NavLink>
             <NavLink
+              onClick={() => handleSidebar()}
               to="/about"
               className={({ isActive }) =>
                 isActive ? "activeSideBarNav" : "sideBarNav"

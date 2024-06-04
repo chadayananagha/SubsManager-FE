@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { motion } from "framer-motion";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import axios from "axios";
@@ -78,7 +78,7 @@ const Login = () => {
         className="flex flex-wrap justify-center items-center lg:mx-24 min-h-screen"
       >
         <img
-          src="/images/Login.svg"
+          src="/images/login.svg"
           alt="Login illustration"
           className=" hover:grayscale-0 w-1/2 transition duration-500 hidden lg:block
           "
