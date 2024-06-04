@@ -41,7 +41,7 @@ const HeroSection = () => {
                   </button>
 
                   <Link
-                    to="/create"
+                    to="/startsharing"
                     className=" relative text-nowrap btn btn-primary   justify-center items-center overflow-hidden group px-8"
                   >
                     <span className="   py-4 flex justify-center items-center opacity-100 group-hover:opacity-0 group-hover:-translate-y-full transition-all duration-1000">
