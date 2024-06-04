@@ -384,7 +384,7 @@ const Search = () => {
   }
 
   return (
-    <>
+    <div className="min-h-screen">
       <div className="mt-28 flex justify-center md:justify-between flex-wrap gap-4 lg:mx-16">
         <div className="flex text-2xl md:text-3xl lg:text-4xl font-bold mx-4 lg:mx-[-1px] text-center">
           Select the Subscription!
@@ -512,7 +512,7 @@ const Search = () => {
         />
       )}
       {showChatWindow && <ChatWindow onClose={handleCloseChat} />}
-    </>
+    </div>
   );
 };
 
