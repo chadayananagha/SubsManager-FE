@@ -2,7 +2,8 @@ import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
+import Loading from "../components/Loading";
 import axios from "axios";
 const SignUp = () => {
   const authContext = useContext(AuthContext);
@@ -57,16 +58,22 @@ const SignUp = () => {
     }
   };
 
-  return isLoading ? (
-    "Loading.."
-  ) : (
-    <div>
-      <Toaster position="top-center" reverseOrder={false} />
+  return (
+    <>
+      <div
+        className={`${
+          isLoading
+            ? "pt-24 min-h-screen flex justify-center items-center bg-base-200/50 absolute w-full z-20 "
+            : "hidden"
+        }`}
+      >
+        <Loading />
+      </div>
       <motion.div
         initial={{ opacity: 0, y: "-10%" }}
         animate={{ opacity: 1, y: "0" }}
         transition={{ duration: 0.8 }}
-        className="flex m-24"
+        className="flex flex-wrap justify-center items-center lg:mx-24 min-h-screen"
       >
         <div className="flex flex-col sm:py-36 py-24 sm:px-52 px-4 w-full sm:w-[50%] items-center">
           <h1 className="text-5xl font-bold mb-12">SignUp</h1>
@@ -77,7 +84,7 @@ const SignUp = () => {
             <input
               type="text"
               placeholder="Username"
-              className="input input-bordered sm:w-96 rounded-3xl bg-base-200"
+              className="input input-bordered sm:w-96  bg-base-200"
               id="username"
               name="username"
               value={formData.username}
@@ -86,7 +93,7 @@ const SignUp = () => {
             <input
               type="email"
               placeholder="Email"
-              className="input input-bordered sm:w-96 rounded-3xl bg-base-200"
+              className="input input-bordered sm:w-96  bg-base-200"
               id="email"
               name="email"
               value={formData.email}
@@ -95,18 +102,18 @@ const SignUp = () => {
             <input
               type="password"
               placeholder="Password"
-              className="input input-bordered sm:w-96 rounded-3xl bg-base-200"
+              className="input input-bordered sm:w-96  bg-base-200"
               id="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
             />
             {error && <p className="text-red-500 mt-4">{error}</p>}
-            <button className="btn-hover btn btn-primary text-white border-none rounded-3xl sm:w-96 w-full py-2 px-4 mt-4">
+            <button className="btn-hover btn btn-primary text-white border-none  sm:w-96 w-full py-2 px-4 mt-4">
               Register
             </button>
             <p>Or connect with social media</p>
-            <button className="btn bg-red-800 text-white rounded-3xl sm:w-96 w-full py-2 px-4 mt-4 flex items-center justify-center">
+            <button className="btn bg-red-800 text-white  sm:w-96 w-full py-2 px-4 mt-4 flex items-center justify-center">
               <svg
                 className="w-5 h-5 mr-2"
                 xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +139,7 @@ const SignUp = () => {
               </svg>
               Sign in with Google
             </button>
-            <button className="btn bg-blue-600 text-white rounded-3xl sm:w-96 w-full py-2 px-4 mt-4 flex items-center justify-center">
+            <button className="btn bg-blue-600 text-white  sm:w-96 w-full py-2 px-4 mt-4 flex items-center justify-center">
               <svg
                 className="w-5 h-5 mr-2"
                 xmlns="http://www.w3.org/2000/svg"
@@ -154,16 +161,21 @@ const SignUp = () => {
             </p>
           </form>
         </div>
-        <div className="bg-themed w-[50%] sm:flex justify-center pt-80 pb-48 hidden md:px-16">
-          <div>
-            <h1 className="text-5xl font-bold text-center pb-8">Hi User!</h1>
-            <h1 className="text-5xl font-bold text-center">
-              Welcome to the world of sharing!
-            </h1>
-          </div>
+        <img
+          src="/images/Signup.svg"
+          alt="Signup Illustration"
+          className=" w-1/2  hidden lg:block"
+        />
+        {/* <div className="bg-themed w-[50%] sm:flex justify-center pt-80 pb-48 hidden md:px-16">
+        <div>
+          <h1 className="text-5xl font-bold text-center pb-8">Hi User!</h1>
+          <h1 className="text-5xl font-bold text-center">
+            Welcome to the world of sharing!
+          </h1>
         </div>
+      </div> */}
       </motion.div>
-    </div>
+    </>
   );
 };
 

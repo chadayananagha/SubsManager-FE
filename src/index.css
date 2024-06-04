@@ -3,6 +3,22 @@
 @tailwind utilities;
 
 /* herosection */
+
+.input-business {
+  background-color: #181818;
+}
+
+.input-fantasy {
+  background-color: #dddedf;
+}
+
+[data-theme="business"] .input-color {
+  @apply input-business;
+}
+
+[data-theme="fantasy"] .input-color {
+  @apply input-fantasy;
+}
 .btn-business {
   background-color: #c0c1c2;
 }
@@ -21,12 +37,12 @@
 
 /* signup&loginpage */
 .bg-theme-business {
-  background-image: url("https://png.pngtree.com/thumb_back/fh260/background/20221201/pngtree-black-shiny-wallpaper-background-design-image_1484065.jpg");
+  background-image: url("./assets/heroPic.png");
   background-size: cover;
 }
 
 .bg-theme-fantasy {
-  background-image: url("https://t3.ftcdn.net/jpg/04/06/60/72/360_F_406607245_daS9yMQ9g8MMZz3XWf2LVXxFy5cAdLQ7.jpg");
+  background-image: url("./assets/heroPic.png");
   background-size: cover;
 }
 
@@ -52,6 +68,19 @@
 
 [data-theme="fantasy"] .btn-hover {
   @apply btn-hover-fantasy;
+}
+
+@layer components {
+  .sideBarNav {
+    @apply relative w-full  text-lg  text-center before:absolute before:top-0 before:left-0 before:bg-primary before:w-0  before:h-0.5  hover:before:w-full before:transition-all before:duration-500 after:absolute after:bottom-0 after:right-0 after:bg-primary after:w-0 after:h-0.5 hover:after:w-full after:transition-all after:duration-500;
+  }
+
+  .activeSideBarNav {
+    @apply relative w-full   text-xl text-primary text-center before:absolute before:top-0 before:left-0 before:bg-primary before:w-full  before:h-0.5 after:absolute after:bottom-0 after:right-0 after:bg-primary after:w-full after:h-0.5;
+  }
+  /* .activeSideBarNav {
+    @apply bg-base-300;
+  } */
 }
 /* search page */
 .bg-color-fantasy {

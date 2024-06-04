@@ -9,7 +9,7 @@ const AuthContextProvider = (props) => {
   //*Get the token from localStorage and set the token state to its value
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
-    console.log(`Stored token: ${storedToken}`);
+    // console.log(`Stored token: ${storedToken}`);
     if (storedToken) {
       setToken(storedToken);
     }
@@ -43,6 +43,7 @@ const AuthContextProvider = (props) => {
   //*Logout
   const logout = () => {
     setToken(null);
+    setUserId(null);
   };
   return (
     <AuthContext.Provider value={{ userId, token, login, logout }}>

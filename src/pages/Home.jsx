@@ -2,8 +2,9 @@ import HeroSection from "../components/HeroSection";
 
 const Home = () => {
   return (
-    <div>
+    <div className="flex-1 pt-24">
       <HeroSection />
+      {/* <HeroSection /> */}
     </div>
   );
 };
