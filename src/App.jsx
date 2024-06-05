@@ -12,6 +12,7 @@ import SubsManager from "./pages/SubsManager";
 import { Toaster } from "react-hot-toast";
 import UserProfile from "./pages/UserProfile";
 import StartSharing from "./pages/StartSharing";
+import About from "./pages/About";
 function App() {
   const { token } = useContext(AuthContext);
   return (
@@ -31,7 +32,9 @@ function App() {
           <Route path="/startsharing" element={<StartSharing />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
           <Route path="/faq" element={<FAQ />} />
+
           <Route
             path="/subsmanager"
             element={token ? <SubsManager /> : <Navigate to="/" />}
