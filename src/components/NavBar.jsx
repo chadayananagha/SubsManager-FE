@@ -37,7 +37,13 @@ const NavBar = () => {
   //*Open and close sidebar
   const handleSidebar = () => {
     setIsSideBarOpen((prev) => !prev);
+    if (!isSidebarOpen) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
   };
+
   return (
     <div
       className={`fixed top-0 left-0 z-50  w-full p-4 flex justify-between items-center transition-all duration-500 ${
@@ -105,7 +111,11 @@ const NavBar = () => {
         )
       ) : null}
 
-      <Sidebar isSidebarOpen={isSidebarOpen} handleSidebar={handleSidebar} />
+      <Sidebar
+        isSidebarOpen={isSidebarOpen}
+        setIsSideBarOpe={setIsSideBarOpen}
+        handleSidebar={handleSidebar}
+      />
     </div>
   );
 };

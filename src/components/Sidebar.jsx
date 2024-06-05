@@ -3,14 +3,16 @@ import { FaUser } from "react-icons/fa";
 import ThemeToggler from "./ThemeToggler";
 import { toast } from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useRef, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useJwt } from "react-jwt";
-const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
+const Sidebar = ({ isSidebarOpen, handleSidebar, setIsSideBarOpen }) => {
   const { token, logout } = useContext(AuthContext);
   //*Decode the Token
   const { decodedToken } = useJwt(token);
-  //*Get the username from decoded token
+  const username = decodedToken?.username;
+
+  const sidebarRef = useRef(null);
 
   //*logout Function
   const handleLogout = () => {
@@ -18,10 +20,27 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
     handleSidebar();
     toast.success("Successfully logged out!");
   };
+  //*clicking outside of the sidebar
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target) &&
+        isSidebarOpen
+      ) {
+        handleSidebar();
+      }
+    };
 
-  const username = decodedToken?.username;
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [handleSidebar, sidebarRef, isSidebarOpen]);
+
   return (
     <div
+      ref={sidebarRef}
       className={`fixed  right-0 top-0 bottom-0  h-dvh bg-base-100 transition-[width] duration-800 flex flex-col no-wrap justify-center items-center overflow-hidden ${
         isSidebarOpen
           ? "w-2/3 lg:w-1/4 shadow-[0_0_0_10000px_rgba(0,0,0,.40)]  "
@@ -43,7 +62,7 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
       {token ? (
         <>
           <div className="absolute top-24 flex justify-center items-center">
-            <p className="text-2xl">
+            <p className="text-2xl text-center text-balance">
               Welcome{" "}
               <span className="font-extrabold tracking-wider text-primary text-2xl ">
                 {username}
@@ -64,7 +83,6 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
               </span>
             </div>
           )}
-          {/* </div> */}
           <div className="flex flex-col gap-4 mt-36 absolute  justify-center items-center ">
             <Link to="/profile" className="sideBarNav p-4">
               Edit Profile

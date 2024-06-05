@@ -97,3 +97,7 @@
 [data-theme="fantasy"] .bg-color {
   @apply bg-color-fantasy;
 }
+
+.no-scroll {
+  overflow: hidden;
+}
