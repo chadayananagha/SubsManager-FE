@@ -3,6 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
 import axios from "axios";
 const SignUp = () => {
@@ -139,7 +140,10 @@ const SignUp = () => {
               </svg>
               Sign in with Google
             </button>
-            <button className="btn bg-blue-600 text-white  sm:w-96 w-full py-2 px-4 mt-4 flex items-center justify-center">
+            <Link
+              to="/"
+              className="btn bg-blue-600 text-white  sm:w-96 w-full py-2 px-4 mt-4 flex items-center justify-center"
+            >
               <svg
                 className="w-5 h-5 mr-2"
                 xmlns="http://www.w3.org/2000/svg"
@@ -151,7 +155,7 @@ const SignUp = () => {
                 />
               </svg>
               Sign in with Facebook
-            </button>
+            </Link>
             <p className="text-center">
               Already have an account ?
               <a className="font-bold text-primary" href="/login">

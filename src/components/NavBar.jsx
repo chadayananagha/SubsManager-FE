@@ -10,9 +10,9 @@ import { useJwt } from "react-jwt";
 const NavBar = () => {
   //*context
   const authContext = useContext(AuthContext);
-  const { logout, token } = authContext;
+  const { token } = authContext;
   const { decodedToken } = useJwt(token);
-  // console.log(decodedToken?.username);
+  // console.log(decodedToken);
 
   //*Change burgerMenu on hover
   const [isHovered, setIsHovered] = useState(false);
@@ -82,19 +82,28 @@ const NavBar = () => {
         </Link>
       </div>
       {token ? (
-        <div
-          onClick={handleSidebar}
-          className="avatar placeholder hidden lg:block cursor-pointer"
-        >
-          <div className="bg-zinc-300 border border-zinc-200 text-neutral-content rounded-full w-12 overflow-hidden ">
-            <span className="text-4xl  text-base-100 mt-2">
-              <FaUser />
-            </span>
+        decodedToken?.profilePic ? (
+          <div
+            onClick={handleSidebar}
+            className="avatar hidden lg:block cursor-pointer"
+          >
+            <div className="w-12 rounded-full">
+              <img src={decodedToken?.profilePic} />
+            </div>
           </div>
-        </div>
-      ) : (
-        ""
-      )}
+        ) : (
+          <div
+            onClick={handleSidebar}
+            className="avatar placeholder hidden lg:block cursor-pointer"
+          >
+            <div className="bg-zinc-300 border border-zinc-200 text-neutral-content rounded-full w-12 overflow-hidden ">
+              <span className="text-4xl  text-base-100 mt-2">
+                <FaUser />
+              </span>
+            </div>
+          </div>
+        )
+      ) : null}
 
       <Sidebar isSidebarOpen={isSidebarOpen} handleSidebar={handleSidebar} />
     </div>

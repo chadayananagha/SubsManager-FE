@@ -42,19 +42,29 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
       </div>
       {token ? (
         <>
-          <div className="avatar placeholder flex flex-col justify-center items-center gap-8 cursor-pointer absolute top-24 ">
-            <p className="text-2xl ">
+          <div className="absolute top-24 flex justify-center items-center">
+            <p className="text-2xl">
               Welcome{" "}
-              <span className="font-extrabold tracking-wider text-primary text-2xl">
+              <span className="font-extrabold tracking-wider text-primary text-2xl ">
                 {username}
               </span>
             </p>
-            <div className="bg-zinc-300 border border-zinc-200 text-neutral-content rounded-full w-16 overflow-hidden ">
+          </div>
+
+          {decodedToken?.profilePic ? (
+            <div className="avatar hidden md:block absolute md:top-36 ">
+              <div className="w-16 rounded-full">
+                <img src={decodedToken?.profilePic} />
+              </div>
+            </div>
+          ) : (
+            <div className="bg-zinc-300 hidden md:block absolute md:top-36 border border-zinc-200 text-neutral-content rounded-full w-16 overflow-hidden ">
               <span className="text-6xl  text-base-100 mt-2">
                 <FaUser />
               </span>
             </div>
-          </div>
+          )}
+          {/* </div> */}
           <div className="flex flex-col gap-4 mt-36 absolute  justify-center items-center ">
             <Link to="/profile" className="sideBarNav p-4">
               Edit Profile
@@ -99,14 +109,14 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
               onClick={() => handleSidebar()}
               to="/about"
               className={({ isActive }) =>
-                isActive ? "activeSideBarNav" : "sideBarNav"
+                isActive ? "activeSideBarNav" : "sideBarNav z-10"
               }
             >
               <p className="p-4">About</p>
             </NavLink>
             <button
               onClick={handleLogout}
-              className="z-10 btn btn-error px-16 text-lg "
+              className="z-10 btn btn-accent px-16 text-lg "
             >
               Log out
             </button>
