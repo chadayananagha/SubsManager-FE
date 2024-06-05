@@ -16,7 +16,7 @@ const HeroSection = () => {
       <div className="hero ">
         <div className="hero-content flex-wrap flex-col lg:flex-row-reverse bg-base">
           <img
-            className="max-w-sm rounded-lg mix-blend-multiply lg:ml-8"
+            className="lg:max-w-sm rounded-lg mix-blend-multiply lg:ml-8"
             src="/images/heroPic.png"
             alt="Hero Illustration"
           />
