@@ -1,6 +1,43 @@
-import React from "react";
-
+import { FaLinkedin, FaGithub } from "react-icons/fa";
 const About = () => {
+  const team = ["Bogdan", "Dipali", "Javier", "Anagha"];
+
+  const teamLinks = {
+    Bogdan: {
+      defaultImage:
+        "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png",
+      image: "/images/Bogdan.jpg",
+      linkedin: "https://www.linkedin.com/in/lazar-bogdan/",
+      github: "https://github.com/foreverbog",
+    },
+    Dipali: {
+      defaultImage:
+        "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png",
+      image: "",
+      linkedin:
+        "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png",
+      github:
+        "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png",
+    },
+    Javier: {
+      defaultImage:
+        "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png",
+      image: "",
+      linkedin:
+        "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png",
+      github:
+        "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png",
+    },
+    Anagha: {
+      defaultImage:
+        "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png",
+      image: "",
+      linkedin:
+        "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png",
+      github:
+        "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png",
+    },
+  };
   return (
     <div className="my-28 flex-1">
       <div className="w-full px-4 md:px-12 lg:px-32 flex flex-wrap">
@@ -35,7 +72,7 @@ const About = () => {
         <div className="w-full md:w-1/2 flex justify-center px-4">
           <img
             className="max-w-full md:max-w-96"
-            src="/images/heroPic.png"
+            src="/images/about.svg"
             alt="Hero Illustration"
           />
         </div>
@@ -44,45 +81,33 @@ const About = () => {
         <h2 className="text-3xl font-bold mb-6 text-center">Our Team</h2>
 
         <div className="flex justify-center flex-wrap gap-10">
-          <div className="px-4 py-4 rounded-lg w-[300px] bg-primary">
-            <div className="flex justify-center mb-4">
-              <img
-                src="https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png"
-                alt="user"
-              ></img>
-            </div>
+          {team.map((member) => (
+            <div className="group px-4 py-4 rounded-lg w-[300px]  border-base-300 border bg-base-200 relative overflow-hidden hover:scale-105 transition-all duration-500">
+              <div className="flex justify-center mb-4 ">
+                <img
+                  src={
+                    teamLinks[member].image
+                      ? teamLinks[member].image
+                      : teamLinks[member].defaultImage
+                  }
+                  alt={`${member} avatar`}
+                  className="rounded-lg max-h-[350px]"
+                />
+              </div>
 
-            <h3 className="text-lg text-center font-bold">Bogdan</h3>
-          </div>
-          <div className="px-4 py-4 rounded-lg w-[300px] bg-primary">
-            <div className="flex justify-center mb-4">
-              <img
-                src="https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png"
-                alt="user"
-              ></img>
+              <h3 className="text-lg text-center font-bold absolute top-0 bg-base-100/30 text-base-100 w-full left-0 p-4 group-hover:bg-base-100/80 group-hover:text-primary-content transition duration-500 about-color  ">
+                {member}
+              </h3>
+              <div className="flex justify-around items-center">
+                <a href={teamLinks[member].linkedin} target="_blank">
+                  <FaLinkedin className="text-4xl hover:text-[#0077B5]" />
+                </a>
+                <a href={teamLinks[member].github} target="_blank">
+                  <FaGithub className="text-4xl hover:text-black" />
+                </a>
+              </div>
             </div>
-            <h3 className="text-lg text-center font-bold">Dipali</h3>
-          </div>
-          <div className="px-4 py-4 rounded-lg w-[300px] bg-primary">
-            <div className="flex justify-center mb-4">
-              <img
-                src="https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png"
-                alt="user"
-              ></img>
-            </div>
-
-            <h3 className="text-lg text-center font-bold">Javier</h3>
-          </div>
-          <div className="px-4 py-4 rounded-lg w-[300px] bg-primary">
-            <div className="flex justify-center mb-4">
-              <img
-                src="https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png"
-                alt="user"
-              ></img>
-            </div>
-
-            <h3 className="text-lg text-center font-bold">Anagha</h3>
-          </div>
+          ))}
         </div>
       </div>
     </div>

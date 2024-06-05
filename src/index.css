@@ -97,6 +97,25 @@
 [data-theme="fantasy"] .bg-color {
   @apply bg-color-fantasy;
 }
+.about-fantasy {
+  color: black;
+}
+.about-fantasy:hover {
+  color: black;
+}
+.about-business {
+}
+
+[data-theme="business"] .about-color {
+  @apply about-business;
+}
+
+[data-theme="fantasy"] .about-color {
+  @apply about-fantasy;
+}
+[data-theme="fantasy"] .group:hover .about-color {
+  @apply about-fantasy;
+}
 
 .no-scroll {
   overflow: hidden;
