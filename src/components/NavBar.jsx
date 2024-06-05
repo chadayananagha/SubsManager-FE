@@ -10,7 +10,7 @@ import { useJwt } from "react-jwt";
 const NavBar = () => {
   //*context
   const authContext = useContext(AuthContext);
-  const { token } = authContext;
+  const { token, profilePic } = authContext;
   const { decodedToken } = useJwt(token);
   // console.log(decodedToken);
 
@@ -88,13 +88,13 @@ const NavBar = () => {
         </Link>
       </div>
       {token ? (
-        decodedToken?.profilePic ? (
+        profilePic ? (
           <div
             onClick={handleSidebar}
             className="avatar hidden lg:block cursor-pointer"
           >
             <div className="w-12 rounded-full">
-              <img src={decodedToken?.profilePic} />
+              <img src={profilePic} />
             </div>
           </div>
         ) : (

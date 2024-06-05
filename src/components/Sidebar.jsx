@@ -7,7 +7,7 @@ import { useContext, useRef, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useJwt } from "react-jwt";
 const Sidebar = ({ isSidebarOpen, handleSidebar, setIsSideBarOpen }) => {
-  const { token, logout } = useContext(AuthContext);
+  const { token, logout, profilePic } = useContext(AuthContext);
   //*Decode the Token
   const { decodedToken } = useJwt(token);
   const username = decodedToken?.username;
@@ -70,10 +70,10 @@ const Sidebar = ({ isSidebarOpen, handleSidebar, setIsSideBarOpen }) => {
             </p>
           </div>
 
-          {decodedToken?.profilePic ? (
+          {profilePic ? (
             <div className="avatar hidden md:block absolute md:top-36 ">
               <div className="w-16 rounded-full">
-                <img src={decodedToken?.profilePic} />
+                <img src={profilePic} />
               </div>
             </div>
           ) : (
