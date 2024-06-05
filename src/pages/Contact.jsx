@@ -41,11 +41,11 @@ const Contact = () => {
 		postFormData();
 	};
 	return (
-		<div className='flex'>
-			<div>
+		<div className='flex flex-1 xl:justify-center 2xl:justify-center'>
+			<div className='hidden lg:block'>
 				<img src={contact} alt='contact' className='mt-32' />
 			</div>
-			<div className='max-w-lg w-1/2 mx-auto p-8 mt-20 mb-8 flex-1'>
+			<div className='max-w-lg w-1/2 p-8 mt-20 mb-8 mx-auto xl:mx-0 flex-1 2xl:ml-40 2xl:mr-40'>
 				<h2 className='text-2xl font-bold mb-6 text-center'>Contact Us</h2>
 				<form onSubmit={handleSubmit}>
 					<div className='mb-4'>
@@ -93,7 +93,7 @@ const Contact = () => {
 					</div>
 					<button
 						type='submit'
-						className='w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600'
+						className='w-full px-4 py-2 btn btn-primary text-white rounded-md  focus:outline-none'
 					>
 						Submit
 					</button>
