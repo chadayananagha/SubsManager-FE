@@ -33,6 +33,7 @@ const ChatWindow = ({ onClose, receiver }) => {
 
   const handleSendMessage = () => {
     if (message.trim() === "") return;
+    if (receiver._id === userId) return;
 
     const newMessage = {
       sender: userId,
