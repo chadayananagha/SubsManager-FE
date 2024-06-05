@@ -27,8 +27,10 @@ const Search = () => {
   const [loading, setLoading] = useState(true);
   const [showChatWindow, setShowChatWindow] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [chatUser, setChatUser] = useState(null);
 
-  const handleOpenChat = () => {
+  const handleOpenChat = (user) => {
+    setChatUser(user);
     setShowChatWindow(true);
     setShowUserCard(false);
   };
@@ -274,11 +276,13 @@ const Search = () => {
           users={[selectedUser]}
           showModal={showUserCard}
           setShowModal={setShowUserCard}
-          selectedPlatform={selectedPlatform} // Pass selectedPlatform to UserCard
-          openChat={handleOpenChat}
+          selectedPlatform={selectedPlatform}
+          openChat={() => handleOpenChat(selectedUser)} // Pass selectedUser as parameter
         />
       )}
-      {showChatWindow && <ChatWindow onClose={handleCloseChat} />}
+      {showChatWindow && (
+        <ChatWindow receiver={chatUser} onClose={handleCloseChat} />
+      )}
     </div>
   );
 };
