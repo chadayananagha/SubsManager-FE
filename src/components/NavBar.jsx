@@ -77,6 +77,17 @@ const NavBar = () => {
         <ThemeToggler />
         <Link
           to="/startsharing"
+          className=" relative text-nowrap btn bg-[#FF5733]  hover:bg-[#CC4629]  justify-center items-center overflow-hidden group px-8 "
+        >
+          <span className="   py-4 flex justify-center items-center opacity-100 group-hover:opacity-0 group-hover:-translate-y-full transition-all duration-1000 text-base-100">
+            Start sharing
+          </span>
+          <span className=" py-4 absolute  opacity-0  group-hover:opacity-100  group-hover:flex group-hover:justify-center group-hover:items-center  translate-y-full  group-hover:translate-y-0  transition-all duration-1000  text-base-100">
+            Right now
+          </span>
+        </Link>
+        {/* <Link
+          to="/startsharing"
           className=" relative text-nowrap btn btn-primary  justify-center items-center overflow-hidden group px-8 "
         >
           <span className="   py-4 flex justify-center items-center opacity-100 group-hover:opacity-0 group-hover:-translate-y-full transition-all duration-1000">
@@ -85,7 +96,7 @@ const NavBar = () => {
           <span className=" py-4 absolute  opacity-0  group-hover:opacity-100  group-hover:flex group-hover:justify-center group-hover:items-center  translate-y-full  group-hover:translate-y-0  transition-all duration-1000 ">
             Right now
           </span>
-        </Link>
+        </Link> */}
       </div>
       {token ? (
         profilePic ? (

@@ -2,11 +2,12 @@ import { IoMdClose } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import ThemeToggler from "./ThemeToggler";
 import { toast } from "react-hot-toast";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useContext, useRef, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useJwt } from "react-jwt";
-const Sidebar = ({ isSidebarOpen, handleSidebar, setIsSideBarOpen }) => {
+const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
+  const navigate = useNavigate();
   const { token, logout, profilePic } = useContext(AuthContext);
   //*Decode the Token
   const { decodedToken } = useJwt(token);
@@ -18,6 +19,7 @@ const Sidebar = ({ isSidebarOpen, handleSidebar, setIsSideBarOpen }) => {
   const handleLogout = () => {
     logout();
     handleSidebar();
+    navigate("/");
     toast.success("Successfully logged out!");
   };
   //*clicking outside of the sidebar
@@ -134,7 +136,7 @@ const Sidebar = ({ isSidebarOpen, handleSidebar, setIsSideBarOpen }) => {
             </NavLink>
             <button
               onClick={handleLogout}
-              className="z-10 btn btn-accent px-16 text-lg "
+              className="z-10 btn bg-red-600 hover:bg-red-700 px-16 text-lg text-base-100 "
             >
               Log out
             </button>

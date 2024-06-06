@@ -57,6 +57,7 @@ const AuthContextProvider = (props) => {
   const logout = () => {
     setToken(null);
     setUserId(null);
+    setProfilePic(null);
   };
   return (
     <AuthContext.Provider
