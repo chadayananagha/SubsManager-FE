@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { MdOutlineImageSearch } from "react-icons/md";
 import Image1 from "../../public/images/User1.png";
 import Image2 from "../../public/images/User2.png";
 import Image3 from "../../public/images/User3.png";
@@ -89,12 +90,20 @@ const ProfilePicSelector = ({ userData, setUserData, userId }) => {
 
   return (
     <div>
-      <img
-        src={userData.profilePic.url || imagePreviewUrl}
-        alt="User profile pic"
-        className="w-32 rounded-full shadow-lg cursor-pointer hover:"
-        onClick={() => setIsModalOpen(true)}
-      />
+      <div className="relative w-32 h-32">
+        <img
+          src={userData.profilePic.url || imagePreviewUrl}
+          alt="User profile pic"
+          className="w-full h-full rounded-full shadow-lg cursor-pointer"
+        />
+        <div
+          onClick={() => setIsModalOpen(true)}
+          className="absolute inset-0 flex items-center justify-center bg-white opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full cursor-pointer"
+        >
+          {/* Icon */}
+          <MdOutlineImageSearch className="h-12 w-12 text-primary" />
+        </div>
+      </div>
 
       {/* Modal */}
       {isModalOpen && (

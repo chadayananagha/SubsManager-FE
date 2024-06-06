@@ -60,9 +60,9 @@ const UserProfile = () => {
   };
 
   return (
-    <div>
+    <div className="overflow-hidden">
       <div className="flex items-center justify-center min-h-screen">
-        <div className="overflow-hidden shadow rounded-lg bg-base-200 w-[600px]">
+        <div className="overflow-hidden rounded-lg bg-base-200 w-[600px] shadow-lg">
           <div className="px-4 py-5 sm:px-6 flex gap-4">
             <ProfilePicSelector
               userId={userId}
@@ -72,40 +72,36 @@ const UserProfile = () => {
             <h3 className="text-3xl font-semibold text-primary">{username}</h3>
             <button
               onClick={() => setIsEditing(true)}
-              className="ml-auto btn btn-primary rounded-md shadow-sm text-black"
+              className="ml-auto btn btn-primary rounded-md shadow-sm text-black flex items-center"
             >
-              Edit Profile info
+              <span className="hidden sm:inline">Edit Profile info</span>
               <span>
-                <FaEdit />
+                <FaEdit className="inline sm:hidden" />
               </span>
             </button>
           </div>
           <div className="border-t border-primary px-4 py-5 sm:p-0">
-            <dl className="sm:divide-y sm:divide-gray-200">
+            <dl className="sm:divide-y sm:divide-primary">
               <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                  First name
-                </dt>
+                <dt className="text-sm font-medium text-bold">First name</dt>
                 <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">
                   {userData.firstName}
                 </dd>
               </div>
               <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">Last name</dt>
+                <dt className="text-sm font-medium text-bold">Last name</dt>
                 <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">
                   {userData.lastName}
                 </dd>
               </div>
               <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                  Email address
-                </dt>
+                <dt className="text-sm font-medium text-bold">Email address</dt>
                 <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">
                   {userData.email}
                 </dd>
               </div>
               <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">Country</dt>
+                <dt className="text-sm font-medium text-bold">Country</dt>
                 <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">
                   {userData.country}
                 </dd>
