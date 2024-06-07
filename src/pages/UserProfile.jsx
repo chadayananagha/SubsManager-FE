@@ -27,14 +27,25 @@ const UserProfile = () => {
   const localAPI = "http://localhost:8080";
   const deployedAPI = "https://subsmanager-be.onrender.com";
 
+  const calculateProfileCompletionScore = (data) => {
+    let score = 0;
+    if (data.firstName) score += 25;
+    if (data.lastName) score += 25;
+    if (data.email) score += 25;
+    if (data.country) score += 25;
+    return score;
+  };
+
   useEffect(() => {
     const fetchUserData = async () => {
       setLoading(true);
       try {
         const response = await axios.get(`${deployedAPI}/users/${userId}`);
-        // console.log("response", response);
-        setUserData(response.data);
-        updateProfilePic(response.data.profilePic.url);
+        const userData = response.data;
+        userData.profileCompletionScore =
+          calculateProfileCompletionScore(userData);
+        setUserData(userData);
+        updateProfilePic(userData.profilePic.url);
       } catch (error) {
         console.error("Error fetching user data:", error);
       } finally {
@@ -48,10 +59,13 @@ const UserProfile = () => {
   }, [userId]);
 
   const handleEditChange = (e) => {
-    setUserData({
+    const updatedUserData = {
       ...userData,
       [e.target.name]: e.target.value,
-    });
+    };
+    updatedUserData.profileCompletionScore =
+      calculateProfileCompletionScore(updatedUserData);
+    setUserData(updatedUserData);
   };
 
   const handleSave = async () => {
@@ -60,9 +74,10 @@ const UserProfile = () => {
         `${deployedAPI}/users/${userId}`,
         userData
       );
-      // console.log("response after editing", response.data);
-      setUserData(response.data);
-      // console.log(response.data);
+      const updatedData = response.data;
+      updatedData.profileCompletionScore =
+        calculateProfileCompletionScore(updatedData);
+      setUserData(updatedData);
       setIsEditing(false);
     } catch (error) {
       console.error("Error updating user data:", error);
@@ -71,6 +86,17 @@ const UserProfile = () => {
 
   return (
     <div className="overflow-hidden">
+      <div
+        className="radial-progress text-green-300"
+        style={{
+          "--value": userData.profileCompletionScore,
+          "--size": "12rem",
+          "--thickness": "2rem",
+        }}
+        role="progressbar"
+      >
+        {userData.profileCompletionScore}
+      </div>
       <div className="flex items-center justify-center min-h-screen">
         {loading ? (
           <Loading />
@@ -95,6 +121,7 @@ const UserProfile = () => {
                 </span>
               </button>
             </div>
+
             <div className="border-t border-primary px-4 py-5 sm:p-0">
               <dl className="sm:divide-y sm:divide-primary">
                 <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

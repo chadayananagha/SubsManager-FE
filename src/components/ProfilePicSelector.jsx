@@ -2,17 +2,17 @@ import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import { MdOutlineImageSearch } from "react-icons/md";
-import defaultImage from "../../public/images/defaultPic.png";
-import Image1 from "../../public/images/User1.png";
-import Image2 from "../../public/images/User2.png";
-import Image3 from "../../public/images/User3.png";
-import Image4 from "../../public/images/User4.png";
-import Image5 from "../../public/images/User5.png";
-import Image6 from "../../public/images/User6.png";
-import Image7 from "../../public/images/User7.png";
-import Image8 from "../../public/images/User8.png";
-import Image9 from "../../public/images/User9.png";
-import Image10 from "../../public/images/User10.png";
+import defaultImage from "/images/defaultPic.png";
+import Image1 from "/images/User1.png";
+import Image2 from "/images/User2.png";
+import Image3 from "/images/User3.png";
+import Image4 from "/images/User4.png";
+import Image5 from "/images/User5.png";
+import Image6 from "/images/User6.png";
+import Image7 from "/images/User7.png";
+import Image8 from "/images/User8.png";
+import Image9 from "/images/User9.png";
+import Image10 from "/images/User10.png";
 
 const ProfilePicSelector = ({ userData, setUserData, userId }) => {
   const authContext = useContext(AuthContext);
