@@ -70,7 +70,7 @@ const ProfilePicSelector = ({ userData, setUserData, userId }) => {
       formData.append("url", selectedImage);
 
       const response = await axios.post(
-        `${localAPI}/users/upload/${userId}/`,
+        `${deployedAPI}/users/upload/${userId}/`,
         formData,
         {
           headers: {

@@ -31,7 +31,7 @@ const UserProfile = () => {
     const fetchUserData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`${localAPI}/users/${userId}`);
+        const response = await axios.get(`${deployedAPI}/users/${userId}`);
         // console.log("response", response);
         setUserData(response.data);
         updateProfilePic(response.data.profilePic.url);
@@ -56,7 +56,10 @@ const UserProfile = () => {
 
   const handleSave = async () => {
     try {
-      const response = await axios.put(`${localAPI}/users/${userId}`, userData);
+      const response = await axios.put(
+        `${deployedAPI}/users/${userId}`,
+        userData
+      );
       // console.log("response after editing", response.data);
       setUserData(response.data);
       // console.log(response.data);
