@@ -8,7 +8,7 @@ import axios from "axios";
 
 const Login = () => {
   const authContext = useContext(AuthContext);
-  const { login } = authContext;
+  const { login, token } = authContext;
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
@@ -25,6 +25,9 @@ const Login = () => {
       [name]: value,
     });
   };
+  // console.log(token);
+  // const localAPI = "http://localhost:8080";
+  // const deployedAPI = "https://subsmanager-be.onrender.com";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,10 +37,11 @@ const Login = () => {
     try {
       const response = await axios.post(
         "https://subsmanager-be.onrender.com/users/login",
+        // `${localAPI}/users/login`,
         { email: formData.email, password: formData.password }
       );
       const data = response.data;
-      console.log(data);
+      // console.log(data);
       setIsLoading(false);
       login(data.token, data.userId);
       toast.success("Successfully logged in!", { duration: 1000 });

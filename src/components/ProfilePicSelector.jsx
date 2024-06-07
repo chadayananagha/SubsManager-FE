@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import { MdOutlineImageSearch } from "react-icons/md";
 import defaultImage from "../../public/images/defaultPic.png";
@@ -14,6 +15,8 @@ import Image9 from "../../public/images/User9.png";
 import Image10 from "../../public/images/User10.png";
 
 const ProfilePicSelector = ({ userData, setUserData, userId }) => {
+  const authContext = useContext(AuthContext);
+  const { updateProfilePic } = authContext;
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -75,12 +78,13 @@ const ProfilePicSelector = ({ userData, setUserData, userId }) => {
           },
         }
       );
+      // console.log(response);
 
       setUserData({
         ...userData,
         profilePic: imagePreviewUrl,
       });
-
+      updateProfilePic(imagePreviewUrl);
       setIsUploading(false);
       setIsModalOpen(false); // Close the modal after uploading
     } catch (error) {
@@ -88,7 +92,8 @@ const ProfilePicSelector = ({ userData, setUserData, userId }) => {
       setIsUploading(false);
     }
   };
-  console.log(defaultImage);
+  // console.log(defaultImage);
+  // console.log(userData);
   return (
     <div>
       <div className="relative w-32 h-32 ">

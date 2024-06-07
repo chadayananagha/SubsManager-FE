@@ -39,6 +39,7 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [handleSidebar, sidebarRef, isSidebarOpen]);
+  // console.log(profilePic);
 
   return (
     <div

@@ -8,6 +8,7 @@ const AuthContextProvider = (props) => {
   const [userId, setUserId] = useState(null);
   const { decodedToken } = useJwt(token);
   const [profilePic, setProfilePic] = useState(decodedToken?.profilePic);
+  // console.log(decodedToken);
 
   useEffect(() => {
     if (decodedToken?.profilePic) {

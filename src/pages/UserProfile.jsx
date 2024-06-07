@@ -8,7 +8,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import Loading from "../components/Loading";
 
 const UserProfile = () => {
-  const { userId, token } = useContext(AuthContext);
+  const { userId, token, updateProfilePic } = useContext(AuthContext);
   const { decodedToken } = useJwt(token);
   const username = decodedToken?.username;
 
@@ -32,8 +32,9 @@ const UserProfile = () => {
       setLoading(true);
       try {
         const response = await axios.get(`${localAPI}/users/${userId}`);
-        console.log("response", response);
+        // console.log("response", response);
         setUserData(response.data);
+        updateProfilePic(response.data.profilePic.url);
       } catch (error) {
         console.error("Error fetching user data:", error);
       } finally {
@@ -56,8 +57,9 @@ const UserProfile = () => {
   const handleSave = async () => {
     try {
       const response = await axios.put(`${localAPI}/users/${userId}`, userData);
-      console.log("response after editing", response.data);
+      // console.log("response after editing", response.data);
       setUserData(response.data);
+      // console.log(response.data);
       setIsEditing(false);
     } catch (error) {
       console.error("Error updating user data:", error);
