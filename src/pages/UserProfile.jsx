@@ -6,6 +6,7 @@ import { FaEdit } from "react-icons/fa";
 import ProfilePicSelector from "../components/ProfilePicSelector";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Loading from "../components/Loading";
+import bgImg from "../../public/images/backgroundProfile.png";
 
 const UserProfile = () => {
   const { userId, token, updateProfilePic } = useContext(AuthContext);
@@ -155,6 +156,7 @@ const UserProfile = () => {
           </div>
         )}
       </div>
+      <img className="absolute top-96 " src={bgImg} alt="backgroundImage" />
 
       {isEditing && (
         <div className="fixed inset-0 flex items-center justify-center z-50 ">
