@@ -3,6 +3,7 @@ import CategoryCard from "../components/CategoryCard";
 import PlatformCard from "../components/PlatformCard";
 import Loading from "../components/Loading";
 import categoryIcons from "../data/CategoryIcons";
+import { platformName } from "../utils/icons.jsx";
 import UserCard from "../components/UserCard";
 import ChatWindow from "../components/ChatWindow";
 import { useNavigate, useLocation } from "react-router-dom";
