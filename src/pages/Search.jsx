@@ -43,7 +43,7 @@ const Search = () => {
       navigate(
         "/login",
         { state: { from: location.pathname } },
-        { duration: 1300 }
+        { duration: 1000 }
       ); // Redirect to login page
       return;
     }

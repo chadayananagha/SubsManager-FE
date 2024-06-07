@@ -46,7 +46,7 @@ const Login = () => {
 
       setTimeout(() => {
         navigate(previousPage);
-      }, 1300);
+      }, 1000);
     } catch (error) {
       setIsLoading(false); // Ensure loading is set to false in case of error
       if (error.response && error.response.data && error.response.data.error) {
