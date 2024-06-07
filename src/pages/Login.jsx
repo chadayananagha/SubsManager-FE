@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Loading from "../components/Loading";
 import axios from "axios";
 
@@ -17,6 +17,8 @@ const Login = () => {
   });
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const previousPage = location.state?.from || "/";
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,11 +47,10 @@ const Login = () => {
       setIsLoading(false);
       login(data.token, data.userId);
       toast.success("Successfully logged in!", { duration: 1000 });
-      //*After .6s second navigate to desired path
+
       setTimeout(() => {
-        navigate("/");
-      }, 600);
-      // alert("Logged in successfully!");
+        navigate(previousPage);
+      }, 1000);
     } catch (error) {
       setIsLoading(false); // Ensure loading is set to false in case of error
       if (error.response && error.response.data && error.response.data.error) {
@@ -84,8 +85,7 @@ const Login = () => {
         <img
           src="/images/login.svg"
           alt="Login illustration"
-          className=" hover:grayscale-0 w-1/2 transition duration-500 hidden lg:block
-          "
+          className=" hover:grayscale-0 w-1/2 transition duration-500 hidden lg:block"
         />
         <div className="flex flex-col sm:py-36 py-24 sm:px-52 px-4 w-full sm:w-[50%] items-center">
           <h1 className="text-5xl font-bold mb-12">Login</h1>

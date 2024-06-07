@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CategoryCard from "../components/CategoryCard";
 import PlatformCard from "../components/PlatformCard";
 import Loading from "../components/Loading";
 import categoryIcons from "../data/CategoryIcons";
 import UserCard from "../components/UserCard";
 import ChatWindow from "../components/ChatWindow";
+import { useNavigate, useLocation } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import { toast } from "react-hot-toast";
 import {
   fetchCategories,
   fetchCategoryPlatforms,
@@ -27,8 +30,24 @@ const Search = () => {
   const [loading, setLoading] = useState(true);
   const [showChatWindow, setShowChatWindow] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [chatUser, setChatUser] = useState(null);
+  const { token } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleOpenChat = () => {
+  const handleOpenChat = (user) => {
+    if (!token) {
+      toast.error("You need to be logged in to send messages.", {
+        duration: 1000,
+      });
+      navigate(
+        "/login",
+        { state: { from: location.pathname } },
+        { duration: 1000 }
+      ); // Redirect to login page
+      return;
+    }
+    setChatUser(user);
     setShowChatWindow(true);
     setShowUserCard(false);
   };
@@ -117,7 +136,7 @@ const Search = () => {
     try {
       setLoading(true);
       const user = await fetchUserById(userId);
-      setSelectedUser({ ...user, platform: selectedPlatform }); // Add platform to the user details
+      setSelectedUser({ ...user, platform: selectedPlatform });
       setShowUserCard(true);
     } catch (error) {
       console.error("Error fetching user details:", error);
@@ -274,11 +293,13 @@ const Search = () => {
           users={[selectedUser]}
           showModal={showUserCard}
           setShowModal={setShowUserCard}
-          selectedPlatform={selectedPlatform} // Pass selectedPlatform to UserCard
-          openChat={handleOpenChat}
+          selectedPlatform={selectedPlatform}
+          openChat={() => handleOpenChat(selectedUser)}
         />
       )}
-      {showChatWindow && <ChatWindow onClose={handleCloseChat} />}
+      {showChatWindow && (
+        <ChatWindow receiver={chatUser} onClose={handleCloseChat} />
+      )}
     </div>
   );
 };
