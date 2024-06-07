@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { MdOutlineImageSearch } from "react-icons/md";
+import defaultImage from "../../public/images/defaultPic.png";
 import Image1 from "../../public/images/User1.png";
 import Image2 from "../../public/images/User2.png";
 import Image3 from "../../public/images/User3.png";
@@ -87,12 +88,12 @@ const ProfilePicSelector = ({ userData, setUserData, userId }) => {
       setIsUploading(false);
     }
   };
-
+  console.log(defaultImage);
   return (
     <div>
-      <div className="relative w-32 h-32">
+      <div className="relative w-32 h-32 ">
         <img
-          src={userData.profilePic.url || imagePreviewUrl}
+          src={userData.profilePic?.url || imagePreviewUrl || defaultImage}
           alt="User profile pic"
           className="w-full h-full rounded-full shadow-lg cursor-pointer"
         />
