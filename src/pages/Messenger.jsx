@@ -1,15 +1,39 @@
 import { AuthContext } from '../context/AuthContext';
 import { useContext, useEffect, useState } from 'react';
+import { io } from 'socket.io-client';
 import axios from 'axios';
+import { format } from 'timeago.js';
 
 export const Messenger = () => {
 	const { userId, token } = useContext(AuthContext);
 	const [conversations, setConversations] = useState([]);
-	const [messages, setMessages] = useState([]);
 	const [displayTextArea, setDisplayTextArea] = useState(false);
 	const [newMessage, setNewMessage] = useState('');
 	const [selectedConvId, setSelectedConvId] = useState('');
 	const [selectedReceiverId, setSelectedReceiverId] = useState('');
+	const [socket, setSocket] = useState(null);
+	const [chatContent, setChatContent] = useState([]);
+
+	useEffect(() => {
+		const newSocket = io('http://localhost:8080', {
+			query: { token },
+		});
+		setSocket(newSocket);
+
+		// Handle receiving messages
+		newSocket.on('receiveMessage', (msg) => {
+			console.log(msg);
+			if (msg?.sender === selectedReceiverId || msg?.receiver === userId) {
+				setChatContent((prevChatContent) => [...prevChatContent, msg]);
+				console.log('this is chat content:', chatContent);
+			}
+		});
+
+		// Cleanup on unmount
+		return () => {
+			newSocket.disconnect();
+		};
+	}, [token, selectedReceiverId, userId]);
 
 	useEffect(() => {
 		const fetchConversation = async () => {
@@ -35,7 +59,7 @@ export const Messenger = () => {
 				`http://localhost:8080/chat/${conversations[index]._id}`
 			);
 
-			setMessages(response.data);
+			setChatContent(response.data);
 			setDisplayTextArea(true);
 			setSelectedConvId(conversations[index]._id);
 			setSelectedReceiverId(conversations[index].members[memberIndex]._id);
@@ -44,19 +68,20 @@ export const Messenger = () => {
 		}
 	};
 
-	const createNewMessage = async (message) => {
-		try {
-			const response = await fetch('http://localhost:8080/chat', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(message),
-			});
+	// post request to send new message
+	// const createNewMessage = async (message) => {
+	// 	try {
+	// 		const response = await fetch('http://localhost:8080/chat', {
+	// 			method: 'POST',
+	// 			headers: { 'Content-Type': 'application/json' },
+	// 			body: JSON.stringify(message),
+	// 		});
 
-			setNewMessage('');
-		} catch (error) {
-			console.error('Error Sending Message:', error);
-		}
-	};
+	// 		setNewMessage('');
+	// 	} catch (error) {
+	// 		console.error('Error Sending Message:', error);
+	// 	}
+	// };
 
 	const handleInputChange = (e) => {
 		setNewMessage(e.target.value);
@@ -65,15 +90,17 @@ export const Messenger = () => {
 		if (newMessage.trim() === '') return;
 
 		const sendNewMessage = {
-			senderId: userId,
-			receiverId: selectedReceiverId,
+			sender: userId,
+			receiver: selectedReceiverId,
 			message: newMessage.trim(),
 			timestamp: new Date(),
 			conversation: selectedConvId,
 		};
-		createNewMessage(sendNewMessage);
 		setNewMessage('');
-		console.log(sendNewMessage);
+
+		// Emit the message to the server
+		socket.emit('sendMessage', sendNewMessage);
+		setChatContent((prevChatContent) => [...prevChatContent, sendNewMessage]);
 	};
 
 	return (
@@ -99,15 +126,17 @@ export const Messenger = () => {
 				</ul>
 			</div>
 			<div>
-				{messages?.map((message, index) => (
-					<div key={message._id}>
-						{message.sender === userId ? (
+				{chatContent?.map((msg, index) => (
+					<div key={msg._id}>
+						{msg.sender === userId ? (
 							<div className='chat chat-end'>
-								<div className='chat-bubble'>{message.message}</div>
+								<div className='chat-bubble'>{msg.message}</div>
+								<div>{format(msg.timestamp)}</div>
 							</div>
 						) : (
 							<div className='chat chat-start'>
-								<div className='chat-bubble'>{message.message}</div>
+								<div className='chat-bubble'>{msg.message}</div>
+								<div>{format(msg.timestamp)}</div>
 							</div>
 						)}
 					</div>

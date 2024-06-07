@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { io } from 'socket.io-client';
 import axios from 'axios';
@@ -8,9 +8,9 @@ const ChatWindow = ({ onClose, receiver }) => {
 	const [chatContent, setChatContent] = useState([]);
 	const { userId, token } = useContext(AuthContext);
 	const [socket, setSocket] = useState(null);
-	const [conversations, setConversations] = useState([]);
-	const [messages, setMessages] = useState([]);
-
+	const [conversations, setConversations] = useState(null);
+	let conversionCreated = false;
+	const scrollRef = useRef();
 	useEffect(() => {
 		const newSocket = io('http://localhost:8080', {
 			query: { token },
@@ -19,8 +19,9 @@ const ChatWindow = ({ onClose, receiver }) => {
 
 		// Handle receiving messages
 		newSocket.on('receiveMessage', (msg) => {
-			if (msg.sender === receiver._id || msg.receiver === userId) {
+			if (msg?.senderId === receiver._id || msg?.receiverId === userId) {
 				setChatContent((prevChatContent) => [...prevChatContent, msg]);
+				console.log('this is chat content:', chatContent);
 			}
 		});
 
@@ -36,32 +37,43 @@ const ChatWindow = ({ onClose, receiver }) => {
 
 	// new  code /// to get conversation history
 
+	// create new conversation if not exists
+	const createNewConversation = async () => {
+		try {
+			const response = await axios.get(
+				`http://localhost:8080/conversation/${userId}/${receiver._id}`
+			);
+
+			console.log('My Response:', response.data);
+			if (response.data && response.data.length > 0) {
+				setConversations(response.data[0]);
+				return response.data[0]._id;
+			}
+			if (!conversionCreated) {
+				conversionCreated = true;
+				const postResponse = await axios.post(
+					'http://localhost:8080/conversation',
+					{
+						members: [userId, receiver._id],
+					}
+				);
+				setConversations(postResponse.data);
+				return postResponse.data._id;
+			}
+		} catch (error) {
+			console.error('Error:', error);
+		}
+	};
+
 	useEffect(() => {
 		const getConversationBetweenTwo = async () => {
-			console.log(receiver.username);
-			console.log(userId, receiver._id);
-			try {
-				const response = await axios.get(
-					`http://localhost:8080/conversation/${userId}/${receiver._id}`
-				);
-				console.log(receiver.username);
-				if (response.data) {
-					console.log(response.data);
-					setConversations(response.data);
-					getAllMessages(response.data[0]._id);
-					console.log(response.data);
-				} else {
-					console.log('i am in no chat');
-					setMessages([]);
-				}
-			} catch (error) {
-				console.error(error);
+			if (userId && receiver._id) {
+				const converstationId = await createNewConversation();
+				getAllMessages(converstationId);
 			}
 		};
-		if (userId) {
-			getConversationBetweenTwo();
-		}
-		console.log(receiver.username);
+
+		getConversationBetweenTwo();
 	}, [userId, receiver._id]);
 
 	// New Code ///////// get chat history
@@ -71,13 +83,16 @@ const ChatWindow = ({ onClose, receiver }) => {
 			const response = await axios.get(
 				`http://localhost:8080/chat/${conversationsId}`
 			);
-
-			setMessages(response.data);
-			console.log(response.data);
+			console.log('response.data in getallMessages:', response.data);
+			setChatContent(response.data);
 		} catch (error) {
-			console.error(error.message);
+			console.error('Error fetching messages:', error.message);
 		}
 	};
+
+	useEffect(() => {
+		scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+	}, [chatContent]);
 
 	const handleSendMessage = () => {
 		if (message.trim() === '') return;
@@ -87,6 +102,7 @@ const ChatWindow = ({ onClose, receiver }) => {
 			sender: userId,
 			receiver: receiver._id,
 			message: message.trim(),
+			conversation: conversations._id,
 			timestamp: new Date(),
 		};
 
@@ -114,21 +130,19 @@ const ChatWindow = ({ onClose, receiver }) => {
 					Chat with {receiver.username}
 				</div>
 				<div className='chat-content h-64 overflow-y-auto'>
-					{messages &&
-						messages.length > 0 &&
-						messages.map((msg, index) => (
-							<div
-								key={index}
-								className={`message ${
-									msg.sender === userId ? 'sent' : 'received'
-								}`}
-							>
-								<div className='message-content text-black'>
-									<p>{msg.message}</p>
-									<span className='timestamp'>
-										{new Date(msg.timestamp).toLocaleTimeString()}
-									</span>
-								</div>
+					{chatContent &&
+						chatContent.length > 0 &&
+						chatContent.map((msg, index) => (
+							<div key={index} ref={scrollRef}>
+								{msg.sender === userId ? (
+									<div className='chat chat-end'>
+										<div className='chat-bubble'>{msg.message}</div>
+									</div>
+								) : (
+									<div className='chat chat-start'>
+										<div className='chat-bubble'>{msg.message}</div>
+									</div>
+								)}
 							</div>
 						))}
 				</div>
