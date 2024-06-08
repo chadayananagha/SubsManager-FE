@@ -9,6 +9,7 @@ import ChatWindow from "../components/ChatWindow";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-hot-toast";
+import { FaUser } from "react-icons/fa";
 import {
   fetchCategories,
   fetchCategoryPlatforms,
@@ -195,7 +196,6 @@ const Search = () => {
           </label>
         </div>
       </div>
-
       <div className="p-4">
         <p className="text-xl font-semibold mb-2 lg:mx-12">Categories</p>
         <div className="lg:hidden">
@@ -254,7 +254,6 @@ const Search = () => {
           ))}
         </div>
       </div>
-
       <div className="flex gap-2 flex-wrap my-12 justify-center lg:mx-10">
         {(searchInput
           ? searchResults
@@ -280,9 +279,19 @@ const Search = () => {
                 <li
                   key={index}
                   onClick={() => handleUserClick(user._id)}
-                  className="bg-color p-4 cursor-pointer transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:bg-primary text-black hover:text-white mb-4 rounded border border-slate-300 mx-auto w-3/4 md:w-1/2 font-bold"
+                  className="bg-color p-4 cursor-pointer transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:bg-primary text-black hover:text-white mb-4 rounded border border-slate-300 mx-auto w-3/4 md:w-1/2 font-bold flex items-center"
                 >
-                  {user.username}
+                  {user.profilePic ? (
+                    <img
+                      src={user.profilePic.url}
+                      alt={user.username}
+                      className="h-12 w-12 rounded-full mr-2"
+                    />
+                  ) : (
+                    <FaUser size={40} className="mr-2" />
+                  )}
+                  <span className="pl-8">{user.username}</span>
+                  <div className="w-4" /> {/* Add some space */}
                 </li>
               ))}
             </ul>

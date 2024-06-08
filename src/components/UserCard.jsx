@@ -40,8 +40,18 @@ const UserCard = ({
             <FaTimes size={24} />
           </button>
           <div className="font-bold text-2xl mb-4 flex justify-center items-center">
-            <FaUser className="mr-2" />
-            <p className="flex-1 text-center">Owner: {user.username}</p>
+            {user.profilePic ? (
+              <img
+                src={user.profilePic.url}
+                alt="Profile"
+                className="mr-2 h-14 w-14 rounded-full"
+              />
+            ) : (
+              <FaUser className="mr-2" size={30} />
+            )}
+            <span className="flex-1 text-center ml-2">
+              Owner: {user.username}
+            </span>
           </div>
           {user.sharedSubscriptions
             .filter(
