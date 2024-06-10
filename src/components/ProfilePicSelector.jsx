@@ -167,7 +167,7 @@ const ProfilePicSelector = ({ userData, setUserData, userId }) => {
               disabled={!selectedImage || isUploading}
               className="btn btn-primary text-white font-bold py-2 px-4 rounded mt-8"
             >
-              {isUploading ? "Uploading..." : "Upload"}
+              {isUploading ? "Uploading..." : "Update"}
             </button>
           </div>
         </div>
