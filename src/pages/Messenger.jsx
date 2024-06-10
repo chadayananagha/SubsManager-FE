@@ -35,7 +35,7 @@ export const Messenger = () => {
   }, []);
 
   useEffect(() => {
-    const newSocket = io("http://localhost:8080", {
+    const newSocket = io("https://subsmanager-be.onrender.com", {
       query: { token },
     });
     setSocket(newSocket);
@@ -58,7 +58,7 @@ export const Messenger = () => {
     const fetchConversation = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/conversation/${userId}`
+          `https://subsmanager-be.onrender.com/conversation/${userId}`
         );
         // console.log(response.data);
         setConversations(response.data);
@@ -75,7 +75,7 @@ export const Messenger = () => {
   const getAllMessages = async (index, memberIndex) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/chat/${conversations[index]._id}`
+        `https://subsmanager-be.onrender.com/chat/${conversations[index]._id}`
       );
 
       setChatContent(response.data);
