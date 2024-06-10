@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import CategoryCard from "../components/CategoryCard";
 import PlatformCard from "../components/PlatformCard";
 import Loading from "../components/Loading";
@@ -36,6 +36,7 @@ const Search = () => {
   const { token } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const usersSectionRef = useRef(null);
 
   const handleOpenChat = (user) => {
     if (!token) {
@@ -127,6 +128,11 @@ const Search = () => {
         ...prevState,
         [platformName]: users,
       }));
+      setTimeout(() => {
+        if (usersSectionRef.current) {
+          usersSectionRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 0);
     } catch (error) {
       console.error("Error fetching users:", error);
     } finally {
@@ -268,7 +274,7 @@ const Search = () => {
           />
         ))}
       </div>
-      <div className="user-list md:mx-auto mx-4 max-w-lg">
+      <div ref={usersSectionRef} className="user-list md:mx-auto mx-4 max-w-lg">
         {selectedPlatform &&
           Array.isArray(usersByPlatform[selectedPlatform]) && (
             <ul className="text-center">

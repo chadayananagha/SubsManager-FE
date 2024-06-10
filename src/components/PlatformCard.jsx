@@ -1,5 +1,11 @@
 import React from "react";
-import { FaSpotify, FaPlaystation, FaXbox } from "react-icons/fa";
+import {
+  FaSpotify,
+  FaPlaystation,
+  FaXbox,
+  FaQuestionCircle,
+  FaGlobe,
+} from "react-icons/fa";
 import { RiNetflixFill } from "react-icons/ri";
 import { TbBrandHbo, TbBrandDisney } from "react-icons/tb";
 import {
@@ -22,7 +28,7 @@ const PlatformCard = ({ platformName, onClick }) => {
     Amazon: <SiPrime className="text-[#219BFF]" />,
     HBO: <TbBrandHbo />,
     Paramount: <SiParamountplus />,
-    Disney: <TbBrandDisney />,
+    Disney: <TbBrandDisney className="text-green-700" />,
     "Apple TV": <SiAppletv />,
     Spotify: <FaSpotify className="text-green-500" />,
     "Apple Music": (
@@ -37,7 +43,10 @@ const PlatformCard = ({ platformName, onClick }) => {
     DAZN: <SiDazn className="text-black" />,
     Adobe: <SiAdobe className="text-red-500" />,
     Crunchyroll: <SiCrunchyroll className="text-orange-400" />,
+    // Default: <FaQuestionCircle className="text-gray-500" />,
+    Default: <FaGlobe className="text-gray-500" />,
   };
+
   const getPlatformIcon = (platform) => {
     // Convert the platform name to lowercase for case-insensitive comparison
     const platformLowercase = platform?.toLowerCase();
@@ -52,8 +61,8 @@ const PlatformCard = ({ platformName, onClick }) => {
         return platformIcons[key];
       }
     }
-    // Return null if there's no match (or for other platforms)
-    return null;
+    // Return the default icon if there's no match (or for other platforms)
+    return platformIcons.Default;
   };
 
   const Icon = getPlatformIcon(platformName);

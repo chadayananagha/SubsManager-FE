@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { io } from "socket.io-client";
 import axios from "axios";
+import { format } from "timeago.js";
 
 const ChatWindow = ({ onClose, receiver }) => {
   const [message, setMessage] = useState("");
@@ -137,10 +138,16 @@ const ChatWindow = ({ onClose, receiver }) => {
                 {msg.sender === userId ? (
                   <div className="chat chat-end">
                     <div className="chat-bubble">{msg.message}</div>
+                    <div className="text-xs text-gray-500 mt-1 chat-footer">
+                      {format(msg.timestamp)}
+                    </div>
                   </div>
                 ) : (
                   <div className="chat chat-start">
                     <div className="chat-bubble">{msg.message}</div>
+                    <div className="text-xs text-gray-500 mt-1 chat-footer">
+                      {format(msg.timestamp)}
+                    </div>
                   </div>
                 )}
               </div>
