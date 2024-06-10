@@ -3,6 +3,8 @@ import { AuthContext } from "../context/AuthContext";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
 import axios from "axios";
@@ -11,6 +13,8 @@ const SignUp = () => {
   const { login } = authContext;
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isShowingPassword, setIsShowingPassword] = useState(false);
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -100,15 +104,25 @@ const SignUp = () => {
               value={formData.email}
               onChange={handleChange}
             />
-            <input
-              type="password"
-              placeholder="Password"
-              className="input input-bordered sm:w-96  bg-base-200"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
+            <div className="relative">
+              <input
+                type={isShowingPassword ? "text" : "password"}
+                placeholder="Password"
+                className="input input-bordered sm:w-96  bg-base-200"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              <div
+                onClick={() => {
+                  setIsShowingPassword(!isShowingPassword);
+                }}
+                className="absolute right-4 cursor-pointer p-4 top-1/2 -translate-y-1/2"
+              >
+                {isShowingPassword ? <FaEyeSlash /> : <FaEye />}
+              </div>
+            </div>
             {error && <p className="text-red-500 mt-4">{error}</p>}
             <button className="btn-hover btn btn-primary text-white border-none  sm:w-96 w-full py-2 px-4 mt-4">
               Register

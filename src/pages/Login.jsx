@@ -2,15 +2,17 @@ import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
 import Loading from "../components/Loading";
 import axios from "axios";
 
 const Login = () => {
   const authContext = useContext(AuthContext);
-  const { login, token } = authContext;
+  const { login } = authContext;
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isShowingPassword, setIsShowingPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -102,15 +104,27 @@ const Login = () => {
               value={formData.email}
               onChange={handleChange}
             />
-            <input
-              type="password"
-              placeholder="Password"
-              className="input input-bordered sm:w-96  bg-base-200"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
+
+            <div className="relative">
+              <input
+                type={isShowingPassword ? "text" : "password"}
+                placeholder="Password"
+                className="input input-bordered sm:w-96  bg-base-200"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              <div
+                onClick={() => {
+                  setIsShowingPassword(!isShowingPassword);
+                }}
+                className="absolute right-4 cursor-pointer p-4 top-1/2 -translate-y-1/2"
+              >
+                {isShowingPassword ? <FaEyeSlash /> : <FaEye />}
+              </div>
+            </div>
+
             {error && <p className="text-red-500 mt-4">{error}</p>}
             <button
               type="submit"
