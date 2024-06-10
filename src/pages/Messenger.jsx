@@ -179,7 +179,7 @@ export const Messenger = () => {
                         <li key={conversation._id}>
                           <a
                             onClick={() => getAllMessages(index, memberIndex)}
-                            className="pt-4 flex text-lg mb-2 rounded-lg cursor-pointer bg-transparent focus:bg-primary text-black hover:bg-primary hover:text-white"
+                            className="pt-4 flex text-lg mb-2 rounded-lg cursor-pointer bg-transparent focus:bg-primary text-black hover:bg-primary hover:text-white px-2 py-2"
                           >
                             {member.profilePic ? (
                               <img
