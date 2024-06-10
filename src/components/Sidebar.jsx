@@ -87,9 +87,24 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
             </div>
           )}
           <div className="flex flex-col gap-4 mt-36 absolute  justify-center items-center ">
-            <Link to="/profile" className="sideBarNav p-4">
-              Edit Profile
-            </Link>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "activeSideBarNav" : "sideBarNav"
+              }
+              onClick={() => handleSidebar()}
+              to="/profile"
+            >
+              <p className="p-4">Edit Profile</p>
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "activeSideBarNav" : "sideBarNav"
+              }
+              onClick={() => handleSidebar()}
+              to="/messenger"
+            >
+              <p className="p-4">Messenger</p>
+            </NavLink>
             <NavLink
               onClick={() => handleSidebar()}
               to="/subsmanager"
