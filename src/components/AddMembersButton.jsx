@@ -123,12 +123,12 @@ const AddMembersButton = () => {
             )}
           </div>
 
-          <div>Category: {subscription.category}</div>
+          <div>Category: {subscription?.category}</div>
           <div>
-            {subscription.members.length}/{subscription.plan.maxMembers}
+            {subscription?.members.length}/{subscription?.plan.maxMembers}
           </div>
-          <div>{subscription.plan.planName}</div>
-          <div>{subscription.plan.price}</div>
+          <div>{subscription?.plan.planName}</div>
+          <div>{subscription?.plan.price}</div>
         </motion.form>
       )}
       <div>
