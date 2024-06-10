@@ -6,6 +6,7 @@ export default {
 			screens: {
 				xs: '320px',
 				'min-375px': { min: '425px' },
+				'4xl': '2560px',
 			},
 		},
 	},

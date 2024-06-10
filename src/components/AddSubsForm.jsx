@@ -82,7 +82,7 @@ const AddSubsForm = ({ closeForm, handleSubmit }) => {
             </select>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">Platform Name</label>
+            <label className="block">Platform Name</label>
             <input
               type="text"
               name="platformName"
@@ -93,7 +93,7 @@ const AddSubsForm = ({ closeForm, handleSubmit }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">Plan Name</label>
+            <label className="block">Plan Name</label>
             <input
               type="text"
               name="planName"
@@ -104,7 +104,7 @@ const AddSubsForm = ({ closeForm, handleSubmit }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">Price</label>
+            <label className="block">Price</label>
             <input
               type="number"
               name="price"
