@@ -294,7 +294,7 @@ const AddMembersButton = () => {
                     setIsConfirm(false);
                     setUserIdToBeAdded("");
                   }}
-                  className="btn btn-error"
+                  className="btn bg-red-600 hover:bg-red-700"
                 >
                   Cancel
                 </button>
