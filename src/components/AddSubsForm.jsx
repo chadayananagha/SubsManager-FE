@@ -145,7 +145,7 @@ const AddSubsForm = ({ closeForm, handleSubmit }) => {
             />
           </div>
           <div className="mb-4">
-            <label>Display Publicaly</label>
+            <label>Display Publicly</label>
             <input
               name="public"
               type="checkbox"
