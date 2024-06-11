@@ -1,7 +1,5 @@
 import React from "react";
 import { FaCircle, FaTimes, FaUser } from "react-icons/fa";
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
 
 const UserCard = ({
   users,
@@ -13,9 +11,7 @@ const UserCard = ({
   if (!users || users.length === 0) {
     return null;
   }
-  const { userId, token } = useContext(AuthContext);
-  console.log(userId);
-  console.log(users);
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-GB", {
@@ -123,11 +119,9 @@ const UserCard = ({
               );
             })}
           <div className="modal-action">
-            {users[0]._id != userId && (
-              <button className="btn bg-primary" onClick={openChat}>
-                Message
-              </button>
-            )}
+            <button className="btn bg-primary" onClick={openChat}>
+              Message
+            </button>
           </div>
         </div>
       ))}

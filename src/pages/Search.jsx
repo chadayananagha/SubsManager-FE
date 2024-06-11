@@ -33,7 +33,7 @@ const Search = () => {
   const [showChatWindow, setShowChatWindow] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [chatUser, setChatUser] = useState(null);
-  const { token } = useContext(AuthContext);
+  const { token, userId } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const usersSectionRef = useRef(null);
@@ -277,29 +277,65 @@ const Search = () => {
       <div ref={usersSectionRef} className="user-list md:mx-auto mx-4 max-w-lg">
         {selectedPlatform &&
           Array.isArray(usersByPlatform[selectedPlatform]) && (
+            // <ul className="text-center">
+            //   <h1 className="text-center text-3xl font-bold mb-8">
+            //     Available Users
+            //   </h1>
+            //   {usersByPlatform[selectedPlatform].map((user, index) => (
+            //     <li
+            //       key={index}
+            //       onClick={() => handleUserClick(user._id)}
+            //       className="bg-color p-4 cursor-pointer transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:bg-primary text-black hover:text-white mb-4 rounded border border-slate-300 mx-auto w-3/4 md:w-1/2 font-bold flex items-center"
+            //     >
+            //       {user.profilePic ? (
+            //         <img
+            //           src={user.profilePic.url}
+            //           alt={user.username}
+            //           className="h-12 w-12 rounded-full mr-2"
+            //         />
+            //       ) : (
+            //         <FaUser size={40} className="mr-2" />
+            //       )}
+            //       <span className="pl-8">{user.username}</span>
+            //       <div className="w-4" /> {/* Add some space */}
+            //     </li>
+            //   ))}
+            // </ul>
             <ul className="text-center">
-              <h1 className="text-center text-3xl font-bold mb-8">
-                Available Users
-              </h1>
-              {usersByPlatform[selectedPlatform].map((user, index) => (
-                <li
-                  key={index}
-                  onClick={() => handleUserClick(user._id)}
-                  className="bg-color p-4 cursor-pointer transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:bg-primary text-black hover:text-white mb-4 rounded border border-slate-300 mx-auto w-3/4 md:w-1/2 font-bold flex items-center"
-                >
-                  {user.profilePic ? (
-                    <img
-                      src={user.profilePic.url}
-                      alt={user.username}
-                      className="h-12 w-12 rounded-full mr-2"
-                    />
-                  ) : (
-                    <FaUser size={40} className="mr-2" />
-                  )}
-                  <span className="pl-8">{user.username}</span>
-                  <div className="w-4" /> {/* Add some space */}
-                </li>
-              ))}
+              {usersByPlatform[selectedPlatform].filter(
+                (user) => user._id !== userId
+              ).length > 0 ? (
+                <>
+                  <h1 className="text-center text-3xl font-bold mb-8">
+                    Available Users
+                  </h1>
+                  {usersByPlatform[selectedPlatform]
+                    .filter((user) => user._id !== userId)
+                    .map((user, index) => (
+                      <li
+                        key={index}
+                        onClick={() => handleUserClick(user._id)}
+                        className="bg-color p-4 cursor-pointer transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:bg-primary text-black hover:text-white mb-4 rounded border border-slate-300 mx-auto w-3/4 md:w-1/2 font-bold flex items-center"
+                      >
+                        {user.profilePic ? (
+                          <img
+                            src={user.profilePic.url}
+                            alt={user.username}
+                            className="h-12 w-12 rounded-full mr-2"
+                          />
+                        ) : (
+                          <FaUser size={40} className="mr-2" />
+                        )}
+                        <span className="pl-8">{user.username}</span>
+                        <div className="w-4" /> {/* Add some space */}
+                      </li>
+                    ))}
+                </>
+              ) : (
+                <h1 className="text-center text-3xl font-bold mb-8">
+                  No users found
+                </h1>
+              )}
             </ul>
           )}
       </div>

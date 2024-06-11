@@ -4,6 +4,7 @@ import { io } from "socket.io-client";
 import axios from "axios";
 import { format } from "timeago.js";
 import { FaUser } from "react-icons/fa";
+import Loading from "../components/Loading";
 
 export const Messenger = () => {
   const { userId, token, profilePic } = useContext(AuthContext);
@@ -15,6 +16,7 @@ export const Messenger = () => {
   const [socket, setSocket] = useState(null);
   const [chatContent, setChatContent] = useState([]);
   const chatContentRef = useRef(null);
+  const [loading, setLoading] = useState(true);
 
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
   const [showConversations, setShowConversations] = useState(true);
@@ -42,10 +44,8 @@ export const Messenger = () => {
 
     // Handle receiving messages
     newSocket.on("receiveMessage", (msg) => {
-      console.log(msg);
       if (msg?.sender === selectedReceiverId || msg?.receiver === userId) {
         setChatContent((prevChatContent) => [...prevChatContent, msg]);
-        console.log("this is chat content:", chatContent);
       }
     });
     // Cleanup on unmount
@@ -54,19 +54,54 @@ export const Messenger = () => {
     };
   }, [token, selectedReceiverId, userId]);
 
+  // useEffect(() => {
+  //   const fetchConversation = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `https://subsmanager-be.onrender.com/conversation/${userId}`
+  //       );
+  //       // console.log(response.data);
+  //       setConversations(response.data);
+  //       // console.log(messages);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   if (userId) {
+  //     fetchConversation();
+  //   }
+  // }, [userId]);
   useEffect(() => {
     const fetchConversation = async () => {
       try {
         const response = await axios.get(
           `https://subsmanager-be.onrender.com/conversation/${userId}`
         );
-        // console.log(response.data);
-        setConversations(response.data);
-        // console.log(messages);
+        const conversationsData = response.data;
+
+        // Fetch last messages for all conversations
+        const conversationsWithLastMessages = await Promise.all(
+          conversationsData.map(async (conversation) => {
+            const chatResponse = await axios.get(
+              `https://subsmanager-be.onrender.com/chat/${conversation._id}`
+            );
+            const chatContent = chatResponse.data;
+            const lastMessage =
+              chatContent.length > 0
+                ? chatContent[chatContent.length - 1]
+                : null;
+
+            return { ...conversation, lastMessage };
+          })
+        );
+
+        setConversations(conversationsWithLastMessages);
+        setLoading(false);
       } catch (error) {
         console.error(error);
       }
     };
+
     if (userId) {
       fetchConversation();
     }
@@ -136,6 +171,20 @@ export const Messenger = () => {
       chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
     }
   }, [chatContent]);
+  if (loading) {
+    return (
+      <div className="pt-24 h-screen flex justify-center items-center bg-base-200/100 absolute w-screen z-20">
+        <Loading />
+      </div>
+    );
+  }
+  if (loading) {
+    return (
+      <div className="pt-24 h-screen flex justify-center items-center bg-base-200/100 absolute w-screen z-20">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1">
@@ -190,14 +239,17 @@ export const Messenger = () => {
                             ) : (
                               <FaUser size={24} className="mr-2 ml-2" />
                             )}
+
                             <div>
-                              <div>{member.username}</div>
+                              <div className="font-bold">{member.username}</div>
                               <div className="text-sm">
-                                {latestMessage
-                                  ? format(latestMessage.timestamp)
+                                {conversation.lastMessage
+                                  ? format(conversation.lastMessage.timestamp)
                                   : ""}
                                 <br />
-                                {lastMessage ? lastMessage.message : ""}
+                                {conversation.lastMessage
+                                  ? conversation.lastMessage.message
+                                  : ""}
                               </div>
                             </div>
                           </a>
