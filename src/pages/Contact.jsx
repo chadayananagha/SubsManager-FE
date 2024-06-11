@@ -1,6 +1,5 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-import contact from "../../public/images/contact.png";
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -43,7 +42,7 @@ const Contact = () => {
   return (
     <div className="flex flex-1 xl:justify-center 2xl:justify-center">
       <div className="hidden lg:block">
-        <img src={contact} alt="contact" className="mt-32" />
+        <img src="/images/contact.png" alt="contact" className="mt-32" />
       </div>
       <div className="max-w-lg w-1/2 p-8 mt-20 mb-8 mx-auto xl:mx-0 flex-1 2xl:ml-40 2xl:mr-40">
         <h2 className="text-2xl font-bold mb-6 text-center">Contact Us</h2>

@@ -184,7 +184,7 @@ const AddMembersButton = () => {
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
           transition={{ height: { duration: 0.5 }, opacity: { duration: 0.2 } }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center gap-4  rounded-xl z-10 px-14 py-8 shadow-[0_0_0_10000px_rgba(0,0,0,.40)] bg-base-100"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center gap-4  rounded-lg z-10 px-14 py-8 shadow-[0_0_0_10000px_rgba(0,0,0,.40)] bg-base-100"
         >
           {isLoading && (
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-base-100/70 w-full h-full z-30 flex justify-center items-center">

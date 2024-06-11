@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IoMdCloseCircle } from "react-icons/io";
+import { motion } from "framer-motion";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
 const AddSubsForm = ({ closeForm, handleSubmit }) => {
@@ -50,7 +51,13 @@ const AddSubsForm = ({ closeForm, handleSubmit }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-base-100 p-6 rounded shadow-lg w-full max-w-md sm:max-w-lg lg:max-w-xl">
+      <motion.div
+        initial={{ height: 0, opacity: 0 }}
+        animate={{ height: "auto", opacity: 1 }}
+        exit={{ height: 0, opacity: 0 }}
+        transition={{ height: { duration: 0.5 }, opacity: { duration: 0.2 } }}
+        className="bg-base-100 rounded-lg p-6  shadow-lg w-full max-w-md sm:max-w-lg lg:max-w-xl overflow-hidden"
+      >
         {/* <IoMdCloseCircle className='hover:cursor-pointer' /> */}
         <button
           type="button"
@@ -154,7 +161,7 @@ const AddSubsForm = ({ closeForm, handleSubmit }) => {
             Submit
           </button>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 };

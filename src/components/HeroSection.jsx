@@ -54,9 +54,6 @@ const HeroSection = () => {
             >
               {token ? (
                 <div>
-                  <AnimatePresence>
-                    <AddMembersButton />
-                  </AnimatePresence>
                   <Link
                     to="/startsharing"
                     className=" relative text-nowrap btn bg-[#FF5733]  hover:bg-[#CC4629] justify-center items-center overflow-hidden group px-32 scale-125 md:ml-12 "

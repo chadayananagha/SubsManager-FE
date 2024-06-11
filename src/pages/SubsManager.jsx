@@ -2,12 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { fetchUserData } from "../utils/userAPI";
 import Loading from "../components/Loading";
+import AddMembersButton from "../components/AddMembersButton";
 import AddSubsForm from "../components/AddSubsForm";
 import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
-import { FaRegUser } from "react-icons/fa6";
-import Receipt from "/images/Receipt.png";
-import savings from "/images/savings.png";
+import { FaUser } from "react-icons/fa";
+
+import { AnimatePresence } from "framer-motion";
 const SubsManager = () => {
   const { userId, token } = useContext(AuthContext);
   const [user, setUser] = useState(null); /** to set logged in user */
@@ -110,7 +111,7 @@ const SubsManager = () => {
         <img
           // className='absolute right-8 top-20 lg;right xl:right-12 2xl:right-16 2xl:top-24 4xl:top-32 h-1/3 hidden lg:block -z-20'
           className="absolute top-20 right-8 lg:-right-0 xl:right-10 2xl:right-16 2xl:top-24 4xl:right-24 4xl:top-32 lg:h-1/3 xl:h-1/2 hidden lg:block -z-20"
-          src={savings}
+          src="/images/savings.png"
           alt="Sidebar illustration"
         />
         <div className="max-w-2xl md:mx-auto mx-4  p-8 bg-base-200 shadow-lg rounded-lg mt-28 mb-28">
@@ -121,20 +122,33 @@ const SubsManager = () => {
               {/* displaying the logged in username */}
               <span className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-2">
-                  <FaRegUser className="bg-primary rounded-xl" size={26} />
+                  {user.profilePic.url ? (
+                    <img
+                      src={user.profilePic.url}
+                      alt={user.username}
+                      className="h-12 w-12 rounded-full"
+                    />
+                  ) : (
+                    <FaUser size={24} />
+                  )}
                   <h5 className="text-xl font-semibold text-primary">
                     {user.username}
                   </h5>
                 </div>
-                <button
-                  className="btn bg-primary rounded-md shadow-sm"
-                  onClick={formOpens}
-                >
-                  <span className="block min-375px:hidden">+</span>
-                  <span className="hidden min-375px:block">
-                    Add New Subscription
-                  </span>
-                </button>
+                <div className="flex gap-4">
+                  <button
+                    className="btn btn-primary rounded-md shadow-sm"
+                    onClick={formOpens}
+                  >
+                    <span className="block min-375px:hidden">+</span>
+                    <span className="hidden min-375px:block">
+                      Add New Subscription
+                    </span>
+                  </button>
+                  <AnimatePresence>
+                    <AddMembersButton />
+                  </AnimatePresence>
+                </div>
               </span>
 
               {/* To display the subscription the user has */}
@@ -183,7 +197,7 @@ const SubsManager = () => {
         </div>
         <img
           className="absolute -bottom-6 -left-8 lg:-left-8 xl:left-12 2xl:left-16 xl:-bottom-9 lg:h-1/3 xl:h-1/2 2xl:-bottom-11 hidden lg:block -z-20 4xl:-bottom-16"
-          src={Receipt}
+          src="/images/Receipt.png"
           alt="Sidebar illustration"
         />
       </div>
