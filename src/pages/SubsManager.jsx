@@ -122,10 +122,10 @@ const SubsManager = () => {
               {/* displaying the logged in username */}
               <span className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-2">
-                  {user.profilePic.url ? (
+                  {user?.profilePic?.url ? (
                     <img
-                      src={user.profilePic.url}
-                      alt={user.username}
+                      src={user?.profilePic?.url}
+                      alt={user?.username}
                       className="h-12 w-12 rounded-full"
                     />
                   ) : (
