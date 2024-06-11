@@ -78,7 +78,8 @@ const UserProfile = () => {
       const updatedData = response.data;
       updatedData.profileCompletionScore =
         calculateProfileCompletionScore(updatedData);
-      setUserData(updatedData);
+      // setUserData(updatedData);
+      setUserData((prev) => ({ ...prev, ...updatedData }));
       setIsEditing(false);
     } catch (error) {
       console.error("Error updating user data:", error);
