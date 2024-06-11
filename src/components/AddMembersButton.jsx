@@ -7,6 +7,7 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import Loading from "./Loading";
 import toast from "react-hot-toast";
+import { MdPersonAdd } from "react-icons/md";
 const AddMembersButton = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [sharedSub, setSharedSub] = useState([]);
@@ -312,7 +313,10 @@ const AddMembersButton = () => {
           className="btn btn-primary"
           disabled={isAdding}
         >
-          Add members
+          <span className="block md:hidden">
+            <MdPersonAdd />
+          </span>
+          <span className="hidden md:block">Add members</span>
         </button>
       </div>
     </>

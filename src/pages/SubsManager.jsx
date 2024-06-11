@@ -7,7 +7,7 @@ import AddSubsForm from "../components/AddSubsForm";
 import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
-
+import { MdSubscriptions } from "react-icons/md";
 import { AnimatePresence } from "framer-motion";
 const SubsManager = () => {
   const { userId, token } = useContext(AuthContext);
@@ -121,7 +121,7 @@ const SubsManager = () => {
             <div className="wrapper flex-1">
               {/* displaying the logged in username */}
               <span className="flex items-center justify-between mb-4">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center md:space-x-1">
                   {user.profilePic.url ? (
                     <img
                       src={user.profilePic.url}
@@ -135,13 +135,15 @@ const SubsManager = () => {
                     {user.username}
                   </h5>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-1 md:gap-4">
                   <button
                     className="btn btn-primary rounded-md shadow-sm"
                     onClick={formOpens}
                   >
-                    <span className="block min-375px:hidden">+</span>
-                    <span className="hidden min-375px:block">
+                    <span className="block md:hidden">
+                      <MdSubscriptions />
+                    </span>
+                    <span className="hidden md:block">
                       Add New Subscription
                     </span>
                   </button>
@@ -159,6 +161,7 @@ const SubsManager = () => {
                 <div className="flex justify-between font-semibold mb-3 mt-6">
                   <h5 className="flex-1">Platform Name</h5>
                   <h5 className="flex-1 text-center ml-4">Price</h5>
+                  <h5 className="flex-1 text-center ml-4">Type</h5>
                   <h5 className="flex-1 text-right">Action</h5>
                 </div>
                 <ul className="space-y-2 mb-4">
@@ -172,7 +175,12 @@ const SubsManager = () => {
                           <p>{subscription.platformName}</p>
                         </div>
                         <div className="flex-1">
-                          <p>{subscription.plan.price} €</p>
+                          <p className="md:ms-2">{subscription.plan.price} €</p>
+                        </div>
+                        <div className="flex-1">
+                          <p className="md:ms-[-20px]">
+                            {subscription.public ? "Public" : "Private"}
+                          </p>
                         </div>
                         <div className="float-right hover:cursor-pointer">
                           <MdDelete onClick={() => deleteSubscription(index)} />
