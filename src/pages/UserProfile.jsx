@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useJwt } from "react-jwt";
 import { AuthContext } from "../context/AuthContext";
@@ -7,16 +7,20 @@ import ProfilePicSelector from "../components/ProfilePicSelector";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Loading from "../components/Loading";
 import CountryDropdown from "../components/CountryDropdown";
+import ReactCountryFlag from "react-country-flag";
 
 const UserProfile = () => {
   const { userId, token, updateProfilePic } = useContext(AuthContext);
   const { decodedToken } = useJwt(token);
   const username = decodedToken?.username;
 
+  const [clickCount, setClickCount] = useState(0);
+
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
     country: "",
+    countryCode: "",
     email: "",
     profilePic: "",
     profileCompletionScore: 0,
@@ -24,6 +28,34 @@ const UserProfile = () => {
 
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(userId).then(() => {
+      setIsCopied(true);
+      setClickCount((prevCount) => prevCount + 1);
+      setTimeout(() => {
+        setIsCopied(false);
+        setClickCount(0);
+      }, 10000);
+    });
+  };
+
+  const getButtonText = () => {
+    if (clickCount >= 50) return "GOD LIKE!!!!!";
+    if (clickCount >= 40) return "FATALITY";
+    if (clickCount >= 30) return "INSANE";
+    if (clickCount >= 20) return "OMG";
+    if (clickCount >= 10) return "CRAZY COPY";
+    return isCopied ? " ID copied ✓" : "Copy ID";
+  };
+
+  const getButtonClass = () => {
+    if (clickCount >= 50) return "btn bg-red-600 text-white hover:bg-red-600";
+    return isCopied
+      ? "btn border-green-500 bg-green-100 text-green-800 hover:bg-green-100 hover:border-green-500 hover:text-green-800"
+      : "btn bg-base-300";
+  };
 
   const localAPI = "http://localhost:8080";
   const deployedAPI = "https://subsmanager-be.onrender.com";
@@ -41,7 +73,7 @@ const UserProfile = () => {
     const fetchUserData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`${deployedAPI}/users/${userId}`);
+        const response = await axios.get(`${localAPI}/users/${userId}`);
         const userData = response.data;
         userData.profileCompletionScore =
           calculateProfileCompletionScore(userData);
@@ -64,6 +96,9 @@ const UserProfile = () => {
       ...userData,
       [e.target.name]: e.target.value,
     };
+    if (e.target.code) {
+      updatedUserData.countryCode = e.target.code;
+    }
     updatedUserData.profileCompletionScore =
       calculateProfileCompletionScore(updatedUserData);
     setUserData(updatedUserData);
@@ -71,10 +106,7 @@ const UserProfile = () => {
 
   const handleSave = async () => {
     try {
-      const response = await axios.put(
-        `${deployedAPI}/users/${userId}`,
-        userData
-      );
+      const response = await axios.put(`${localAPI}/users/${userId}`, userData);
       const updatedData = response.data;
       updatedData.profileCompletionScore =
         calculateProfileCompletionScore(updatedData);
@@ -106,9 +138,26 @@ const UserProfile = () => {
                       userData={userData}
                       setUserData={setUserData}
                     />
-                    <h3 className="text-3xl font-semibold text-primary mt-4">
-                      {username}
-                    </h3>
+                    <div className="flex items-baseline gap-2 p-5">
+                      <h3 className=" text-3xl font-semibold text-primary mt-4">
+                        {username}
+                      </h3>
+
+                      <ReactCountryFlag
+                        style={{
+                          width: "1.5em",
+                          height: "1.5em",
+                          marginRight: "0.5em",
+                          borderRadius: "0.4em",
+                        }}
+                        countryCode={userData.countryCode}
+                        svg
+                        title={userData.countryCode}
+                      />
+                    </div>
+                    <button className={getButtonClass()} onClick={handleCopy}>
+                      {getButtonText()}
+                    </button>
                   </div>
 
                   <div className="px-6 pb-5 flex flex-col items-center">
@@ -158,8 +207,8 @@ const UserProfile = () => {
                           <dt className="text-lg font-medium text-bold">
                             Country
                           </dt>
-                          <dd className="mt-1 text-lg sm:mt-0 sm:col-span-2">
-                            {userData.country}
+                          <dd className=" mt-1 text-lg sm:mt-0 sm:col-span-2">
+                            {userData.country}{" "}
                           </dd>
                         </div>
                       </dl>
