@@ -73,7 +73,7 @@ const UserProfile = () => {
     const fetchUserData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`${localAPI}/users/${userId}`);
+        const response = await axios.get(`${deployedAPI}/users/${userId}`);
         const userData = response.data;
         userData.profileCompletionScore =
           calculateProfileCompletionScore(userData);
@@ -105,8 +105,12 @@ const UserProfile = () => {
   };
 
   const handleSave = async () => {
+    console.log("$$$$$$$$$$$$$$$$$", userData);
     try {
-      const response = await axios.put(`${localAPI}/users/${userId}`, userData);
+      const response = await axios.put(
+        `${deployedAPI}/users/${userId}`,
+        userData
+      );
       const updatedData = response.data;
       updatedData.profileCompletionScore =
         calculateProfileCompletionScore(updatedData);
@@ -116,6 +120,8 @@ const UserProfile = () => {
       console.error("Error updating user data:", error);
     }
   };
+
+  console.log(userData);
 
   return (
     <div className="flex-1 relative">
