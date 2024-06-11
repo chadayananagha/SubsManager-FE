@@ -35,24 +35,22 @@
   @apply btn-fantasy;
 }
 
-/* signup&loginpage */
-.bg-theme-business {
-  background-image: url("./assets/heroPic.png");
-  background-size: cover;
+[data-theme="business"] .bg-hero {
+  background: linear-gradient(355deg, #1c4e8099 0%, #202020 40%);
 }
 
-.bg-theme-fantasy {
-  background-image: url("./assets/heroPic.png");
-  background-size: cover;
+[data-theme="fantasy"] .bg-hero {
+  background: linear-gradient(355deg, #0075c285 0%, #f3f4f6 40%);
 }
 
-[data-theme="business"] .bg-themed {
-  @apply bg-theme-business;
+[data-theme="business"] .bg-sect {
+  background: linear-gradient(185deg, #1c4e8099 0%, #202020 50%);
 }
 
-[data-theme="fantasy"] .bg-themed {
-  @apply bg-theme-fantasy;
+[data-theme="fantasy"] .bg-sect {
+  background: linear-gradient(185deg, #0075c285 0%, #f3f4f6 50%);
 }
+
 /* signup page */
 .btn-hover-business:hover {
   background-color: #171717;
@@ -84,10 +82,10 @@
 }
 /* search page */
 .bg-color-fantasy {
-  background-color: white;
+  color: black;
 }
 .bg-color-business {
-  background-color: #c0c1c2;
+  color: #c0c1c2;
 }
 
 [data-theme="business"] .bg-color {
@@ -96,4 +94,27 @@
 
 [data-theme="fantasy"] .bg-color {
   @apply bg-color-fantasy;
+}
+.about-fantasy {
+  color: black;
+}
+.about-fantasy:hover {
+  color: black;
+}
+.about-business {
+}
+
+[data-theme="business"] .about-color {
+  @apply about-business;
+}
+
+[data-theme="fantasy"] .about-color {
+  @apply about-fantasy;
+}
+[data-theme="fantasy"] .group:hover .about-color {
+  @apply about-fantasy;
+}
+
+.no-scroll {
+  overflow: hidden;
 }

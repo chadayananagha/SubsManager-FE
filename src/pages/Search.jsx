@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import CategoryCard from "../components/CategoryCard";
 import PlatformCard from "../components/PlatformCard";
 import Loading from "../components/Loading";
 import categoryIcons from "../data/CategoryIcons";
+import { platformName } from "../utils/icons.jsx";
 import UserCard from "../components/UserCard";
 import ChatWindow from "../components/ChatWindow";
+import { useNavigate, useLocation } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import { toast } from "react-hot-toast";
+import { FaUser } from "react-icons/fa";
 import {
   fetchCategories,
   fetchCategoryPlatforms,
@@ -27,8 +32,25 @@ const Search = () => {
   const [loading, setLoading] = useState(true);
   const [showChatWindow, setShowChatWindow] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [chatUser, setChatUser] = useState(null);
+  const { token, userId } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const usersSectionRef = useRef(null);
 
-  const handleOpenChat = () => {
+  const handleOpenChat = (user) => {
+    if (!token) {
+      toast.error("You need to be logged in to send messages.", {
+        duration: 1000,
+      });
+      navigate(
+        "/login",
+        { state: { from: location.pathname } },
+        { duration: 1000 }
+      ); // Redirect to login page
+      return;
+    }
+    setChatUser(user);
     setShowChatWindow(true);
     setShowUserCard(false);
   };
@@ -106,6 +128,11 @@ const Search = () => {
         ...prevState,
         [platformName]: users,
       }));
+      setTimeout(() => {
+        if (usersSectionRef.current) {
+          usersSectionRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 0);
     } catch (error) {
       console.error("Error fetching users:", error);
     } finally {
@@ -117,7 +144,7 @@ const Search = () => {
     try {
       setLoading(true);
       const user = await fetchUserById(userId);
-      setSelectedUser({ ...user, platform: selectedPlatform }); // Add platform to the user details
+      setSelectedUser({ ...user, platform: selectedPlatform });
       setShowUserCard(true);
     } catch (error) {
       console.error("Error fetching user details:", error);
@@ -175,7 +202,6 @@ const Search = () => {
           </label>
         </div>
       </div>
-
       <div className="p-4">
         <p className="text-xl font-semibold mb-2 lg:mx-12">Categories</p>
         <div className="lg:hidden">
@@ -234,7 +260,6 @@ const Search = () => {
           ))}
         </div>
       </div>
-
       <div className="flex gap-2 flex-wrap my-12 justify-center lg:mx-10">
         {(searchInput
           ? searchResults
@@ -249,22 +274,68 @@ const Search = () => {
           />
         ))}
       </div>
-      <div className="user-list md:mx-auto mx-4 max-w-lg">
+      <div ref={usersSectionRef} className="user-list md:mx-auto mx-4 max-w-lg">
         {selectedPlatform &&
           Array.isArray(usersByPlatform[selectedPlatform]) && (
+            // <ul className="text-center">
+            //   <h1 className="text-center text-3xl font-bold mb-8">
+            //     Available Users
+            //   </h1>
+            //   {usersByPlatform[selectedPlatform].map((user, index) => (
+            //     <li
+            //       key={index}
+            //       onClick={() => handleUserClick(user._id)}
+            //       className="bg-color p-4 cursor-pointer transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:bg-primary text-black hover:text-white mb-4 rounded border border-slate-300 mx-auto w-3/4 md:w-1/2 font-bold flex items-center"
+            //     >
+            //       {user.profilePic ? (
+            //         <img
+            //           src={user.profilePic.url}
+            //           alt={user.username}
+            //           className="h-12 w-12 rounded-full mr-2"
+            //         />
+            //       ) : (
+            //         <FaUser size={40} className="mr-2" />
+            //       )}
+            //       <span className="pl-8">{user.username}</span>
+            //       <div className="w-4" /> {/* Add some space */}
+            //     </li>
+            //   ))}
+            // </ul>
             <ul className="text-center">
-              <h1 className="text-center text-3xl font-bold mb-8">
-                Available Users
-              </h1>
-              {usersByPlatform[selectedPlatform].map((user, index) => (
-                <li
-                  key={index}
-                  onClick={() => handleUserClick(user._id)}
-                  className="bg-color p-4 cursor-pointer transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:bg-primary text-black hover:text-white mb-4 rounded border border-slate-300 mx-auto w-3/4 md:w-1/2 font-bold"
-                >
-                  {user.username}
-                </li>
-              ))}
+              {usersByPlatform[selectedPlatform].filter(
+                (user) => user._id !== userId
+              ).length > 0 ? (
+                <>
+                  <h1 className="text-center text-3xl font-bold mb-8">
+                    Available Users
+                  </h1>
+                  {usersByPlatform[selectedPlatform]
+                    .filter((user) => user._id !== userId)
+                    .map((user, index) => (
+                      <li
+                        key={index}
+                        onClick={() => handleUserClick(user._id)}
+                        className="bg-base-200 p-4 cursor-pointer transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:bg-primary  hover:text-white mb-4 rounded border border-slate-300 mx-auto w-3/4 md:w-1/2 font-bold flex items-center"
+                      >
+                        {user.profilePic ? (
+                          <img
+                            src={user.profilePic.url}
+                            alt={user.username}
+                            className="h-12 w-12 rounded-full mr-2"
+                          />
+                        ) : (
+                          <FaUser size={40} className="mr-2" />
+                        )}
+                        <span className="pl-8">{user.username}</span>
+                        <div className="w-4" /> {/* Add some space */}
+                      </li>
+                    ))}
+                </>
+              ) : (
+                <h1 className="text-center text-3xl font-bold mb-8">
+                  No users found
+                </h1>
+              )}
             </ul>
           )}
       </div>
@@ -274,11 +345,13 @@ const Search = () => {
           users={[selectedUser]}
           showModal={showUserCard}
           setShowModal={setShowUserCard}
-          selectedPlatform={selectedPlatform} // Pass selectedPlatform to UserCard
-          openChat={handleOpenChat}
+          selectedPlatform={selectedPlatform}
+          openChat={() => handleOpenChat(selectedUser)}
         />
       )}
-      {showChatWindow && <ChatWindow onClose={handleCloseChat} />}
+      {showChatWindow && (
+        <ChatWindow receiver={chatUser} onClose={handleCloseChat} />
+      )}
     </div>
   );
 };

@@ -13,7 +13,7 @@ const categoryIcons = {
   Entertainment: MdLocalMovies,
   Gaming: FaGamepad,
   "e-Learning": FaGraduationCap,
-  Other: HiMiniSquaresPlus,
+  Others: HiMiniSquaresPlus,
   Office: FaBuilding,
 };
 

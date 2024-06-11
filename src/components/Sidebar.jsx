@@ -2,26 +2,48 @@ import { IoMdClose } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import ThemeToggler from "./ThemeToggler";
 import { toast } from "react-hot-toast";
-import { Link, NavLink } from "react-router-dom";
-import { useContext } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useContext, useRef, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useJwt } from "react-jwt";
 const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
-  const { token, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { token, logout, profilePic } = useContext(AuthContext);
   //*Decode the Token
   const { decodedToken } = useJwt(token);
-  //*Get the username from decoded token
+  const username = decodedToken?.username;
+
+  const sidebarRef = useRef(null);
 
   //*logout Function
   const handleLogout = () => {
     logout();
     handleSidebar();
+    navigate("/");
     toast.success("Successfully logged out!");
   };
+  //*clicking outside of the sidebar
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target) &&
+        isSidebarOpen
+      ) {
+        handleSidebar();
+      }
+    };
 
-  const username = decodedToken?.username;
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [handleSidebar, sidebarRef, isSidebarOpen]);
+  // console.log(profilePic);
+
   return (
     <div
+      ref={sidebarRef}
       className={`fixed  right-0 top-0 bottom-0  h-dvh bg-base-100 transition-[width] duration-800 flex flex-col no-wrap justify-center items-center overflow-hidden ${
         isSidebarOpen
           ? "w-2/3 lg:w-1/4 shadow-[0_0_0_10000px_rgba(0,0,0,.40)]  "
@@ -42,23 +64,47 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
       </div>
       {token ? (
         <>
-          <div className="avatar placeholder flex flex-col justify-center items-center gap-8 cursor-pointer absolute top-24 ">
-            <p className="text-2xl ">
+          <div className="absolute top-24 flex justify-center items-center">
+            <p className="text-2xl text-center text-balance">
               Welcome{" "}
-              <span className="font-extrabold tracking-wider text-primary text-2xl">
+              <span className="font-extrabold tracking-wider text-primary text-2xl ">
                 {username}
               </span>
             </p>
-            <div className="bg-zinc-300 border border-zinc-200 text-neutral-content rounded-full w-16 overflow-hidden ">
+          </div>
+
+          {profilePic ? (
+            <div className="avatar hidden md:block absolute md:top-36 ">
+              <div className="w-16 rounded-full">
+                <img src={profilePic} />
+              </div>
+            </div>
+          ) : (
+            <div className="bg-zinc-300 hidden md:block absolute md:top-36 border border-zinc-200 text-neutral-content rounded-full w-16 overflow-hidden ">
               <span className="text-6xl  text-base-100 mt-2">
                 <FaUser />
               </span>
             </div>
-          </div>
+          )}
           <div className="flex flex-col gap-4 mt-36 absolute  justify-center items-center ">
-            <Link to="/profile" className="sideBarNav p-4">
-              Edit Profile
-            </Link>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "activeSideBarNav" : "sideBarNav"
+              }
+              onClick={() => handleSidebar()}
+              to="/profile"
+            >
+              <p className="p-4">Edit Profile</p>
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "activeSideBarNav" : "sideBarNav"
+              }
+              onClick={() => handleSidebar()}
+              to="/messenger"
+            >
+              <p className="p-4">Messenger</p>
+            </NavLink>
             <NavLink
               onClick={() => handleSidebar()}
               to="/subsmanager"
@@ -77,7 +123,7 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
             >
               <p className="p-4">Search for subscriptions</p>
             </NavLink>
-            <NavLink
+            {/* <NavLink
               onClick={() => handleSidebar()}
               to="/contact"
               className={({ isActive }) =>
@@ -99,14 +145,14 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
               onClick={() => handleSidebar()}
               to="/about"
               className={({ isActive }) =>
-                isActive ? "activeSideBarNav" : "sideBarNav"
+                isActive ? "activeSideBarNav" : "sideBarNav z-10"
               }
             >
               <p className="p-4">About</p>
-            </NavLink>
+            </NavLink> */}
             <button
               onClick={handleLogout}
-              className="z-10 btn btn-error px-16 text-lg "
+              className="z-10 btn bg-red-600 hover:bg-red-700 px-16 text-lg text-base-100 "
             >
               Log out
             </button>

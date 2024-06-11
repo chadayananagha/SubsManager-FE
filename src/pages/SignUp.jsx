@@ -3,6 +3,9 @@ import { AuthContext } from "../context/AuthContext";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
+import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
 import axios from "axios";
 const SignUp = () => {
@@ -10,6 +13,8 @@ const SignUp = () => {
   const { login } = authContext;
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isShowingPassword, setIsShowingPassword] = useState(false);
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -99,21 +104,35 @@ const SignUp = () => {
               value={formData.email}
               onChange={handleChange}
             />
-            <input
-              type="password"
-              placeholder="Password"
-              className="input input-bordered sm:w-96  bg-base-200"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
+            <div className="relative">
+              <input
+                type={isShowingPassword ? "text" : "password"}
+                placeholder="Password"
+                className="input input-bordered sm:w-96  bg-base-200"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              <div
+                onClick={() => {
+                  setIsShowingPassword(!isShowingPassword);
+                }}
+                className="absolute right-4 cursor-pointer p-4 top-1/2 -translate-y-1/2"
+              >
+                {isShowingPassword ? <FaEyeSlash /> : <FaEye />}
+              </div>
+            </div>
             {error && <p className="text-red-500 mt-4">{error}</p>}
             <button className="btn-hover btn btn-primary text-white border-none  sm:w-96 w-full py-2 px-4 mt-4">
               Register
             </button>
             <p>Or connect with social media</p>
-            <button className="btn bg-red-800 text-white  sm:w-96 w-full py-2 px-4 mt-4 flex items-center justify-center">
+            <Link
+              target="_blank"
+              to="https://www.google.com/"
+              className="btn bg-red-800 text-white  sm:w-96 w-full py-2 px-4 mt-4 flex items-center justify-center"
+            >
               <svg
                 className="w-5 h-5 mr-2"
                 xmlns="http://www.w3.org/2000/svg"
@@ -138,8 +157,12 @@ const SignUp = () => {
                 <path fill="none" d="M0 0h48v48H0z" />
               </svg>
               Sign in with Google
-            </button>
-            <button className="btn bg-blue-600 text-white  sm:w-96 w-full py-2 px-4 mt-4 flex items-center justify-center">
+            </Link>
+            <Link
+              target="_blank"
+              to="https://www.facebook.com/"
+              className="btn bg-blue-600 text-white  sm:w-96 w-full py-2 px-4 mt-4 flex items-center justify-center"
+            >
               <svg
                 className="w-5 h-5 mr-2"
                 xmlns="http://www.w3.org/2000/svg"
@@ -151,7 +174,7 @@ const SignUp = () => {
                 />
               </svg>
               Sign in with Facebook
-            </button>
+            </Link>
             <p className="text-center">
               Already have an account ?
               <a className="font-bold text-primary" href="/login">

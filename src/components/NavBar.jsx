@@ -10,9 +10,9 @@ import { useJwt } from "react-jwt";
 const NavBar = () => {
   //*context
   const authContext = useContext(AuthContext);
-  const { logout, token } = authContext;
+  const { token, profilePic } = authContext;
   const { decodedToken } = useJwt(token);
-  // console.log(decodedToken?.username);
+  // console.log(decodedToken);
 
   //*Change burgerMenu on hover
   const [isHovered, setIsHovered] = useState(false);
@@ -37,7 +37,13 @@ const NavBar = () => {
   //*Open and close sidebar
   const handleSidebar = () => {
     setIsSideBarOpen((prev) => !prev);
+    if (!isSidebarOpen) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
   };
+
   return (
     <div
       className={`fixed top-0 left-0 z-50  w-full p-4 flex justify-between items-center transition-all duration-500 ${
@@ -71,6 +77,17 @@ const NavBar = () => {
         <ThemeToggler />
         <Link
           to="/startsharing"
+          className=" relative text-nowrap btn bg-[#FF5733]  hover:bg-[#CC4629]  justify-center items-center overflow-hidden group px-8 "
+        >
+          <span className="   py-4 flex justify-center items-center opacity-100 group-hover:opacity-0 group-hover:-translate-y-full transition-all duration-1000 text-base-100">
+            Start sharing
+          </span>
+          <span className=" py-4 absolute  opacity-0  group-hover:opacity-100  group-hover:flex group-hover:justify-center group-hover:items-center  translate-y-full  group-hover:translate-y-0  transition-all duration-1000  text-base-100">
+            Right now
+          </span>
+        </Link>
+        {/* <Link
+          to="/startsharing"
           className=" relative text-nowrap btn btn-primary  justify-center items-center overflow-hidden group px-8 "
         >
           <span className="   py-4 flex justify-center items-center opacity-100 group-hover:opacity-0 group-hover:-translate-y-full transition-all duration-1000">
@@ -79,24 +96,37 @@ const NavBar = () => {
           <span className=" py-4 absolute  opacity-0  group-hover:opacity-100  group-hover:flex group-hover:justify-center group-hover:items-center  translate-y-full  group-hover:translate-y-0  transition-all duration-1000 ">
             Right now
           </span>
-        </Link>
+        </Link> */}
       </div>
       {token ? (
-        <div
-          onClick={handleSidebar}
-          className="avatar placeholder hidden lg:block cursor-pointer"
-        >
-          <div className="bg-zinc-300 border border-zinc-200 text-neutral-content rounded-full w-12 overflow-hidden ">
-            <span className="text-4xl  text-base-100 mt-2">
-              <FaUser />
-            </span>
+        profilePic ? (
+          <div
+            onClick={handleSidebar}
+            className="avatar hidden lg:block cursor-pointer"
+          >
+            <div className="w-12 rounded-full">
+              <img src={profilePic} />
+            </div>
           </div>
-        </div>
-      ) : (
-        ""
-      )}
+        ) : (
+          <div
+            onClick={handleSidebar}
+            className="avatar placeholder hidden lg:block cursor-pointer"
+          >
+            <div className="bg-zinc-300 border border-zinc-200 text-neutral-content rounded-full w-12 overflow-hidden ">
+              <span className="text-4xl  text-base-100 mt-2">
+                <FaUser />
+              </span>
+            </div>
+          </div>
+        )
+      ) : null}
 
-      <Sidebar isSidebarOpen={isSidebarOpen} handleSidebar={handleSidebar} />
+      <Sidebar
+        isSidebarOpen={isSidebarOpen}
+        setIsSideBarOpe={setIsSideBarOpen}
+        handleSidebar={handleSidebar}
+      />
     </div>
   );
 };

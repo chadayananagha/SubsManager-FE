@@ -15,10 +15,8 @@ const SearchPageButtons = ({ openForm }) => {
         animate={{ x: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="w-40 py-4 bg-primary rounded-lg text-center cursor-pointer relative group overflow-hidden">
-          <p className="relative z-10 font-bold text-base-100 group-hover:text-primary-content ">
-            Add{" "}
-          </p>
+        <div className="w-40 py-4  bg-primary rounded-lg text-center cursor-pointer relative group overflow-hidden hover:scale-110 transition-transform duration-500">
+          <p className="relative z-10 font-bold text-base-100  ">Add </p>
           <IoMdAddCircle className="absolute text-base-100 -bottom-6 -right-6 text-6xl z-0  group-hover:-translate-x-[250%] group-hover:-translate-y-2/4 group-hover:rotate-180 transition-all duration-500" />
         </div>
       </motion.div>
@@ -29,10 +27,8 @@ const SearchPageButtons = ({ openForm }) => {
         transition={{ duration: 0.5 }}
       >
         <Link to="/search">
-          <div className="w-40 py-4 bg-primary rounded-lg text-center cursor-pointer relative group overflow-hidden">
-            <p className="relative z-10 font-bold text-base-100 group-hover:text-primary-content ">
-              Search
-            </p>
+          <div className="w-40 py-4 bg-primary rounded-lg text-center cursor-pointer relative group overflow-hidden hover:scale-110 transition-transform duration-500">
+            <p className="relative z-10 font-bold text-base-100  ">Search</p>
             <CiSearch className="absolute text-base-100 -bottom-3  -right-3 text-6xl z-0  group-hover:-translate-x-[200%] group-hover:-translate-y-1/4  group-hover:rotate-180  transition-all duration-500" />
           </div>
         </Link>

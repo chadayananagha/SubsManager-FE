@@ -1,10 +1,9 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useContext, useRef, useState, useEffect } from "react";
 import axios from "axios";
 import Loading from "./Loading";
 import { AuthContext } from "../context/AuthContext";
 import { categoryIcons, getPlatformIcon } from "../utils/icons";
-import { useJwt } from "react-jwt";
 import toast from "react-hot-toast";
 const SearchPageAddForm = ({ openForm }) => {
   const { token } = useContext(AuthContext);

@@ -17,6 +17,9 @@ import {
   SiYoutubemusic,
   SiPrime,
   SiParamountplus,
+  SiDazn,
+  SiAdobe,
+  SiCrunchyroll,
 } from "react-icons/si";
 
 export const categoryIcons = {
@@ -76,6 +79,8 @@ export const platformName = {
   Xbox: (
     <FaXbox className="absolute inset-y-0 right-2 translate-y-1/3 text-2xl" />
   ),
+  Adobe: <SiAdobe className="text-red-500" />,
+  Crunchyroll: <SiCrunchyroll className="text-orange-400" />,
 };
 
 // Function to get the platform icon based on the platform name

@@ -1,10 +1,24 @@
 import { createContext, useState, useEffect } from "react";
+import { useJwt } from "react-jwt";
 
 export const AuthContext = createContext();
 
 const AuthContextProvider = (props) => {
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState(null);
+  const { decodedToken } = useJwt(token);
+  const [profilePic, setProfilePic] = useState(decodedToken?.profilePic);
+  // console.log(decodedToken);
+
+  useEffect(() => {
+    if (decodedToken?.profilePic) {
+      setProfilePic(decodedToken.profilePic);
+    }
+  }, [decodedToken]);
+
+  const updateProfilePic = (newProfilePic) => {
+    setProfilePic(newProfilePic);
+  };
 
   //*Get the token from localStorage and set the token state to its value
   useEffect(() => {
@@ -44,9 +58,12 @@ const AuthContextProvider = (props) => {
   const logout = () => {
     setToken(null);
     setUserId(null);
+    setProfilePic(null);
   };
   return (
-    <AuthContext.Provider value={{ userId, token, login, logout }}>
+    <AuthContext.Provider
+      value={{ userId, token, login, logout, profilePic, updateProfilePic }}
+    >
       {props.children}
     </AuthContext.Provider>
   );

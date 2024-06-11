@@ -1,22 +1,35 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useRef, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { toast } from "react-hot-toast";
+import { useInView, AnimatePresence } from "framer-motion";
+import AddMembersButton from "./AddMembersButton";
 
 const HeroSection = () => {
-  const { token, logout } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
+  const heroRef = useRef(null);
+  const isInView = useInView(heroRef, { once: true });
+  const [delayedInView, setDelayedInView] = useState(false);
 
-  //*logout Function
-  const handleLogout = () => {
-    logout();
-    toast.success("Successfully logged out!");
-  };
+  useEffect(() => {
+    let timer;
+    if (isInView) {
+      timer = setTimeout(() => {
+        setDelayedInView(true);
+      }, 1000); // 1 second delay
+    }
+    return () => clearTimeout(timer);
+  }, [isInView]);
   return (
-    <div>
-      <div className="hero  bg-base">
-        <div className="hero-content flex-col lg:flex-row-reverse bg-base">
+    <>
+      <div className="hero min-h-screen bg-hero">
+        <div
+          ref={heroRef}
+          className={`hero-content flex-wrap flex-col lg:flex-row-reverse transition-all duration-1000 ${
+            isInView ? "scale-100" : "scale-75"
+          } `}
+        >
           <img
-            className="max-w-sm rounded-lg mix-blend-multiply lg:ml-8"
+            className="lg:max-w-sm rounded-lg mix-blend-multiply lg:ml-8 "
             src="/images/heroPic.png"
             alt="Hero Illustration"
           />
@@ -33,21 +46,22 @@ const HeroSection = () => {
                 more!
               </p>
             </div>
-            <div className="flex gap-6 justify-center">
+            <div
+              ref={heroRef}
+              className={`flex gap-6 justify-center transition-all duration-1000 ${
+                delayedInView ? "opacity-100 " : "opacity-0 translate-x-36 "
+              }`}
+            >
               {token ? (
                 <div>
-                  <button onClick={handleLogout} className="btn btn-accent">
-                    Log out
-                  </button>
-
                   <Link
                     to="/startsharing"
-                    className=" relative text-nowrap btn btn-primary   justify-center items-center overflow-hidden group px-8"
+                    className=" relative text-nowrap btn bg-[#FF5733]  hover:bg-[#CC4629] justify-center items-center overflow-hidden group px-32 scale-125 md:ml-12 "
                   >
-                    <span className="   py-4 flex justify-center items-center opacity-100 group-hover:opacity-0 group-hover:-translate-y-full transition-all duration-1000">
+                    <span className="py-4 flex justify-center items-center opacity-100 group-hover:opacity-0 group-hover:-translate-y-full transition-all duration-1000 text-base-100">
                       Start sharing
                     </span>
-                    <span className=" py-4 absolute  opacity-0  group-hover:opacity-100  group-hover:flex group-hover:justify-center group-hover:items-center  translate-y-full  group-hover:translate-y-0  transition-all duration-1000 ">
+                    <span className=" py-4 absolute  opacity-0  group-hover:opacity-100  group-hover:flex group-hover:justify-center group-hover:items-center  translate-y-full  group-hover:translate-y-0  transition-all duration-1000 text-base-100">
                       Right now
                     </span>
                   </Link>
@@ -71,7 +85,7 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

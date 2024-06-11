@@ -40,59 +40,64 @@ const Contact = () => {
     postFormData();
   };
   return (
-    <div className="max-w-lg w-1/2 mx-auto p-8 bg-base-200 shadow-md rounded-lg mt-28 mb-8 flex-1">
-      <h2 className="text-2xl font-bold mb-6 text-center">Contact Us</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Your Name"
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Your Email"
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <input
-            type="text"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            placeholder="Your Phone"
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-          />
-        </div>
-        <div className="mb-6">
-          <textarea
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            placeholder="Your Message"
-            rows="5"
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            required
-          ></textarea>
-        </div>
-        <button
-          type="submit"
-          className="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-        >
-          Submit
-        </button>
-      </form>
+    <div className="flex flex-1 xl:justify-center 2xl:justify-center">
+      <div className="hidden lg:block">
+        <img src="/images/contact.png" alt="contact" className="mt-32" />
+      </div>
+      <div className="max-w-lg w-1/2 p-8 mt-20 mb-8 mx-auto xl:mx-0 flex-1 2xl:ml-40 2xl:mr-40">
+        <h2 className="text-2xl font-bold mb-6 text-center">Contact Us</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Your Name"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Your Email"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <input
+              type="text"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Your Phone"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            />
+          </div>
+          <div className="mb-6">
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              placeholder="Your Message"
+              rows="5"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+              required
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            className="w-full px-4 py-2 btn btn-primary text-white rounded-md  focus:outline-none"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

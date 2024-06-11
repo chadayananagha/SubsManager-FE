@@ -2,7 +2,8 @@ import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate, useLocation } from "react-router-dom";
 import Loading from "../components/Loading";
 import axios from "axios";
 
@@ -11,12 +12,15 @@ const Login = () => {
   const { login } = authContext;
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isShowingPassword, setIsShowingPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const previousPage = location.state?.from || "/";
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,6 +29,9 @@ const Login = () => {
       [name]: value,
     });
   };
+  // console.log(token);
+  // const localAPI = "http://localhost:8080";
+  // const deployedAPI = "https://subsmanager-be.onrender.com";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,18 +41,18 @@ const Login = () => {
     try {
       const response = await axios.post(
         "https://subsmanager-be.onrender.com/users/login",
+        // `${localAPI}/users/login`,
         { email: formData.email, password: formData.password }
       );
       const data = response.data;
-      console.log(data);
+      // console.log(data);
       setIsLoading(false);
       login(data.token, data.userId);
       toast.success("Successfully logged in!", { duration: 1000 });
-      //*After .6s second navigate to desired path
+
       setTimeout(() => {
-        navigate("/");
-      }, 600);
-      // alert("Logged in successfully!");
+        navigate(previousPage);
+      }, 1000);
     } catch (error) {
       setIsLoading(false); // Ensure loading is set to false in case of error
       if (error.response && error.response.data && error.response.data.error) {
@@ -80,8 +87,7 @@ const Login = () => {
         <img
           src="/images/login.svg"
           alt="Login illustration"
-          className=" hover:grayscale-0 w-1/2 transition duration-500 hidden lg:block
-          "
+          className=" hover:grayscale-0 w-1/2 transition duration-500 hidden lg:block"
         />
         <div className="flex flex-col sm:py-36 py-24 sm:px-52 px-4 w-full sm:w-[50%] items-center">
           <h1 className="text-5xl font-bold mb-12">Login</h1>
@@ -98,15 +104,27 @@ const Login = () => {
               value={formData.email}
               onChange={handleChange}
             />
-            <input
-              type="password"
-              placeholder="Password"
-              className="input input-bordered sm:w-96  bg-base-200"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
+
+            <div className="relative">
+              <input
+                type={isShowingPassword ? "text" : "password"}
+                placeholder="Password"
+                className="input input-bordered sm:w-96  bg-base-200"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              <div
+                onClick={() => {
+                  setIsShowingPassword(!isShowingPassword);
+                }}
+                className="absolute right-4 cursor-pointer p-4 top-1/2 -translate-y-1/2"
+              >
+                {isShowingPassword ? <FaEyeSlash /> : <FaEye />}
+              </div>
+            </div>
+
             {error && <p className="text-red-500 mt-4">{error}</p>}
             <button
               type="submit"
