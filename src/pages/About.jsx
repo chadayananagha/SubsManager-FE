@@ -13,11 +13,9 @@ const About = () => {
     Dipali: {
       defaultImage:
         "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png",
-      image: "",
-      linkedin:
-        "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png",
-      github:
-        "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png",
+      image: "/images/Dipali.png",
+      linkedin: "https://www.linkedin.com/in/dipali-talware",
+      github: "https://github.com/DipaliTalware",
     },
     Javier: {
       defaultImage:

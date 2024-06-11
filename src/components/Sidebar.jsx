@@ -87,9 +87,24 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
             </div>
           )}
           <div className="flex flex-col gap-4 mt-36 absolute  justify-center items-center ">
-            <Link to="/profile" className="sideBarNav p-4">
-              Edit Profile
-            </Link>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "activeSideBarNav" : "sideBarNav"
+              }
+              onClick={() => handleSidebar()}
+              to="/profile"
+            >
+              <p className="p-4">Edit Profile</p>
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "activeSideBarNav" : "sideBarNav"
+              }
+              onClick={() => handleSidebar()}
+              to="/messenger"
+            >
+              <p className="p-4">Messenger</p>
+            </NavLink>
             <NavLink
               onClick={() => handleSidebar()}
               to="/subsmanager"
@@ -108,7 +123,7 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
             >
               <p className="p-4">Search for subscriptions</p>
             </NavLink>
-            <NavLink
+            {/* <NavLink
               onClick={() => handleSidebar()}
               to="/contact"
               className={({ isActive }) =>
@@ -134,7 +149,7 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
               }
             >
               <p className="p-4">About</p>
-            </NavLink>
+            </NavLink> */}
             <button
               onClick={handleLogout}
               className="z-10 btn bg-red-600 hover:bg-red-700 px-16 text-lg text-base-100 "
