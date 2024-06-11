@@ -248,7 +248,7 @@ const AddMembersButton = () => {
                     Members: {subscription.members.length}/
                     {subscription.plan.maxMembers}
                   </div>
-                  <div>Price: {subscription?.plan.price}</div>
+                  <div>Price: {subscription?.plan.price} €</div>
                 </div>
               </div>
               <label htmlFor="userId" className="self-start -mb-2 ">
