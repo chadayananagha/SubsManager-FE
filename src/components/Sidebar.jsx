@@ -123,7 +123,7 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
             >
               <p className="p-4">Search for subscriptions</p>
             </NavLink>
-            <NavLink
+            {/* <NavLink
               onClick={() => handleSidebar()}
               to="/contact"
               className={({ isActive }) =>
@@ -149,7 +149,7 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
               }
             >
               <p className="p-4">About</p>
-            </NavLink>
+            </NavLink> */}
             <button
               onClick={handleLogout}
               className="z-10 btn bg-red-600 hover:bg-red-700 px-16 text-lg text-base-100 "
