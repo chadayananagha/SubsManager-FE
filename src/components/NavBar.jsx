@@ -51,7 +51,7 @@ const NavBar = () => {
       }`}
     >
       <Link className="md:ml-24 " to="/">
-        LOGO
+        <img src="/images/logo.png" alt="logo" className="w-32" />
       </Link>
 
       {/* //!Hamburger Menu  */}
