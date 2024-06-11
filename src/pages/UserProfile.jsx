@@ -7,8 +7,6 @@ import ProfilePicSelector from "../components/ProfilePicSelector";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Loading from "../components/Loading";
 import CountryDropdown from "../components/CountryDropdown";
-import profilePicbg from "../../public/images/profilePicBg.png";
-import profilePicbg2 from "../../public/images/profilePicBg2.png";
 
 const UserProfile = () => {
   const { userId, token, updateProfilePic } = useContext(AuthContext);
@@ -91,7 +89,7 @@ const UserProfile = () => {
     <div className="flex-1 relative">
       <img
         className="absolute top-20 right-8 lg:right-0 xl:right-10 2xl:right-16 2xl:top-24 4xl:right-24 4xl:top-32 lg:h-1/3 xl:h-1/2 hidden lg:block -z-20 opacity-70"
-        src={profilePicbg}
+        src="/images/profilePicBg.png"
         alt="Sidebar illustration"
       />
       <div className="flex items-center justify-center my-32">
@@ -191,7 +189,7 @@ const UserProfile = () => {
 
         <img
           className="absolute -bottom-6 -left-8 lg:-left-8 xl:left-12 2xl:left-16 xl:-bottom-9 lg:h-1/3 xl:h-1/2 2xl:-bottom-11 hidden lg:block -z-20 4xl:-bottom-16 opacity-70"
-          src={profilePicbg2}
+          src="/images/profilePicBg2.png"
           alt="Sidebar illustration"
         />
       </div>
