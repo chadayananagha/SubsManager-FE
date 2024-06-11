@@ -315,7 +315,7 @@ const Search = () => {
                       <li
                         key={index}
                         onClick={() => handleUserClick(user._id)}
-                        className="bg-color p-4 cursor-pointer transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:bg-primary text-black hover:text-white mb-4 rounded border border-slate-300 mx-auto w-3/4 md:w-1/2 font-bold flex items-center"
+                        className="bg-base-200 p-4 cursor-pointer transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:bg-primary  hover:text-white mb-4 rounded border border-slate-300 mx-auto w-3/4 md:w-1/2 font-bold flex items-center"
                       >
                         {user.profilePic ? (
                           <img

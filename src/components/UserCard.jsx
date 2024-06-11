@@ -35,7 +35,7 @@ const UserCard = ({
           onClick={(e) => e.stopPropagation()}
         >
           <button
-            className="absolute top-4 right-4 text-gray-500"
+            className="absolute top-4 right-4 "
             onClick={() => setShowModal(false)}
           >
             <FaTimes size={24} />
@@ -119,7 +119,7 @@ const UserCard = ({
               );
             })}
           <div className="modal-action">
-            <button className="btn bg-primary" onClick={openChat}>
+            <button className="btn btn-primary" onClick={openChat}>
               Message
             </button>
           </div>

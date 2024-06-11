@@ -82,10 +82,10 @@
 }
 /* search page */
 .bg-color-fantasy {
-  background-color: white;
+  color: black;
 }
 .bg-color-business {
-  background-color: #c0c1c2;
+  color: #c0c1c2;
 }
 
 [data-theme="business"] .bg-color {

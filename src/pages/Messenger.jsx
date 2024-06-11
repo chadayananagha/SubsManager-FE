@@ -190,8 +190,8 @@ export const Messenger = () => {
     <div className="flex-1">
       <div className="my-24 md:my-36 flex justify-center gap-6">
         {showConversations && (
-          <div className="w-full md:w-[40%] mx-2 lg:w-[20%]">
-            <ul className="bg-color w-full rounded-lg shadow-lg h-[550px] md:h-[700px] overflow-y-auto px-4 py-2">
+          <div className="w-full md:w-[40%] mx-2 lg:w-[20%] shadow-[0_1px_2px_rgb(0,117,194)] bg-base-200 rounded-lg">
+            <ul className=" w-full rounded-lg shadow-lg h-[550px] md:h-[700px] overflow-y-auto px-4 py-2">
               <p className="text-primary font-extrabold text-xl py-6 pl-6 md:text-lg md:pl-2">
                 All Conversations
               </p>
@@ -241,8 +241,10 @@ export const Messenger = () => {
                             )}
 
                             <div>
-                              <div className="font-bold">{member.username}</div>
-                              <div className="text-sm">
+                              <div className="font-bold bg-color">
+                                {member.username}
+                              </div>
+                              <div className="text-sm bg-color">
                                 {conversation.lastMessage
                                   ? format(conversation.lastMessage.timestamp)
                                   : ""}
@@ -268,7 +270,7 @@ export const Messenger = () => {
           <div
             className={`w-full ${
               showConversations ? "md:w-[50%]" : ""
-            } p-4 rounded-lg shadow-lg bg-color mx-2 chatcontent`}
+            } p-4 rounded-lg  shadow-[0_1px_2px_rgb(0,117,194)] bg-base-200 mx-2 chatcontent `}
           >
             {/* <h2 className="text-primary font-extrabold text-xl pb-4 md:text-lg">
               Chats
@@ -285,7 +287,7 @@ export const Messenger = () => {
               {chatContent?.map((msg, index) => (
                 <div
                   key={index}
-                  className={`chat ${
+                  className={`chat  ${
                     msg.sender === userId ? "chat-end" : "chat-start"
                   }`}
                 >
@@ -309,7 +311,7 @@ export const Messenger = () => {
                     ) : (
                       <FaUser size={16} className="mr-2" />
                     )}
-                    <div className="text-black">
+                    <div className="bg-color">
                       {msg.sender === userId ? (
                         "Me"
                       ) : (
@@ -326,10 +328,10 @@ export const Messenger = () => {
                     {msg.message}
                   </div>
                   <div className="chat-footer flex gap-1 flex-col">
-                    <div className="opacity-50 text-xs text-black font-bold">
+                    <div className="opacity-50 text-xs bg-color font-bold">
                       {msg.sender === userId ? "Delivered" : ""}
                     </div>
-                    <time className="text-xs opacity-50 text-black font-bold">
+                    <time className="text-xs opacity-50 bg-color font-bold">
                       {format(msg.timestamp)}
                     </time>
                   </div>
@@ -340,7 +342,7 @@ export const Messenger = () => {
               <div className="mt-4 flex items-center">
                 <input
                   type="text"
-                  className="flex-grow border rounded-lg p-2 bg-transparent text-black border-black mr-2"
+                  className="bg-base-300 flex-grow  rounded-lg p-2   mr-2"
                   placeholder="Type your message..."
                   value={newMessage}
                   onChange={handleInputChange}
