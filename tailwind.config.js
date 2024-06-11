@@ -6,6 +6,7 @@ export default {
       screens: {
         xs: "320px",
         "min-375px": { min: "425px" },
+        "4xl": "2560px",
       },
     },
   },
@@ -25,7 +26,6 @@ export default {
           ...require("daisyui/src/theming/themes")["fantasy"],
           primary: "#0075C2",
           "base-100": "rgb(243 244 246)",
-          special: "rgb(255, 87, 51)",
         },
       },
     ],

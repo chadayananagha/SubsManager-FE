@@ -1,20 +1,14 @@
 import { Link } from "react-router-dom";
 import { useContext, useRef, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { toast } from "react-hot-toast";
-import { useInView } from "framer-motion";
+import { useInView, AnimatePresence } from "framer-motion";
+import AddMembersButton from "./AddMembersButton";
 
 const HeroSection = () => {
-  const { token, logout } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
   const heroRef = useRef(null);
   const isInView = useInView(heroRef, { once: true });
   const [delayedInView, setDelayedInView] = useState(false);
-
-  //*logout Function
-  const handleLogout = () => {
-    logout();
-    toast.success("Successfully logged out!");
-  };
 
   useEffect(() => {
     let timer;
@@ -59,17 +53,19 @@ const HeroSection = () => {
               }`}
             >
               {token ? (
-                <Link
-                  to="/startsharing"
-                  className=" relative text-nowrap btn bg-[#FF5733]  hover:bg-[#CC4629] justify-center items-center overflow-hidden group px-32 scale-125 md:ml-12 "
-                >
-                  <span className="py-4 flex justify-center items-center opacity-100 group-hover:opacity-0 group-hover:-translate-y-full transition-all duration-1000 text-base-100">
-                    Start sharing
-                  </span>
-                  <span className=" py-4 absolute  opacity-0  group-hover:opacity-100  group-hover:flex group-hover:justify-center group-hover:items-center  translate-y-full  group-hover:translate-y-0  transition-all duration-1000 text-base-100">
-                    Right now
-                  </span>
-                </Link>
+                <div>
+                  <Link
+                    to="/startsharing"
+                    className=" relative text-nowrap btn bg-[#FF5733]  hover:bg-[#CC4629] justify-center items-center overflow-hidden group px-32 scale-125 md:ml-12 "
+                  >
+                    <span className="py-4 flex justify-center items-center opacity-100 group-hover:opacity-0 group-hover:-translate-y-full transition-all duration-1000 text-base-100">
+                      Start sharing
+                    </span>
+                    <span className=" py-4 absolute  opacity-0  group-hover:opacity-100  group-hover:flex group-hover:justify-center group-hover:items-center  translate-y-full  group-hover:translate-y-0  transition-all duration-1000 text-base-100">
+                      Right now
+                    </span>
+                  </Link>
+                </div>
               ) : (
                 <>
                   <Link to="/login">

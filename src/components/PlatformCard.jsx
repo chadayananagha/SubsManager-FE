@@ -1,5 +1,11 @@
 import React from "react";
-import { FaSpotify, FaPlaystation, FaXbox } from "react-icons/fa";
+import {
+  FaSpotify,
+  FaPlaystation,
+  FaXbox,
+  FaQuestionCircle,
+  FaGlobe,
+} from "react-icons/fa";
 import { RiNetflixFill } from "react-icons/ri";
 import { TbBrandHbo, TbBrandDisney } from "react-icons/tb";
 import {
@@ -22,7 +28,7 @@ const PlatformCard = ({ platformName, onClick }) => {
     Amazon: <SiPrime className="text-[#219BFF]" />,
     HBO: <TbBrandHbo />,
     Paramount: <SiParamountplus />,
-    Disney: <TbBrandDisney />,
+    Disney: <TbBrandDisney className="text-white" />,
     "Apple TV": <SiAppletv />,
     Spotify: <FaSpotify className="text-green-500" />,
     "Apple Music": (
@@ -37,7 +43,10 @@ const PlatformCard = ({ platformName, onClick }) => {
     DAZN: <SiDazn className="text-black" />,
     Adobe: <SiAdobe className="text-red-500" />,
     Crunchyroll: <SiCrunchyroll className="text-orange-400" />,
+    // Default: <FaQuestionCircle className="text-gray-500" />,
+    Default: <FaGlobe className="text-gray-500" />,
   };
+
   const getPlatformIcon = (platform) => {
     // Convert the platform name to lowercase for case-insensitive comparison
     const platformLowercase = platform?.toLowerCase();
@@ -52,24 +61,24 @@ const PlatformCard = ({ platformName, onClick }) => {
         return platformIcons[key];
       }
     }
-    // Return null if there's no match (or for other platforms)
-    return null;
+    // Return the default icon if there's no match (or for other platforms)
+    return platformIcons.Default;
   };
 
   const Icon = getPlatformIcon(platformName);
   return (
     <div
       onClick={onClick}
-      className="w-48 h-36 p-4 rounded border border-slate-300 relative overflow-hidden group bg-color cursor-pointer flex flex-col justify-center items-center"
+      className="w-48 h-36 p-4 rounded border border-slate-300 relative overflow-hidden group bg-base-200 cursor-pointer flex flex-col justify-center items-center"
     >
       <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary transform translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
       <div className="relative z-10 flex flex-col items-center">
-        <h3 className="font-medium text-lg text-slate-950 group-hover:text-white transition-colors duration-300">
+        <h3 className="font-medium text-lg  group-hover:text-white transition-colors duration-300">
           {platformName}
         </h3>
       </div>
       {Icon && (
-        <div className="absolute -right-4 -top-1 text-7xl text-black">
+        <div className="absolute -right-4 -top-1 text-7xl text-gray-00 ">
           {Icon}
         </div>
       )}

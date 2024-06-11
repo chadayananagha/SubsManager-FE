@@ -20,6 +20,7 @@ const UserCard = ({
       day: "2-digit",
     });
   };
+
   return (
     <dialog
       id="my_modal_5"
@@ -34,14 +35,24 @@ const UserCard = ({
           onClick={(e) => e.stopPropagation()}
         >
           <button
-            className="absolute top-4 right-4 text-gray-500"
+            className="absolute top-4 right-4 "
             onClick={() => setShowModal(false)}
           >
             <FaTimes size={24} />
           </button>
           <div className="font-bold text-2xl mb-4 flex justify-center items-center">
-            <FaUser className="mr-2" />
-            <p className="flex-1 text-center">Owner: {user.username}</p>
+            {user.profilePic ? (
+              <img
+                src={user.profilePic.url}
+                alt="Profile"
+                className="mr-2 h-14 w-14 rounded-full"
+              />
+            ) : (
+              <FaUser className="mr-2" size={30} />
+            )}
+            <span className="flex-1 text-center ml-2">
+              Owner: {user.username}
+            </span>
           </div>
           {user.sharedSubscriptions
             .filter(
@@ -108,7 +119,7 @@ const UserCard = ({
               );
             })}
           <div className="modal-action">
-            <button className="btn bg-primary" onClick={openChat}>
+            <button className="btn btn-primary" onClick={openChat}>
               Message
             </button>
           </div>

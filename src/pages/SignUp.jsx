@@ -128,7 +128,11 @@ const SignUp = () => {
               Register
             </button>
             <p>Or connect with social media</p>
-            <button className="btn bg-red-800 text-white  sm:w-96 w-full py-2 px-4 mt-4 flex items-center justify-center">
+            <Link
+              target="_blank"
+              to="https://www.google.com/"
+              className="btn bg-red-800 text-white  sm:w-96 w-full py-2 px-4 mt-4 flex items-center justify-center"
+            >
               <svg
                 className="w-5 h-5 mr-2"
                 xmlns="http://www.w3.org/2000/svg"
@@ -153,9 +157,10 @@ const SignUp = () => {
                 <path fill="none" d="M0 0h48v48H0z" />
               </svg>
               Sign in with Google
-            </button>
+            </Link>
             <Link
-              to="/"
+              target="_blank"
+              to="https://www.facebook.com/"
               className="btn bg-blue-600 text-white  sm:w-96 w-full py-2 px-4 mt-4 flex items-center justify-center"
             >
               <svg
