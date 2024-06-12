@@ -4,6 +4,7 @@ import axios from "axios";
 import Loading from "./Loading";
 import { AuthContext } from "../context/AuthContext";
 import { categoryIcons, getPlatformIcon } from "../utils/icons";
+import { FaTimes } from "react-icons/fa";
 import toast from "react-hot-toast";
 const SearchPageAddForm = ({ openForm }) => {
   const { token } = useContext(AuthContext);
@@ -20,6 +21,7 @@ const SearchPageAddForm = ({ openForm }) => {
   });
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const today = new Date().toISOString().split("T")[0];
 
   //*form updating state
   const handleOnChange = (e) => {
@@ -65,7 +67,10 @@ const SearchPageAddForm = ({ openForm }) => {
     ) {
       const errorMessage = "Please fill in all fields";
       setError(errorMessage);
-      toast.error(errorMessage, { duration: 1000 });
+      toast.error(errorMessage, {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      });
       return;
     }
     setIsLoading(true);
@@ -93,10 +98,16 @@ const SearchPageAddForm = ({ openForm }) => {
       );
       //   console.log(response.data);
       setIsLoading(false);
-      toast.success("Succes", { duration: 1000 });
+      toast.success("Subscription added successfully", {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      });
       closeForm();
     } catch (error) {
-      toast.error(error.response.data.error);
+      toast.error(error.response.data.error, {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      });
       setIsLoading(false);
       setError(error.response.data.error);
     } finally {
@@ -140,6 +151,13 @@ const SearchPageAddForm = ({ openForm }) => {
           <Loading />
         </div>
       )}
+      <button
+        onClick={openForm}
+        type="button"
+        className="absolute right-4 top-4 hover:cursor-pointer hover:scale-105 rounded"
+      >
+        <FaTimes size={22} />
+      </button>
       <h3 className="text-xl">Add subscription</h3>
       {error && <p className="text-red-500 mt-4">{error}</p>}
       <label htmlFor="category" className="self-start -mb-2">
@@ -181,7 +199,7 @@ const SearchPageAddForm = ({ openForm }) => {
               <a onClick={() => handleCategory("Sports")}>Sports</a>
             </li>
             <li>
-              <a onClick={() => handleCategory("Other")}>Other</a>
+              <a onClick={() => handleCategory("Others")}>Others</a>
             </li>
           </ul>
         )}
@@ -193,6 +211,7 @@ const SearchPageAddForm = ({ openForm }) => {
         <input
           onChange={handleOnChange}
           value={formData.platformName}
+          placeholder="Enter platform name..."
           name="platformName"
           type="text"
           className="w-full px-4 py-2 rounded-lg input-color "
@@ -205,6 +224,7 @@ const SearchPageAddForm = ({ openForm }) => {
       <input
         onChange={handleOnChange}
         value={formData.planName}
+        placeholder="Enter plan name..."
         name="planName"
         type="text"
         className="mx-12 w-full px-4 py-2 rounded-lg input-color"
@@ -217,7 +237,9 @@ const SearchPageAddForm = ({ openForm }) => {
           <input
             onChange={handleOnChange}
             value={formData.price}
+            min={0.01}
             name="price"
+            placeholder="Enter your price..."
             type="number"
             className="mx-12 w-full px-4 py-2 rounded-lg input-color"
           />
@@ -229,6 +251,8 @@ const SearchPageAddForm = ({ openForm }) => {
           <input
             onChange={handleOnChange}
             value={formData.maxMembers}
+            min={1}
+            placeholder="Enter max members..."
             name="maxMembers"
             type="number"
             className="mx-12 w-full px-4 py-2 rounded-lg input-color"
@@ -241,11 +265,12 @@ const SearchPageAddForm = ({ openForm }) => {
       <input
         onChange={handleOnChange}
         value={formData.expirationDate}
+        min={today}
         name="expirationDate"
         type="date"
         className="mx-12 w-full px-4 py-2 rounded-lg input-color"
       />
-      <div className="flex  w-full  justify-between">
+      <div className="flex w-full justify-evenly">
         <label htmlFor="public" className="">
           Public
         </label>
@@ -263,11 +288,3 @@ const SearchPageAddForm = ({ openForm }) => {
 };
 
 export default SearchPageAddForm;
-
-//*SubSchema
-// Category
-// Platform Name
-// Plan : planName, price, maxMemb
-// public: y/n
-
-// expirationDate

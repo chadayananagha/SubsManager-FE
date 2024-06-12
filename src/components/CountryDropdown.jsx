@@ -65,7 +65,7 @@ const CountryDropdown = ({ userData, handleEditChange }) => {
       name="country"
       value={userData.country}
       onChange={handleEditChange}
-      className="mt-1 block w-full border border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition"
+      className="mt-1 block w-full  border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition input-color"
     >
       {countries.map((country) => (
         <option key={country} value={country}>

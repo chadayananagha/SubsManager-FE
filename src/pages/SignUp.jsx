@@ -50,12 +50,18 @@ const SignUp = () => {
       // localStorage.setItem("token", data.token);
       setIsLoading(false);
       login(data.token, data.userId);
-      toast.success("Registered successfully");
+      toast.success("Registered successfully", {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      });
       setTimeout(() => {
         navigate("/");
       }, 600);
     } catch (error) {
-      toast.error(error.response.data.error);
+      toast.error(error.response.data.error, {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      });
       setIsLoading(false);
       setError(error.response.data.error);
     } finally {
@@ -123,7 +129,11 @@ const SignUp = () => {
                 {isShowingPassword ? <FaEyeSlash /> : <FaEye />}
               </div>
             </div>
-            {error && <p className="text-red-500 mt-4">{error}</p>}
+            {error && (
+              <p className="text-red-500 font-bold mt-4  w-full text-center text-balance p-4 rounded-lg">
+                {error}
+              </p>
+            )}
             <button className="btn-hover btn btn-primary text-white border-none  sm:w-96 w-full py-2 px-4 mt-4">
               Register
             </button>

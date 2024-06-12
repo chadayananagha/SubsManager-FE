@@ -10,11 +10,11 @@ const FAQ = () => {
 				className='collapse collapse-plus border border-base-300 bg-primary text-white box-border mx-auto my-12 max-w-7xl rounded-lg py-6 '
 			>
 				<div className='collapse-title md:text-xl font-medium text-lg'>
-					What is X Share ?
+					What is XShare ?
 				</div>
 				<div className='collapse-content text-white/80'>
 					<p>
-						By using X Share, you can share subscriptions like Netflix, Disney+,
+						By using XShare, you can share subscriptions like Netflix, Disney+,
 						NordVPN, Spotify, and others with family or friends. This
 						collaborative approach allows everyone involved to save money on
 						their favorite digital services.

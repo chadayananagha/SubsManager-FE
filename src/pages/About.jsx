@@ -40,7 +40,7 @@ const About = () => {
 						Redefining Sharing in the Digital Age
 					</h1>
 					<p className='mb-4'>
-						At X Share, we know sharing is powerful. Whether it's streaming
+						At XShare, we know sharing is powerful. Whether it's streaming
 						services, fitness memberships, or digital subscriptions, sharing is
 						convenient, eco-friendly, and cost-effective. Our platform makes it
 						easy to share your subscriptions with friends, family, or even
@@ -49,14 +49,14 @@ const About = () => {
 					<p className='mb-4'>
 						Our platform is simple and convenient. With just a few clicks, you
 						can share your favorite subscriptions or find new ones to join. No
-						more hassle of managing multiple accounts and payments – with X
-						Share, everything is centralized and easy to handle.
+						more hassle of managing multiple accounts and payments – with
+						XShare, everything is centralized and easy to handle.
 					</p>
 					<p className='mb-4'>
 						We're more than a subscription sharing platform. We're a community
 						that believes in the power of sharing and collaboration. Whether you
 						want to save money, reduce waste, or connect with like-minded
-						people, X Share is the place for you.
+						people, XShare is the place for you.
 					</p>
 					<p className='mb-4'>
 						Join us in making sharing the new standard. Together, we can create
