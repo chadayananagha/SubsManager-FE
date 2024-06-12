@@ -117,7 +117,7 @@ const AddMembersButton = () => {
           `https://subsmanager-be.onrender.com/users/${userIdToBeAdded}`
         );
         setUserToBeAdded(response.data);
-        console.log(response.data);
+        // console.log(response.data);
         setIsLoading(false);
       } catch (error) {
         setIsConfirm(false);
@@ -143,7 +143,7 @@ const AddMembersButton = () => {
         { members: [userToBeAdded._id] },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      console.log(response.data);
+      // console.log(response.data);
       setIsLoading(false);
       setIsConfirm(false);
       toast.success("User added successfully", {

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useJwt } from "react-jwt";
 import { AuthContext } from "../context/AuthContext";
@@ -8,17 +8,22 @@ import { FaTimes } from "react-icons/fa";
 import { AnimatePresence } from "framer-motion";
 import Loading from "../components/Loading";
 import CountryDropdown from "../components/CountryDropdown";
+import ReactCountryFlag from "react-country-flag";
+import { toast } from "react-hot-toast";
 import { motion } from "framer-motion";
 
 const UserProfile = () => {
   const { userId, token, updateProfilePic } = useContext(AuthContext);
   const { decodedToken } = useJwt(token);
   const username = decodedToken?.username;
+  const [isAnimating, setIsAnimating] = useState(true);
+  const [clickCount, setClickCount] = useState(0);
 
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
     country: "",
+    countryCode: "",
     email: "",
     profilePic: "",
     profileCompletionScore: 0,
@@ -26,8 +31,36 @@ const UserProfile = () => {
 
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
 
-  const localAPI = "http://localhost:8080";
+  const handleCopy = () => {
+    navigator.clipboard.writeText(userId).then(() => {
+      setIsCopied(true);
+      setClickCount((prevCount) => prevCount + 1);
+      setTimeout(() => {
+        setIsCopied(false);
+        setClickCount(0);
+      }, 10000);
+    });
+  };
+
+  const getButtonText = () => {
+    if (clickCount >= 50) return "GOD LIKE!!!!!";
+    if (clickCount >= 40) return "FATALITY";
+    if (clickCount >= 30) return "INSANE";
+    if (clickCount >= 20) return "OMG";
+    if (clickCount >= 10) return "CRAZY COPY";
+    return isCopied ? " ID copied ✓" : "Copy ID";
+  };
+
+  const getButtonClass = () => {
+    if (clickCount >= 50) return "btn bg-red-600 text-white hover:bg-red-600";
+    return isCopied
+      ? "btn border-green-500 bg-green-100 text-green-800 hover:bg-green-100 hover:border-green-500 hover:text-green-800"
+      : "btn bg-base-300";
+  };
+
+  // const localAPI = "http://localhost:8080";
   const deployedAPI = "https://subsmanager-be.onrender.com";
 
   const calculateProfileCompletionScore = (data) => {
@@ -66,6 +99,9 @@ const UserProfile = () => {
       ...userData,
       [e.target.name]: e.target.value,
     };
+    if (e.target.code) {
+      updatedUserData.countryCode = e.target.code;
+    }
     updatedUserData.profileCompletionScore =
       calculateProfileCompletionScore(updatedUserData);
     setUserData(updatedUserData);
@@ -83,16 +119,27 @@ const UserProfile = () => {
       // setUserData(updatedData);
       setUserData((prev) => ({ ...prev, ...updatedData }));
       setIsEditing(false);
+      toast.success("Profile updated successfully!", {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      }); // Add this line for toast notification
     } catch (error) {
       console.error("Error updating user data:", error);
+      toast.error("Failed to update profile.", {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      }); // Add this line for error notification
     }
   };
 
+  // console.log(userData);
+
   return (
-    <div className="flex-1 relative">
+    <div className="flex-1 relative overflow-hidden">
       <img
-        className="absolute top-20 right-8 lg:right-0 xl:right-10 2xl:right-16 2xl:top-24 4xl:right-24 4xl:top-32 lg:h-1/3 xl:h-1/2 hidden lg:block -z-20 opacity-70"
-        src="/images/profilePicBg.png"
+        className="absolute top-6 lg:right-4 xl:right-4 2xl:right-0 2xl:top-16 4xl:right-24 4xl:top-6 lg:h-1/3 xl:h-1/2 hidden lg:block -z-20 opacity-70"
+        style={{ left: "calc(100% - 20rem)", top: "10rem" }}
+        src="/images/profilePicBg3.png"
         alt="Sidebar illustration"
       />
       <div className="flex items-center justify-center my-32">
@@ -109,9 +156,26 @@ const UserProfile = () => {
                       userData={userData}
                       setUserData={setUserData}
                     />
-                    <h3 className="text-3xl font-semibold text-primary mt-4">
-                      {username}
-                    </h3>
+                    <div className="flex items-baseline gap-2 p-5">
+                      <h3 className=" text-3xl font-semibold text-primary mt-4">
+                        {username}
+                      </h3>
+
+                      <ReactCountryFlag
+                        style={{
+                          width: "1.5em",
+                          height: "1.5em",
+                          marginRight: "0.5em",
+                          borderRadius: "0.4em",
+                        }}
+                        countryCode={userData.countryCode}
+                        svg
+                        title={userData.countryCode}
+                      />
+                    </div>
+                    <button className={getButtonClass()} onClick={handleCopy}>
+                      {getButtonText()}
+                    </button>
                   </div>
 
                   <div className="px-6 pb-5 flex flex-col items-center">
@@ -161,8 +225,8 @@ const UserProfile = () => {
                           <dt className="text-lg font-medium text-bold">
                             Country
                           </dt>
-                          <dd className="mt-1 text-lg sm:mt-0 sm:col-span-2">
-                            {userData.country}
+                          <dd className=" mt-1 text-lg sm:mt-0 sm:col-span-2">
+                            {userData.country}{" "}
                           </dd>
                         </div>
                       </dl>
@@ -191,92 +255,97 @@ const UserProfile = () => {
         </div>
 
         <img
-          className="absolute -bottom-6 -left-8 lg:-left-8 xl:left-12 2xl:left-16 xl:-bottom-9 lg:h-1/3 xl:h-1/2 2xl:-bottom-11 hidden lg:block -z-20 4xl:-bottom-16 opacity-70"
+          className="absolute -bottom-6 -left-8 lg:-left-12 xl:left-12 2xl:-left-1 xl:-bottom-9 lg:h-1/3 xl:h-1/2 2xl:-bottom-11 hidden lg:block -z-20 4xl:-bottom-16 opacity-70"
           src="/images/profilePicBg2.png"
           alt="Sidebar illustration"
         />
       </div>
       <AnimatePresence>
         {isEditing && (
-          <div className="fixed inset-0 flex items-center justify-center z-50">
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{
-                height: { duration: 0.5 },
-                opacity: { duration: 0.2 },
-              }}
-              className="bg-base-100 rounded-lg p-6 w-96 shadow-[0_0_0_10000px_rgba(0,0,0,.40)] relative overflow-hidden"
+          // <div className="fixed inset-0 flex items-center justify-center z-50">
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{
+              height: { duration: 0.5 },
+              opacity: { duration: 0.2 },
+            }}
+            onAnimationStart={() => setIsAnimating(true)}
+            onAnimationComplete={() => setIsAnimating(false)}
+            className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-base-100 rounded-lg p-6 w-96 shadow-[0_0_0_10000px_rgba(0,0,0,.40)]  ${
+              isAnimating ? "overflow-hidden" : ""
+            }`}
+          >
+            <button
+              onClick={() => setIsEditing(false)}
+              type="button"
+              className="float-right hover:cursor-pointer hover:scale-105 rounded"
             >
+              <FaTimes size={22} />
+            </button>
+
+            <h2 className="text-xl font-semibold mb-4">Edit Profile</h2>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700">
+                First name
+              </label>
+              <input
+                type="text"
+                name="firstName"
+                placeholder="Enter yout first name..."
+                value={userData.firstName}
+                onChange={handleEditChange}
+                className="mt-1 block w-full  border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition input-color"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700">
+                Last name
+              </label>
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Enter yout last name..."
+                value={userData.lastName}
+                onChange={handleEditChange}
+                className="mt-1 block w-full  border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition input-color"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700">
+                Email address
+              </label>
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter yout email..."
+                value={userData.email}
+                onChange={handleEditChange}
+                className="mt-1 block w-full  border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition input-color"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700">
+                Country
+              </label>
+
+              <CountryDropdown
+                userData={userData}
+                handleEditChange={handleEditChange}
+              />
+            </div>
+            <div className="flex justify-end gap-2">
               <button
-                onClick={() => setIsEditing(false)}
-                type="button"
-                className="float-right hover:cursor-pointer hover:scale-105 rounded"
+                onClick={handleSave}
+                className="btn btn-primary text-white font-bold py-2 px-4 rounded"
               >
-                <FaTimes size={22} />
+                Save
               </button>
-
-              <h2 className="text-xl font-semibold mb-4">Edit Profile</h2>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">
-                  First name
-                </label>
-                <input
-                  type="text"
-                  name="firstName"
-                  placeholder="Enter yout first name..."
-                  value={userData.firstName}
-                  onChange={handleEditChange}
-                  className="mt-1 block w-full  border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition input-color"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">
-                  Last name
-                </label>
-                <input
-                  type="text"
-                  name="lastName"
-                  placeholder="Enter yout last name..."
-                  value={userData.lastName}
-                  onChange={handleEditChange}
-                  className="mt-1 block w-full  border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition input-color"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">
-                  Email address
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Enter yout email..."
-                  value={userData.email}
-                  onChange={handleEditChange}
-                  className="mt-1 block w-full  border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition input-color"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">
-                  Country
-                </label>
-
-                <CountryDropdown
-                  userData={userData}
-                  handleEditChange={handleEditChange}
-                />
-              </div>
-              <div className="flex justify-end gap-2">
-                <button
-                  onClick={handleSave}
-                  className="btn btn-primary text-white font-bold py-2 px-4 rounded"
-                >
-                  Save
-                </button>
-              </div>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
+          //{" "}
+          // </div>
         )}
       </AnimatePresence>
     </div>

@@ -75,7 +75,7 @@ const SearchPageAddForm = ({ openForm }) => {
     }
     setIsLoading(true);
     setError(null);
-    console.log("token", token);
+    // console.log("token", token);
     try {
       const response = await axios.post(
         "https://subsmanager-be.onrender.com/subscriptions",

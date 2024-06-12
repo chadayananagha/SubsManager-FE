@@ -19,7 +19,7 @@ const SubsManager = () => {
 
   const deleteSubscription = async (index) => {
     try {
-      console.log(index);
+      // console.log(index);
       const response = await fetch(
         `https://subsmanager-be.onrender.com/subscriptions/${user.subscriptions[index]._id}`,
         {
@@ -87,7 +87,7 @@ const SubsManager = () => {
   /**  To close form*/
   const formCloses = () => {
     setIsFormOpen(false);
-    console.log("helllo");
+    // console.log("helllo");
   };
 
   /** Function to handle form submission and POST request to server*/
@@ -143,10 +143,10 @@ const SubsManager = () => {
             {/* displaying the logged in username */}
             <span className="flex items-center justify-between mb-4">
               <div className="flex items-center md:space-x-1">
-                {user.profilePic.url ? (
+                {user?.profilePic?.url ? (
                   <img
-                    src={user.profilePic.url}
-                    alt={user.username}
+                    src={user?.profilePic?.url}
+                    alt={user?.username}
                     className="h-12 w-12 rounded-full"
                   />
                 ) : (

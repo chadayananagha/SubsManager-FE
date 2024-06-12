@@ -23,7 +23,7 @@ const ChatWindow = ({ onClose, receiver }) => {
 		newSocket.on('receiveMessage', (msg) => {
 			if (msg?.senderId === receiver._id || msg?.receiverId === userId) {
 				setChatContent((prevChatContent) => [...prevChatContent, msg]);
-				console.log('this is chat content:', chatContent);
+				// console.log('this is chat content:', chatContent);
 			}
 		});
 
@@ -52,7 +52,7 @@ const ChatWindow = ({ onClose, receiver }) => {
 				`https://subsmanager-be.onrender.com/conversation/${userId}/${receiver._id}`
 			);
 
-			console.log('My Response:', response.data);
+			// console.log('My Response:', response.data);
 			if (response.data && response.data.length > 0) {
 				setConversations(response.data[0]);
 				return response.data[0]._id;
@@ -91,7 +91,7 @@ const ChatWindow = ({ onClose, receiver }) => {
 			const response = await axios.get(
 				`https://subsmanager-be.onrender.com/chat/${conversationsId}`
 			);
-			console.log('response.data in getallMessages:', response.data);
+			// console.log('response.data in getallMessages:', response.data);
 			setChatContent(response.data);
 		} catch (error) {
 			console.error('Error fetching messages:', error.message);

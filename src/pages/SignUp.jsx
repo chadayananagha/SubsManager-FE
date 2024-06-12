@@ -45,7 +45,7 @@ const SignUp = () => {
         }
       );
       const data = response.data;
-      console.log(data);
+      // console.log(data);
 
       // localStorage.setItem("token", data.token);
       setIsLoading(false);
