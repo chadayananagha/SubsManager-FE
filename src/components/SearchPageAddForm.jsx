@@ -238,6 +238,7 @@ const SearchPageAddForm = ({ openForm }) => {
             onChange={handleOnChange}
             value={formData.price}
             min={0.01}
+            step="0.01"
             name="price"
             placeholder="Enter your price..."
             type="number"

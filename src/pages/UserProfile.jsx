@@ -143,7 +143,7 @@ const UserProfile = () => {
         alt="Sidebar illustration"
       />
       <div className="flex items-center justify-center my-32">
-        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-24">
+        <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-24">
           {loading ? (
             <Loading />
           ) : (
@@ -273,7 +273,7 @@ const UserProfile = () => {
             }}
             onAnimationStart={() => setIsAnimating(true)}
             onAnimationComplete={() => setIsAnimating(false)}
-            className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-base-100 rounded-lg p-6 w-96 shadow-[0_0_0_10000px_rgba(0,0,0,.40)]  ${
+            className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-base-100 rounded-lg p-6 w-72 sm:w-96 shadow-[0_0_0_10000px_rgba(0,0,0,.40)]  ${
               isAnimating ? "overflow-hidden" : ""
             }`}
           >
