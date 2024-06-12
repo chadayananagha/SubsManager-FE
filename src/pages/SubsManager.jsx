@@ -104,6 +104,13 @@ const SubsManager = () => {
       console.error("Error:", error);
     }
   };
+  if (loading) {
+    return (
+      <div className="pt-24 h-screen flex justify-center items-center bg-base-200/100 absolute w-screen z-20">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 relative">
@@ -115,90 +122,85 @@ const SubsManager = () => {
           alt="Sidebar illustration"
         />
         <div className="max-w-2xl md:mx-auto mx-4  p-8 bg-base-200 shadow-lg rounded-lg mt-28 mb-28">
-          {loading ? (
-            <Loading /> /* Loading spinner*/
-          ) : (
-            <div className="wrapper flex-1">
-              {/* displaying the logged in username */}
-              <span className="flex items-center justify-between mb-4">
-                <div className="flex items-center md:space-x-1">
-                  {user.profilePic.url ? (
-                    <img
-                      src={user.profilePic.url}
-                      alt={user.username}
-                      className="h-12 w-12 rounded-full"
-                    />
-                  ) : (
-                    <FaUser size={24} />
-                  )}
-                  <h5 className="text-xl font-semibold text-primary">
-                    {user.username}
-                  </h5>
-                </div>
-                <div className="flex gap-1 md:gap-4">
-                  <button
-                    className="btn btn-primary rounded-md shadow-sm"
-                    onClick={formOpens}
+          <div className="wrapper flex-1">
+            {/* displaying the logged in username */}
+            <span className="flex items-center justify-between mb-4">
+              <div className="flex items-center md:space-x-1">
+                {user.profilePic.url ? (
+                  <img
+                    src={user.profilePic.url}
+                    alt={user.username}
+                    className="h-12 w-12 rounded-full"
+                  />
+                ) : (
+                  <FaUser size={24} />
+                )}
+                <h5 className="text-xl font-semibold text-primary">
+                  {user.username}
+                </h5>
+              </div>
+              <div className="flex gap-1 md:gap-4">
+                <button
+                  className="btn btn-primary rounded-md shadow-sm"
+                  onClick={formOpens}
+                >
+                  <span className="block md:hidden">
+                    <MdSubscriptions />
+                  </span>
+                  <span className="hidden md:block">Add New Subscription</span>
+                </button>
+                <AnimatePresence>
+                  <AddMembersButton />
+                </AnimatePresence>
+              </div>
+            </span>
+
+            {/* To display the subscription the user has */}
+            <div>
+              <h6 className="text-lg mb-4 font-semibold text-center my-10">
+                Your current subscriptions
+              </h6>
+              <div className="flex justify-between font-semibold mb-3 mt-6">
+                <h5 className="flex-1">Platform Name</h5>
+                <h5 className="flex-1 text-center ml-4">Price</h5>
+                <h5 className="flex-1 text-center ml-4">Type</h5>
+                <h5 className="flex-1 text-right">Action</h5>
+              </div>
+              <ul className="space-y-2 mb-4">
+                {user.subscriptions.map((subscription, index) => (
+                  <li
+                    key={subscription._id}
+                    className="bg-base-100/55 p-3 rounded-md shadow-sm border-2 border-primary"
                   >
-                    <span className="block md:hidden">
-                      <MdSubscriptions />
-                    </span>
-                    <span className="hidden md:block">
-                      Add New Subscription
-                    </span>
-                  </button>
-                  <AnimatePresence>
-                    <AddMembersButton />
-                  </AnimatePresence>
-                </div>
-              </span>
-
-              {/* To display the subscription the user has */}
-              <div>
-                <h6 className="text-lg mb-4 font-semibold text-center my-10">
-                  Your current subscriptions
-                </h6>
-                <div className="flex justify-between font-semibold mb-3 mt-6">
-                  <h5 className="flex-1">Platform Name</h5>
-                  <h5 className="flex-1 text-center ml-4">Price</h5>
-                  <h5 className="flex-1 text-center ml-4">Type</h5>
-                  <h5 className="flex-1 text-right">Action</h5>
-                </div>
-                <ul className="space-y-2 mb-4">
-                  {user.subscriptions.map((subscription, index) => (
-                    <li
-                      key={subscription._id}
-                      className="bg-base-100/55 p-3 rounded-md shadow-sm border-2 border-primary"
-                    >
-                      <div className="flex items-center">
-                        <div className="flex-1">
-                          <p>{subscription.platformName}</p>
-                        </div>
-                        <div className="flex-1">
-                          <p className="md:ms-2">{subscription.plan.price} €</p>
-                        </div>
-                        <div className="flex-1">
-                          <p className="md:ms-[-20px]">
-                            {subscription.public ? "Public" : "Private"}
-                          </p>
-                        </div>
-                        <div className="float-right hover:cursor-pointer">
-                          <MdDelete onClick={() => deleteSubscription(index)} />
-                        </div>
+                    <div className="flex items-center">
+                      <div className="flex-1">
+                        <p>{subscription.platformName}</p>
                       </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* To display total price */}
-              <div className="flex justify-end mt-10">
-                <p className="text-lg font-medium">
-                  Total: {"  "} {totalPrice}€
-                </p>
-              </div>
+                      <div className="flex-1">
+                        <p className="md:ms-2">{subscription.plan.price} €</p>
+                      </div>
+                      <div className="flex-1">
+                        <p className="md:ms-[-20px]">
+                          {subscription.public ? "Public" : "Private"}
+                        </p>
+                      </div>
+                      <div className="float-right hover:cursor-pointer">
+                        <MdDelete onClick={() => deleteSubscription(index)} />
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
-          )}
+
+            {/* To display total price */}
+            <div className="flex justify-end mt-10">
+              <p className="text-lg font-medium">
+                Total: {"  "} {totalPrice}€
+              </p>
+            </div>
+          </div>
+
           {isFormOpen && (
             <AddSubsForm closeForm={formCloses} handleSubmit={handleSubmit} />
           )}
