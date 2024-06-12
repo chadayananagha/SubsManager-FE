@@ -45,7 +45,10 @@ const AddMembersButton = () => {
         } catch (error) {
           setIsLoading(false);
           setError(error.response.data.error);
-          toast.error(error.response.data.error);
+          toast.error(error.response.data.error, {
+            duration: 1000,
+            className: "bg-base-100 toast-style",
+          });
         } finally {
           setIsLoading(false);
         }
@@ -88,14 +91,20 @@ const AddMembersButton = () => {
     if (userId === userIdToBeAdded) {
       setIsConfirm(false);
       setError("You can't add your own userID");
-      toast.error("You can't add your own userID");
+      toast.error("You can't add your own userID", {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      });
 
       return;
     }
     if (subscription.members.includes(userIdToBeAdded)) {
       setIsLoading(false);
       setError("The user is already a member");
-      toast.error("The user is already a member");
+      toast.error("The user is already a member", {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      });
       return;
     }
     const fetchUserToBeAdded = async () => {
@@ -111,7 +120,10 @@ const AddMembersButton = () => {
       } catch (error) {
         setIsConfirm(false);
         setError("User doesn't exists");
-        toast.error("User doesn't exists");
+        toast.error("User doesn't exists", {
+          duration: 1000,
+          className: "bg-base-100 toast-style",
+        });
       } finally {
         setIsLoading(false);
       }
@@ -132,13 +144,19 @@ const AddMembersButton = () => {
       console.log(response.data);
       setIsLoading(false);
       setIsConfirm(false);
-      toast.success("User added successfully");
+      toast.success("User added successfully", {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      });
       handleOpenForm();
     } catch (error) {
       setIsLoading(false);
       setIsConfirm(false);
       setError(error.response?.data.error);
-      toast.error(error.response?.data.error);
+      toast.error(error.response?.data.error, {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      });
     } finally {
       setIsLoading(false);
     }

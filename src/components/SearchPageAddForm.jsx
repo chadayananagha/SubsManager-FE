@@ -66,7 +66,10 @@ const SearchPageAddForm = ({ openForm }) => {
     ) {
       const errorMessage = "Please fill in all fields";
       setError(errorMessage);
-      toast.error(errorMessage, { duration: 1000 });
+      toast.error(errorMessage, {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      });
       return;
     }
     setIsLoading(true);
@@ -94,10 +97,16 @@ const SearchPageAddForm = ({ openForm }) => {
       );
       //   console.log(response.data);
       setIsLoading(false);
-      toast.success("Subscription added successfully", { duration: 1000 });
+      toast.success("Subscription added successfully", {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      });
       closeForm();
     } catch (error) {
-      toast.error(error.response.data.error);
+      toast.error(error.response.data.error, {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      });
       setIsLoading(false);
       setError(error.response.data.error);
     } finally {

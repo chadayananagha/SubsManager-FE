@@ -50,12 +50,18 @@ const SignUp = () => {
       // localStorage.setItem("token", data.token);
       setIsLoading(false);
       login(data.token, data.userId);
-      toast.success("Registered successfully");
+      toast.success("Registered successfully", {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      });
       setTimeout(() => {
         navigate("/");
       }, 600);
     } catch (error) {
-      toast.error(error.response.data.error);
+      toast.error(error.response.data.error, {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      });
       setIsLoading(false);
       setError(error.response.data.error);
     } finally {

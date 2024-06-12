@@ -20,7 +20,10 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
     logout();
     handleSidebar();
     navigate("/");
-    toast.success("Successfully logged out!");
+    toast.success("Successfully logged out!", {
+      duration: 1000,
+      className: "bg-base-100 toast-style",
+    });
   };
   //*clicking outside of the sidebar
   useEffect(() => {

@@ -48,7 +48,10 @@ const Login = () => {
       // console.log(data);
       setIsLoading(false);
       login(data.token, data.userId);
-      toast.success("Successfully logged in!", { duration: 1000 });
+      toast.success("Successfully logged in!", {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      });
 
       setTimeout(() => {
         navigate(previousPage);
@@ -57,7 +60,10 @@ const Login = () => {
       setIsLoading(false); // Ensure loading is set to false in case of error
       if (error.response && error.response.data && error.response.data.error) {
         setError(error.response.data.error);
-        toast.error(error.response.data.error, { duration: 1000 });
+        toast.error(error.response.data.error, {
+          duration: 1000,
+          className: "bg-base-100 toast-style",
+        });
       } else {
         setError("An unexpected error occurred.");
       }

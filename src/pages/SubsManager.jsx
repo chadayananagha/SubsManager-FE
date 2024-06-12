@@ -31,12 +31,23 @@ const SubsManager = () => {
         }
       );
       if (response.ok) {
-        toast.success("Subscription deleted successfully!");
+        toast.success("Subscription deleted successfully!", {
+          duration: 1000,
+          className: "bg-base-100 toast-style",
+        });
         setDeleteFlag(true);
-      } else toast.error("Failed to delete subscription!");
+      } else
+        toast.error("Failed to delete subscription!", {
+          duration: 1000,
+          className: "bg-base-100 toast-style",
+        });
     } catch (error) {
       toast.error(
-        "There was a problem with the delete request: " + error.message
+        "There was a problem with the delete request: " + error.message,
+        {
+          duration: 1000,
+          className: "bg-base-100 toast-style",
+        }
       );
     }
   };
@@ -95,9 +106,15 @@ const SubsManager = () => {
       );
       if (response.ok) {
         setIsFormOpen(false);
-        toast.success("Subscription created successfully!");
+        toast.success("Subscription created successfully!", {
+          duration: 1000,
+          className: "bg-base-100 toast-style",
+        });
       } else {
-        toast.error("Failed to create subscription");
+        toast.error("Failed to create subscription", {
+          duration: 1000,
+          className: "bg-base-100 toast-style",
+        });
         // throw new Error('Failed to create subscription');
       }
     } catch (error) {
