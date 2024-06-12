@@ -21,7 +21,7 @@ const Footer = () => {
         className="opacity-40  w-36 "
       />
       <aside>
-        <p>Copyright © 2024 - All right reserved by Share & Subs</p>
+        <p>Copyright © 2024 - All right reserved by XShare</p>
       </aside>
     </footer>
   );
