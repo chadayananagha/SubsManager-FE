@@ -20,6 +20,7 @@ const SearchPageAddForm = ({ openForm }) => {
   });
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const today = new Date().toISOString().split("T")[0];
 
   //*form updating state
   const handleOnChange = (e) => {
@@ -245,7 +246,7 @@ const SearchPageAddForm = ({ openForm }) => {
       <input
         onChange={handleOnChange}
         value={formData.expirationDate}
-        // min={}
+        min={today}
         name="expirationDate"
         type="date"
         className="mx-12 w-full px-4 py-2 rounded-lg input-color"
