@@ -90,10 +90,10 @@ const CountryDropdown = ({ userData, handleEditChange }) => {
   });
 
   return (
-    <div className="relative inline-block w-full" ref={ref}>
+    <div className="relative inline-block w-full " ref={ref}>
       <button
         type="button"
-        className="text-left mt-1 block w-full border bg-white border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition"
+        className="text-left mt-1 block w-full  bg-white border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition input-color"
         onClick={toggleDropdown}
       >
         {selectedCountry.code && (
@@ -111,11 +111,11 @@ const CountryDropdown = ({ userData, handleEditChange }) => {
         {selectedCountry.name || "Select a country"}
       </button>
       {isOpen && (
-        <ul className="absolute z-10 mt-1 w-full max-h-60 overflow-y-auto bg-white border border-gray-300 rounded shadow-lg">
+        <ul className="absolute z-10 mt-1 w-full max-h-60 overflow-y-auto bg-base-100   rounded shadow-lg">
           {countries.map((country) => (
             <li
               key={country.code}
-              className="flex items-center p-2 hover:bg-gray-100 cursor-pointer"
+              className="flex items-center p-2 hover:bg-base-300 cursor-pointer"
               onClick={() => handleSelection(country)}
             >
               <ReactCountryFlag

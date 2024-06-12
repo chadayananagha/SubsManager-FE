@@ -35,6 +35,24 @@
   @apply btn-fantasy;
 }
 
+/* toast text color */
+[data-theme="business"] .toast-style {
+  color: #cdcdcd;
+  background-color: #181818;
+}
+[data-theme="fantasy"] .toast-style {
+  color: black;
+  background-color: #f3f4f6;
+}
+[data-theme="business"] .editEmail {
+  color: #cdcdcd;
+  opacity: 0.5;
+}
+[data-theme="fantasy"] .editEmail {
+  color: black;
+  opacity: 0.5;
+}
+
 [data-theme="business"] .bg-hero {
   background: linear-gradient(355deg, #1c4e8099 0%, #202020 40%);
 }

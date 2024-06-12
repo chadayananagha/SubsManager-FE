@@ -3,7 +3,6 @@ import CategoryCard from "../components/CategoryCard";
 import PlatformCard from "../components/PlatformCard";
 import Loading from "../components/Loading";
 import categoryIcons from "../data/CategoryIcons";
-import { platformName } from "../utils/icons.jsx";
 import UserCard from "../components/UserCard";
 import ChatWindow from "../components/ChatWindow";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -42,6 +41,7 @@ const Search = () => {
     if (!token) {
       toast.error("You need to be logged in to send messages.", {
         duration: 1000,
+        className: "bg-base-100 toast-style",
       });
       navigate(
         "/login",

@@ -4,17 +4,19 @@ import { useJwt } from "react-jwt";
 import { AuthContext } from "../context/AuthContext";
 import { FaEdit } from "react-icons/fa";
 import ProfilePicSelector from "../components/ProfilePicSelector";
-import { AiOutlineCloseCircle } from "react-icons/ai";
+import { FaTimes } from "react-icons/fa";
+import { AnimatePresence } from "framer-motion";
 import Loading from "../components/Loading";
 import CountryDropdown from "../components/CountryDropdown";
 import ReactCountryFlag from "react-country-flag";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
+import { motion } from "framer-motion";
 
 const UserProfile = () => {
   const { userId, token, updateProfilePic } = useContext(AuthContext);
   const { decodedToken } = useJwt(token);
   const username = decodedToken?.username;
-
+  const [isAnimating, setIsAnimating] = useState(true);
   const [clickCount, setClickCount] = useState(0);
 
   const [userData, setUserData] = useState({
@@ -114,20 +116,26 @@ const UserProfile = () => {
       const updatedData = response.data;
       updatedData.profileCompletionScore =
         calculateProfileCompletionScore(updatedData);
-      setUserData(updatedData);
+      // setUserData(updatedData);
+      setUserData((prev) => ({ ...prev, ...updatedData }));
       setIsEditing(false);
-      toast.success("Profile updated successfully!"); // Add this line for toast notification
+      toast.success("Profile updated successfully!", {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      }); // Add this line for toast notification
     } catch (error) {
       console.error("Error updating user data:", error);
-      toast.error("Failed to update profile."); // Add this line for error notification
+      toast.error("Failed to update profile.", {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      }); // Add this line for error notification
     }
   };
 
-  console.log(userData);
+  // console.log(userData);
 
   return (
-    <div className="flex-1 relative">
-      <Toaster position="top-center" reverseOrder={false} />
+    <div className="flex-1 relative overflow-hidden">
       <img
         className="absolute top-6 lg:right-4 xl:right-4 2xl:right-0 2xl:top-16 4xl:right-24 4xl:top-6 lg:h-1/3 xl:h-1/2 hidden lg:block -z-20 opacity-70"
         style={{ left: "calc(100% - 20rem)", top: "10rem" }}
@@ -135,7 +143,7 @@ const UserProfile = () => {
         alt="Sidebar illustration"
       />
       <div className="flex items-center justify-center my-32">
-        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-24">
+        <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-24">
           {loading ? (
             <Loading />
           ) : (
@@ -247,65 +255,75 @@ const UserProfile = () => {
         </div>
 
         <img
-          className="absolute -bottom-6 -left-8 lg:-left-8 xl:left-12 2xl:left-16 xl:-bottom-9 lg:h-1/3 xl:h-1/2 2xl:-bottom-11 hidden lg:block -z-20 4xl:-bottom-16 opacity-70"
+          className="absolute -bottom-6 -left-8 lg:-left-12 xl:left-12 2xl:-left-1 xl:-bottom-9 lg:h-1/3 xl:h-1/2 2xl:-bottom-11 hidden lg:block -z-20 4xl:-bottom-16 opacity-70"
           src="/images/profilePicBg2.png"
           alt="Sidebar illustration"
         />
       </div>
-
-      {isEditing && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-base-100 rounded-lg p-6 w-96 shadow-[0_0_0_10000px_rgba(0,0,0,.40)] relative">
+      <AnimatePresence>
+        {isEditing && (
+          // <div className="fixed inset-0 flex items-center justify-center z-50">
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{
+              height: { duration: 0.5 },
+              opacity: { duration: 0.2 },
+            }}
+            onAnimationStart={() => setIsAnimating(true)}
+            onAnimationComplete={() => setIsAnimating(false)}
+            className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-base-100 rounded-lg p-6 w-72 sm:w-96 shadow-[0_0_0_10000px_rgba(0,0,0,.40)]  ${
+              isAnimating ? "overflow-hidden" : ""
+            }`}
+          >
             <button
               onClick={() => setIsEditing(false)}
               type="button"
-              className="float-right hover:cursor-pointer hover:bg-primary rounded"
+              className="float-right hover:cursor-pointer hover:scale-105 rounded"
             >
-              <AiOutlineCloseCircle size={22} />
+              <FaTimes size={22} />
             </button>
 
             <h2 className="text-xl font-semibold mb-4">Edit Profile</h2>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">
-                First name
-              </label>
+              <label className="block text-sm font-medium ">First name</label>
               <input
                 type="text"
                 name="firstName"
+                placeholder="Enter yout first name..."
                 value={userData.firstName}
                 onChange={handleEditChange}
-                className="mt-1 block w-full border border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition"
+                className="mt-1 block w-full  border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition input-color"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">
-                Last name
-              </label>
+              <label className="block text-sm font-medium ">Last name</label>
               <input
                 type="text"
                 name="lastName"
+                placeholder="Enter yout last name..."
                 value={userData.lastName}
                 onChange={handleEditChange}
-                className="mt-1 block w-full border border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition"
+                className="mt-1 block w-full  border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition input-color"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium ">
                 Email address
               </label>
               <input
                 type="email"
                 name="email"
+                placeholder="Enter yout email..."
+                readOnly
                 value={userData.email}
                 onChange={handleEditChange}
-                className="mt-1 block w-full border bg-base-100 rounded p-2 focus:outline-none focus:ring-0 "
-                readOnly
+                className="mt-1 block w-full  border-gray-300 rounded p-2 focus:outline-none focus:ring-0 transition input-color editEmail"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">
-                Country
-              </label>
+              <label className="block text-sm font-medium ">Country</label>
 
               <CountryDropdown
                 userData={userData}
@@ -320,9 +338,11 @@ const UserProfile = () => {
                 Save
               </button>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+          //{" "}
+          // </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

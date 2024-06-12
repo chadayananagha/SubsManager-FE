@@ -14,11 +14,14 @@ const UserCard = ({
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("en-GB", {
+    const today = new Date();
+    const isExpired = date < today;
+    const formattedDate = date.toLocaleDateString("en-GB", {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
     });
+    return { formattedDate, isExpired };
   };
 
   return (
@@ -59,6 +62,9 @@ const UserCard = ({
               (subscription) => subscription.platformName === selectedPlatform
             )
             .map((subscription) => {
+              const { formattedDate, isExpired } = formatDate(
+                subscription.expirationDate
+              );
               const remainingSlots =
                 subscription.plan.maxMembers - subscription.members.length;
               const slots = [...Array(subscription.plan.maxMembers).keys()];
@@ -93,7 +99,7 @@ const UserCard = ({
                   <p className="flex my-2">
                     <span className="font-bold">Expires on</span>
                     <p className="ml-4">
-                      {formatDate(subscription.expirationDate)}
+                      {formattedDate} {isExpired && "(Expired)"}
                     </p>
                   </p>
                   <hr className="transition-opacity duration-500" />

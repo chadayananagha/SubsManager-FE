@@ -85,11 +85,18 @@ const ProfilePicSelector = ({ userData, setUserData, userId }) => {
         profilePic: imagePreviewUrl,
       });
       updateProfilePic(imagePreviewUrl);
-      toast.success("Profile picture updated successfully!");
+      toast.success("Profile picture updated successfully!", {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      });
       setIsUploading(false);
       setIsModalOpen(false); // Close the modal after uploading
     } catch (error) {
-      console.error("Error uploading profile picture:", error);
+      toast.error(error.response.data.error, {
+        duration: 1000,
+        className: "bg-base-100 toast-style",
+      });
+      console.error("Error uploading profile picture:" + error);
       setIsUploading(false);
     }
   };
@@ -114,7 +121,7 @@ const ProfilePicSelector = ({ userData, setUserData, userId }) => {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-          <div className="bg-white p-4 rounded-lg shadow-lg max-w-lg relative">
+          <div className="bg-base-100 p-4 rounded-lg shadow-lg max-w-lg relative">
             <button
               onClick={() => setIsModalOpen(false)}
               className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"

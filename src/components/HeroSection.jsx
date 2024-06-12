@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useContext, useRef, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useInView, AnimatePresence } from "framer-motion";
-import AddMembersButton from "./AddMembersButton";
+import { BiSolidDownArrow } from "react-icons/bi";
 
 const HeroSection = () => {
   const { token } = useContext(AuthContext);
@@ -19,8 +19,28 @@ const HeroSection = () => {
     }
     return () => clearTimeout(timer);
   }, [isInView]);
+
+  const [isScrolling, setIsScrolling] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolling(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
     <>
+      <div
+        className={`${
+          isScrolling ? "opacity-0" : "opacity-100"
+        } absolute text-xl sm:text-4xl bottom-4 left-1/2 -translate-x-1/2  transition-all duration-500`}
+      >
+        <BiSolidDownArrow className="animate-bounce" />
+      </div>
       <div className="hero min-h-screen bg-hero">
         <div
           ref={heroRef}
@@ -29,11 +49,11 @@ const HeroSection = () => {
           } `}
         >
           <img
-            className="lg:max-w-sm rounded-lg mix-blend-multiply lg:ml-8 "
-            src="/images/heroPic.png"
+            className="lg:max-w-sm rounded-lg mix-blend-multiply  "
+            src="/images/bgLandingPage.png"
             alt="Hero Illustration"
           />
-          <div className="flex flex-col items-center lg:items-start gap-24">
+          <div className="flex flex-col items-center lg:items-start gap-12 md:gap-18 lg:gap-24">
             <div className="flex flex-col gap-4">
               <h1 className="text-7xl font-bold text-primary text-center lg:text-left">
                 Stream smart,
@@ -56,7 +76,7 @@ const HeroSection = () => {
                 <div>
                   <Link
                     to="/startsharing"
-                    className=" relative text-nowrap btn bg-[#FF5733]  hover:bg-[#CC4629] justify-center items-center overflow-hidden group px-32 scale-125 md:ml-12 "
+                    className=" relative text-nowrap btn bg-[#FF5733]  hover:bg-[#CC4629] justify-center items-center overflow-hidden group px-16 md:px-32 sm:scale-125 md:ml-12 "
                   >
                     <span className="py-4 flex justify-center items-center opacity-100 group-hover:opacity-0 group-hover:-translate-y-full transition-all duration-1000 text-base-100">
                       Start sharing
@@ -69,13 +89,13 @@ const HeroSection = () => {
               ) : (
                 <>
                   <Link to="/login">
-                    <button className="btn btn-color text-black text-2xl px-10  flex justify-center items-center">
+                    <button className="btn btn-color text-black text-lg sm:text-2xl px-10  flex justify-center items-center">
                       Login
                     </button>
                   </Link>
 
                   <Link to="/signup">
-                    <button className="btn btn-primary text-white text-2xl px-10 ">
+                    <button className="btn btn-primary text-white text-lg sm:text-2xl px-8 ">
                       Sign up
                     </button>
                   </Link>
