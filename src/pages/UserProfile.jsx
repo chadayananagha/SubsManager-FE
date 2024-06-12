@@ -4,7 +4,6 @@ import { useJwt } from "react-jwt";
 import { AuthContext } from "../context/AuthContext";
 import { FaEdit } from "react-icons/fa";
 import ProfilePicSelector from "../components/ProfilePicSelector";
-import { AiOutlineCloseCircle } from "react-icons/ai";
 import { FaTimes } from "react-icons/fa";
 
 import Loading from "../components/Loading";
@@ -213,7 +212,7 @@ const UserProfile = () => {
             <button
               onClick={() => setIsEditing(false)}
               type="button"
-              className="float-right hover:cursor-pointer hover:scale-105  rounded"
+              className="float-right hover:cursor-pointer hover:scale-105 rounded"
             >
               <FaTimes size={22} />
             </button>

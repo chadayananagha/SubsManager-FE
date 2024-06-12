@@ -4,6 +4,7 @@ import axios from "axios";
 import Loading from "./Loading";
 import { AuthContext } from "../context/AuthContext";
 import { categoryIcons, getPlatformIcon } from "../utils/icons";
+import { FaTimes } from "react-icons/fa";
 import toast from "react-hot-toast";
 const SearchPageAddForm = ({ openForm }) => {
   const { token } = useContext(AuthContext);
@@ -150,6 +151,13 @@ const SearchPageAddForm = ({ openForm }) => {
           <Loading />
         </div>
       )}
+      <button
+        onClick={openForm}
+        type="button"
+        className="absolute right-4 top-4 hover:cursor-pointer hover:scale-105 rounded"
+      >
+        <FaTimes size={22} />
+      </button>
       <h3 className="text-xl">Add subscription</h3>
       {error && <p className="text-red-500 mt-4">{error}</p>}
       <label htmlFor="category" className="self-start -mb-2">
