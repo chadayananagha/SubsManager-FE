@@ -37,7 +37,7 @@ const HeroSection = () => {
       <BiSolidDownArrow
         className={`${
           isScrolling ? "opacity-0" : "opacity-100"
-        } absolute text-xl sm:text-4xl bottom-4 left-1/2 translate-x-1/2 animate-bounce transition-all duration-500`}
+        } absolute text-xl sm:text-4xl bottom-4 left-1/2 -translate-x-1/2 animate-bounce transition-all duration-500`}
       />
       <div className="hero min-h-screen bg-hero">
         <div

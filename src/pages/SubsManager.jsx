@@ -166,9 +166,7 @@ const SubsManager = () => {
                   </span>
                   <span className="hidden md:block">Add New Subscription</span>
                 </button>
-                <AnimatePresence>
-                  <AddMembersButton />
-                </AnimatePresence>
+                <AddMembersButton />
               </div>
             </span>
 
@@ -217,13 +215,12 @@ const SubsManager = () => {
               </p>
             </div>
           </div>
-
-          {isFormOpen && (
-            <AnimatePresence>
-              <AddSubsForm closeForm={formCloses} handleSubmit={handleSubmit} />
-            </AnimatePresence>
-          )}
         </div>
+        <AnimatePresence>
+          {isFormOpen && (
+            <AddSubsForm closeForm={formCloses} handleSubmit={handleSubmit} />
+          )}
+        </AnimatePresence>
         <img
           className="absolute -bottom-6 -left-8 lg:-left-8 xl:left-12 2xl:left-16 xl:-bottom-9 lg:h-1/3 xl:h-1/2 2xl:-bottom-11 hidden lg:block -z-20 4xl:-bottom-16"
           src="/images/Receipt.png"

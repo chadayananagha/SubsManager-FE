@@ -5,7 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 import { FaEdit } from "react-icons/fa";
 import ProfilePicSelector from "../components/ProfilePicSelector";
 import { FaTimes } from "react-icons/fa";
-
+import { AnimatePresence } from "framer-motion";
 import Loading from "../components/Loading";
 import CountryDropdown from "../components/CountryDropdown";
 import { motion } from "framer-motion";
@@ -196,88 +196,89 @@ const UserProfile = () => {
           alt="Sidebar illustration"
         />
       </div>
-
-      {isEditing && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{
-              height: { duration: 0.5 },
-              opacity: { duration: 0.2 },
-            }}
-            className="bg-base-100 rounded-lg p-6 w-96 shadow-[0_0_0_10000px_rgba(0,0,0,.40)] relative overflow-hidden"
-          >
-            <button
-              onClick={() => setIsEditing(false)}
-              type="button"
-              className="float-right hover:cursor-pointer hover:scale-105 rounded"
+      <AnimatePresence>
+        {isEditing && (
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{
+                height: { duration: 0.5 },
+                opacity: { duration: 0.2 },
+              }}
+              className="bg-base-100 rounded-lg p-6 w-96 shadow-[0_0_0_10000px_rgba(0,0,0,.40)] relative overflow-hidden"
             >
-              <FaTimes size={22} />
-            </button>
-
-            <h2 className="text-xl font-semibold mb-4">Edit Profile</h2>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">
-                First name
-              </label>
-              <input
-                type="text"
-                name="firstName"
-                placeholder="Enter yout first name..."
-                value={userData.firstName}
-                onChange={handleEditChange}
-                className="mt-1 block w-full  border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition input-color"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">
-                Last name
-              </label>
-              <input
-                type="text"
-                name="lastName"
-                placeholder="Enter yout last name..."
-                value={userData.lastName}
-                onChange={handleEditChange}
-                className="mt-1 block w-full  border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition input-color"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">
-                Email address
-              </label>
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter yout email..."
-                value={userData.email}
-                onChange={handleEditChange}
-                className="mt-1 block w-full  border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition input-color"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">
-                Country
-              </label>
-
-              <CountryDropdown
-                userData={userData}
-                handleEditChange={handleEditChange}
-              />
-            </div>
-            <div className="flex justify-end gap-2">
               <button
-                onClick={handleSave}
-                className="btn btn-primary text-white font-bold py-2 px-4 rounded"
+                onClick={() => setIsEditing(false)}
+                type="button"
+                className="float-right hover:cursor-pointer hover:scale-105 rounded"
               >
-                Save
+                <FaTimes size={22} />
               </button>
-            </div>
-          </motion.div>
-        </div>
-      )}
+
+              <h2 className="text-xl font-semibold mb-4">Edit Profile</h2>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700">
+                  First name
+                </label>
+                <input
+                  type="text"
+                  name="firstName"
+                  placeholder="Enter yout first name..."
+                  value={userData.firstName}
+                  onChange={handleEditChange}
+                  className="mt-1 block w-full  border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition input-color"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700">
+                  Last name
+                </label>
+                <input
+                  type="text"
+                  name="lastName"
+                  placeholder="Enter yout last name..."
+                  value={userData.lastName}
+                  onChange={handleEditChange}
+                  className="mt-1 block w-full  border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition input-color"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700">
+                  Email address
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter yout email..."
+                  value={userData.email}
+                  onChange={handleEditChange}
+                  className="mt-1 block w-full  border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition input-color"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700">
+                  Country
+                </label>
+
+                <CountryDropdown
+                  userData={userData}
+                  handleEditChange={handleEditChange}
+                />
+              </div>
+              <div className="flex justify-end gap-2">
+                <button
+                  onClick={handleSave}
+                  className="btn btn-primary text-white font-bold py-2 px-4 rounded"
+                >
+                  Save
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

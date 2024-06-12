@@ -2,7 +2,7 @@ import axios from "axios";
 import { platformName } from "../utils/icons";
 import { AuthContext } from "../context/AuthContext";
 import { useContext, useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import Loading from "./Loading";
@@ -195,149 +195,160 @@ const AddMembersButton = () => {
   };
   return (
     <>
-      {isAdding && (
-        <motion.form
-          ref={formRef}
-          onSubmit={handleSubmit}
-          key="form"
-          autoComplete="on"
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: "auto", opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
-          transition={{ height: { duration: 0.5 }, opacity: { duration: 0.2 } }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center gap-4  rounded-lg z-10 px-14 py-8 shadow-[0_0_0_10000px_rgba(0,0,0,.40)] bg-base-100"
-        >
-          {isLoading && (
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-base-100/70 w-full h-full z-30 flex justify-center items-center">
-              <Loading />
-            </div>
-          )}
-          <button
-            type="button"
-            onClick={handleOpenForm}
-            className="absolute right-4 top-4 hover:cursor-pointer hover:scale-105 rounded"
+      <AnimatePresence>
+        {isAdding && (
+          <motion.form
+            ref={formRef}
+            onSubmit={handleSubmit}
+            key="form"
+            autoComplete="on"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{
+              height: { duration: 0.5 },
+              opacity: { duration: 0.2 },
+            }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center gap-4  rounded-lg z-10 px-0 sm:px-14 py-8 shadow-[0_0_0_10000px_rgba(0,0,0,.40)] bg-base-100 "
           >
-            <FaTimes size={22} />
-          </button>
-          <h3 className="text-xl">Add Member</h3>
-          <label htmlFor="subscription" className="self-start -mb-2">
-            Select Subscription
-          </label>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="dropdown mx-24 w-full   "
-            name="category"
-          >
+            {isLoading && (
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-base-100/70 w-full h-full z-30 flex justify-center items-center">
+                <Loading />
+              </div>
+            )}
+            <button
+              type="button"
+              onClick={handleOpenForm}
+              className="absolute right-4 top-4 hover:cursor-pointer hover:scale-105 rounded"
+            >
+              <FaTimes size={22} />
+            </button>
+            <h3 className="text-xl">Add Member</h3>
+            <label
+              htmlFor="subscription"
+              className="self-start ml-4 sm:ml-0 -mb-2"
+            >
+              Select Subscription
+            </label>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1 }}
-              tabIndex={0}
-              role="button"
-              className="px-4  py-2 rounded-lg input-color relative overflow-hidden  "
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="dropdown mx-24 w-full   "
+              name="category"
             >
-              {subscription
-                ? subscription.platformName
-                : "Select subscriptions"}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+                tabIndex={0}
+                role="button"
+                className="px-4 mx-2 lg:mx-0  py-2 rounded-lg input-color relative overflow-hidden  "
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              >
+                {subscription
+                  ? subscription.platformName
+                  : "Select subscriptions"}
 
-              {subscription ? (
-                platformName[subscription.platformName]
-              ) : (
-                <IoMdArrowDropdown className="absolute top-1/2 bottom-1/2 -translate-y-1/2 right-4 text-3xl" />
+                {subscription ? (
+                  platformName[subscription.platformName]
+                ) : (
+                  <IoMdArrowDropdown className="absolute top-1/2 bottom-1/2 -translate-y-1/2 right-4 text-3xl" />
+                )}
+              </motion.div>
+              {isDropdownOpen && (
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 relative"
+                >
+                  {sharedSub.map((sub) => (
+                    <li key={sub._id}>
+                      <a onClick={() => handleSubscriptionSelect(sub)}>
+                        {sub.platformName}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               )}
             </motion.div>
-            {isDropdownOpen && (
-              <ul
-                tabIndex={0}
-                className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 relative"
-              >
-                {sharedSub.map((sub) => (
-                  <li key={sub._id}>
-                    <a onClick={() => handleSubscriptionSelect(sub)}>
-                      {sub.platformName}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </motion.div>
-          {subscription && (
-            <>
-              <div className="flex flex-col gap-4 text-xs w-full border-b border-primary pb-2">
-                <div className="flex justify-between">
-                  <div>Category: {subscription.category}</div>
-                  <div>Plan: {subscription.plan.planName}</div>
-                </div>
-                <div className="flex justify-between">
-                  <div>
-                    Members: {subscription.members.length}/
-                    {subscription.plan.maxMembers}
+            {subscription && (
+              <>
+                <div className="flex flex-col gap-4 text-xs w-full border-b border-primary pb-2 ">
+                  <div className="mx-2 lg:mx-0 flex justify-between">
+                    <div>Category: {subscription.category}</div>
+                    <div>Plan: {subscription.plan.planName}</div>
                   </div>
-                  <div>Price: {subscription?.plan.price} €</div>
-                </div>
-              </div>
-              <label htmlFor="userId" className="self-start -mb-2 ">
-                Enter userID
-              </label>
-              <input
-                value={userIdToBeAdded}
-                onChange={(e) => setUserIdToBeAdded(e.target.value)}
-                className="w-full px-4 py-2 rounded-lg input-color "
-                type="text"
-                name="userId"
-                placeholder="Enter userID..."
-                required
-              />
-              {error && (
-                <p className="text-red-500 font-bold mt-4  w-full text-center text-balance p-4 rounded-lg">
-                  {error}
-                </p>
-              )}
-              <button
-                className="btn btn-primary self-end mt-4"
-                disabled={isConfirm}
-              >
-                Add
-              </button>
-            </>
-          )}
-          {!isLoading && isConfirm && (
-            <div className="bg-base-100 p-12 rounded-lg absolute flex flex-col gap-8 items-center justify-center shadow-[0_0_0_10000px_rgba(0,0,0,.40)]">
-              <h2>Are you sure you want to add:</h2>
-              <div className="flex justify-center items-center gap-4">
-                {userToBeAdded.profilePic ? (
-                  <div className="avatar">
-                    <div className="w-8 rounded-full">
-                      <img src={userToBeAdded.profilePic.url} />
+                  <div className="mx-2 lg:mx-0 flex justify-between">
+                    <div>
+                      Members: {subscription.members.length}/
+                      {subscription.plan.maxMembers}
                     </div>
+                    <div>Price: {subscription?.plan.price} €</div>
                   </div>
-                ) : (
-                  <FaUser className="text-xl" />
-                )}
-                <p>{userToBeAdded.username}</p>
-              </div>
-              <p>to your subscription?</p>
-              <div className="flex gap-4 ">
-                <button
-                  onClick={() => {
-                    setIsConfirm(false);
-                    setUserIdToBeAdded("");
-                  }}
-                  className="btn bg-red-600 hover:bg-red-700"
+                </div>
+                <label
+                  htmlFor="userId"
+                  className="self-start -mb-2 mx-2 lg:mx-0 "
                 >
-                  Cancel
+                  Enter userID
+                </label>
+                <input
+                  value={userIdToBeAdded}
+                  onChange={(e) => setUserIdToBeAdded(e.target.value)}
+                  className=" mx-2 lg:mx-0 sm:w-full px-4 py-2 rounded-lg input-color "
+                  type="text"
+                  name="userId"
+                  placeholder="Enter userID..."
+                  required
+                />
+                {error && (
+                  <p className="text-red-500 font-bold mt-4  w-full text-center text-balance p-4 rounded-lg">
+                    {error}
+                  </p>
+                )}
+                <button
+                  className="btn btn-primary self-end mt-4"
+                  disabled={isConfirm}
+                >
+                  Add
                 </button>
-                <button onClick={handleAddMember} className="btn btn-primary">
-                  Confirm
-                </button>
+              </>
+            )}
+            {!isLoading && isConfirm && (
+              <div className="bg-base-100 p-12 rounded-lg absolute flex flex-col gap-8 items-center justify-center shadow-[0_0_0_10000px_rgba(0,0,0,.40)]">
+                <h2>Are you sure you want to add:</h2>
+                <div className="flex justify-center items-center gap-4">
+                  {userToBeAdded.profilePic ? (
+                    <div className="avatar">
+                      <div className="w-8 rounded-full">
+                        <img src={userToBeAdded.profilePic.url} />
+                      </div>
+                    </div>
+                  ) : (
+                    <FaUser className="text-xl" />
+                  )}
+                  <p>{userToBeAdded.username}</p>
+                </div>
+                <p>to your subscription?</p>
+                <div className="flex gap-4 ">
+                  <button
+                    onClick={() => {
+                      setIsConfirm(false);
+                      setUserIdToBeAdded("");
+                    }}
+                    className="btn bg-red-600 hover:bg-red-700"
+                  >
+                    Cancel
+                  </button>
+                  <button onClick={handleAddMember} className="btn btn-primary">
+                    Confirm
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
-        </motion.form>
-      )}
+            )}
+          </motion.form>
+        )}
+      </AnimatePresence>
       <div>
         <button
           onClick={handleOpenForm}

@@ -288,11 +288,3 @@ const SearchPageAddForm = ({ openForm }) => {
 };
 
 export default SearchPageAddForm;
-
-//*SubSchema
-// Category
-// Platform Name
-// Plan : planName, price, maxMemb
-// public: y/n
-
-// expirationDate
