@@ -47,7 +47,7 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
   return (
     <div
       ref={sidebarRef}
-      className={`fixed  right-0 top-0 bottom-0  h-full bg-base-100 transition-[width] duration-800 flex flex-col no-wrap justify-center items-center overflow-hidden ${
+      className={`fixed  right-0 top-0 bottom-0  h-dvh bg-base-100 transition-[width] duration-800 flex flex-col no-wrap justify-center items-center overflow-hidden ${
         isSidebarOpen
           ? "w-2/3 lg:w-1/4 shadow-[0_0_0_10000px_rgba(0,0,0,.40)]  "
           : "w-0 "
