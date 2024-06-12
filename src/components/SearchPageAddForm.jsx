@@ -199,7 +199,7 @@ const SearchPageAddForm = ({ openForm }) => {
               <a onClick={() => handleCategory("Sports")}>Sports</a>
             </li>
             <li>
-              <a onClick={() => handleCategory("Other")}>Other</a>
+              <a onClick={() => handleCategory("Others")}>Others</a>
             </li>
           </ul>
         )}

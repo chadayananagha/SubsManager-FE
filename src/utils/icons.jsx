@@ -39,7 +39,7 @@ export const categoryIcons = {
   Sports: (
     <MdOutlineSportsSoccer className="absolute top-2 -right-2 text-5xl" />
   ),
-  Other: <HiMiniSquaresPlus className="absolute top-2 right-0 text-4xl" />,
+  Others: <HiMiniSquaresPlus className="absolute top-2 right-0 text-4xl" />,
 };
 
 export const platformName = {
