@@ -50,7 +50,7 @@ const HeroSection = () => {
         >
           <img
             className="lg:max-w-sm rounded-lg mix-blend-multiply  "
-            src="/images/heroPic.png"
+            src="/images/bgLandingPage.png"
             alt="Hero Illustration"
           />
           <div className="flex flex-col items-center lg:items-start gap-12 md:gap-18 lg:gap-24">
