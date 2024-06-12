@@ -5,8 +5,11 @@ import { AuthContext } from "../context/AuthContext";
 import { FaEdit } from "react-icons/fa";
 import ProfilePicSelector from "../components/ProfilePicSelector";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { FaTimes } from "react-icons/fa";
+
 import Loading from "../components/Loading";
 import CountryDropdown from "../components/CountryDropdown";
+import { motion } from "framer-motion";
 
 const UserProfile = () => {
   const { userId, token, updateProfilePic } = useContext(AuthContext);
@@ -197,13 +200,22 @@ const UserProfile = () => {
 
       {isEditing && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-base-100 rounded-lg p-6 w-96 shadow-[0_0_0_10000px_rgba(0,0,0,.40)] relative">
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{
+              height: { duration: 0.5 },
+              opacity: { duration: 0.2 },
+            }}
+            className="bg-base-100 rounded-lg p-6 w-96 shadow-[0_0_0_10000px_rgba(0,0,0,.40)] relative overflow-hidden"
+          >
             <button
               onClick={() => setIsEditing(false)}
               type="button"
-              className="float-right hover:cursor-pointer hover:bg-primary rounded"
+              className="float-right hover:cursor-pointer hover:scale-105  rounded"
             >
-              <AiOutlineCloseCircle size={22} />
+              <FaTimes size={22} />
             </button>
 
             <h2 className="text-xl font-semibold mb-4">Edit Profile</h2>
@@ -214,9 +226,10 @@ const UserProfile = () => {
               <input
                 type="text"
                 name="firstName"
+                placeholder="Enter yout first name..."
                 value={userData.firstName}
                 onChange={handleEditChange}
-                className="mt-1 block w-full border border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition"
+                className="mt-1 block w-full  border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition input-color"
               />
             </div>
             <div className="mb-4">
@@ -226,9 +239,10 @@ const UserProfile = () => {
               <input
                 type="text"
                 name="lastName"
+                placeholder="Enter yout last name..."
                 value={userData.lastName}
                 onChange={handleEditChange}
-                className="mt-1 block w-full border border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition"
+                className="mt-1 block w-full  border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition input-color"
               />
             </div>
             <div className="mb-4">
@@ -238,9 +252,10 @@ const UserProfile = () => {
               <input
                 type="email"
                 name="email"
+                placeholder="Enter yout email..."
                 value={userData.email}
                 onChange={handleEditChange}
-                className="mt-1 block w-full border border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition"
+                className="mt-1 block w-full  border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition input-color"
               />
             </div>
             <div className="mb-4">
@@ -261,7 +276,7 @@ const UserProfile = () => {
                 Save
               </button>
             </div>
-          </div>
+          </motion.div>
         </div>
       )}
     </div>
