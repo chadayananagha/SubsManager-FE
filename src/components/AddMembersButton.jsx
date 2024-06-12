@@ -264,7 +264,11 @@ const AddMembersButton = () => {
                 placeholder="Enter userID..."
                 required
               />
-              {error && <p className="text-red-500 mt-4">{error}</p>}
+              {error && (
+                <p className="text-red-500 font-bold mt-4  w-full text-center text-balance p-4 rounded-lg">
+                  {error}
+                </p>
+              )}
               <button
                 className="btn btn-primary self-end mt-4"
                 disabled={isConfirm}

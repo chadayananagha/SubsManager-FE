@@ -123,7 +123,11 @@ const SignUp = () => {
                 {isShowingPassword ? <FaEyeSlash /> : <FaEye />}
               </div>
             </div>
-            {error && <p className="text-red-500 mt-4">{error}</p>}
+            {error && (
+              <p className="text-red-500 font-bold mt-4  w-full text-center text-balance p-4 rounded-lg">
+                {error}
+              </p>
+            )}
             <button className="btn-hover btn btn-primary text-white border-none  sm:w-96 w-full py-2 px-4 mt-4">
               Register
             </button>

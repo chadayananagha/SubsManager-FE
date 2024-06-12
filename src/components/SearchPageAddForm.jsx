@@ -94,7 +94,7 @@ const SearchPageAddForm = ({ openForm }) => {
       );
       //   console.log(response.data);
       setIsLoading(false);
-      toast.success("Succes", { duration: 1000 });
+      toast.success("Subscription added successfully", { duration: 1000 });
       closeForm();
     } catch (error) {
       toast.error(error.response.data.error);
