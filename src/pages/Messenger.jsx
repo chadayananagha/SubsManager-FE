@@ -328,7 +328,7 @@ export const Messenger = () => {
 
                   <div
                     className={`chat-bubble mt-2 text-white ${
-                      msg.sender === userId ? "bg-[#FF5733]" : "bg-primary"
+                      msg.sender === userId ? "bg-primary" : "bg-[#FF5733]"
                     }`}
                   >
                     {msg.message}
