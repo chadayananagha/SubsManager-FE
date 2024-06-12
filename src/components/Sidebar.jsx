@@ -44,7 +44,7 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
   return (
     <div
       ref={sidebarRef}
-      className={`fixed  right-0 top-0 bottom-0  h-dvh bg-base-100 transition-[width] duration-800 flex flex-col no-wrap justify-center items-center overflow-hidden ${
+      className={`fixed  right-0 top-0 bottom-0  h-full bg-base-100 transition-[width] duration-800 flex flex-col no-wrap justify-center items-center overflow-hidden ${
         isSidebarOpen
           ? "w-2/3 lg:w-1/4 shadow-[0_0_0_10000px_rgba(0,0,0,.40)]  "
           : "w-0 "
@@ -63,8 +63,8 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
         </button>
       </div>
       {token ? (
-        <>
-          <div className="absolute top-24 flex justify-center items-center">
+        <div className="flex flex-col gap-4 absolute h-full top-1/4  items-center ">
+          <div className="flex justify-center items-center self-start -mt-24 ">
             <p className="text-2xl text-center text-balance">
               Welcome{" "}
               <span className="font-extrabold tracking-wider text-primary text-2xl ">
@@ -74,19 +74,19 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
           </div>
 
           {profilePic ? (
-            <div className="avatar hidden md:block absolute md:top-36 ">
+            <div className="avatar hidden md:block  ">
               <div className="w-16 rounded-full">
                 <img src={profilePic} />
               </div>
             </div>
           ) : (
-            <div className="bg-zinc-300 hidden md:block absolute md:top-36 border border-zinc-200 text-neutral-content rounded-full w-16 overflow-hidden ">
+            <div className="bg-zinc-300 hidden md:block s border border-zinc-200 text-neutral-content rounded-full w-16 overflow-hidden ">
               <span className="text-6xl  text-base-100 mt-2">
                 <FaUser />
               </span>
             </div>
           )}
-          <div className="flex flex-col gap-4 mt-36 absolute  justify-center items-center ">
+          <div className="flex flex-col gap-4 lg:mt-4  justify-center items-center ">
             <NavLink
               className={({ isActive }) =>
                 isActive ? "activeSideBarNav" : "sideBarNav"
@@ -123,41 +123,14 @@ const Sidebar = ({ isSidebarOpen, handleSidebar }) => {
             >
               <p className="p-4">Search for subscriptions</p>
             </NavLink>
-            {/* <NavLink
-              onClick={() => handleSidebar()}
-              to="/contact"
-              className={({ isActive }) =>
-                isActive ? "activeSideBarNav" : "sideBarNav"
-              }
-            >
-              <p className="p-4">Contact</p>
-            </NavLink>
-            <NavLink
-              onClick={() => handleSidebar()}
-              to="/faq"
-              className={({ isActive }) =>
-                isActive ? "activeSideBarNav" : "sideBarNav"
-              }
-            >
-              <p className="p-4">FAQ</p>
-            </NavLink>
-            <NavLink
-              onClick={() => handleSidebar()}
-              to="/about"
-              className={({ isActive }) =>
-                isActive ? "activeSideBarNav" : "sideBarNav z-10"
-              }
-            >
-              <p className="p-4">About</p>
-            </NavLink> */}
             <button
               onClick={handleLogout}
-              className="z-10 btn bg-red-600 hover:bg-red-700 px-16 text-lg text-base-100 "
+              className="z-10 btn bg-red-600 hover:bg-red-700 px-16 text-lg text-base-100 mt-24"
             >
               Log out
             </button>
           </div>
-        </>
+        </div>
       ) : (
         <div className="flex flex-col gap-4 absolute top-1/4 justify-center items-center ">
           <div className="flex gap-8 justify-center items-center">
