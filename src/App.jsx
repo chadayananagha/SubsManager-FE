@@ -22,33 +22,16 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route path="/" element={<Home />} />
-          {/* {!token && <Route path="/login" element={<Login />} />} */}
-          <Route
-            path="/login"
-            element={!token ? <Login /> : <Navigate to="/" />}
-          />
+          <Route path="/login" element={<Login />} />
           <Route path="/search" element={<Search />} />
-          <Route
-            path="/profile"
-            element={token ? <UserProfile /> : <Navigate to="/" />}
-          />
+          <Route path="/profile" element={<UserProfile />} />
           <Route path="/startsharing" element={<StartSharing />} />
-          <Route
-            path="/signup"
-            element={!token ? <SignUp /> : <Navigate to="/" />}
-          />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/faq" element={<FAQ />} />
-          <Route
-            path="/messenger"
-            element={token ? <Messenger /> : <Navigate to="/" />}
-          />
-
-          <Route
-            path="/subsmanager"
-            element={token ? <SubsManager /> : <Navigate to="/" />}
-          />
+          <Route path="/messenger" element={<Messenger />} />
+          <Route path="/subsmanager" element={<SubsManager />} />
         </Route>
       </Routes>
     </div>
