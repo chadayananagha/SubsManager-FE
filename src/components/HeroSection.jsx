@@ -89,13 +89,13 @@ const HeroSection = () => {
               ) : (
                 <>
                   <Link to="/login">
-                    <button className="btn btn-color text-black text-2xl px-10  flex justify-center items-center">
+                    <button className="btn btn-color text-black text-lg sm:text-2xl px-10  flex justify-center items-center">
                       Login
                     </button>
                   </Link>
 
                   <Link to="/signup">
-                    <button className="btn btn-primary text-white text-2xl px-10 ">
+                    <button className="btn btn-primary text-white text-lg sm:text-2xl px-8 ">
                       Sign up
                     </button>
                   </Link>

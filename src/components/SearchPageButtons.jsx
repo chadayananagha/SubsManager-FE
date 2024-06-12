@@ -9,7 +9,7 @@ import { DiAptana } from "react-icons/di";
 const SearchPageButtons = ({ openForm }) => {
   const { token } = useContext(AuthContext);
   return token ? (
-    <div className="flex flex-col sm:grid-cols-2 sm:grid items-center justify-center gap-16 mt-24 mx-12 ">
+    <div className="flex flex-col sm:grid-cols-2 sm:grid items-center justify-center gap-8 sm:gap-16 mt-8 sm:mt-24 mx-12 ">
       <motion.div
         onClick={openForm}
         initial={{ x: -100 }}
@@ -56,7 +56,7 @@ const SearchPageButtons = ({ openForm }) => {
       </motion.div>
     </div>
   ) : (
-    <div className="flex flex-wrap items-center justify-center gap-24 mt-24 mx-12">
+    <div className="flex flex-wrap items-center justify-center gap-24 mt-8 sm:mt-24 mx-12">
       <motion.div
         initial={{ x: -100 }}
         animate={{ x: 0 }}
