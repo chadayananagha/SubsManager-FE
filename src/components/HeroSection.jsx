@@ -76,7 +76,7 @@ const HeroSection = () => {
                 <div>
                   <Link
                     to="/startsharing"
-                    className=" relative text-nowrap btn bg-[#FF5733]  hover:bg-[#CC4629] justify-center items-center overflow-hidden group px-16 md:px-32 sm:scale-125 md:ml-12 "
+                    className=" relative text-nowrap btn bg-[#FF5733]  hover:bg-[#CC4629] justify-center items-center overflow-hidden group px-16 md:px-32 sm:scale-125 lg:ml-12 "
                   >
                     <span className="py-4 flex justify-center items-center opacity-100 group-hover:opacity-0 group-hover:-translate-y-full transition-all duration-1000 text-base-100">
                       Start sharing
