@@ -239,6 +239,7 @@ const SearchPageAddForm = ({ openForm }) => {
             value={formData.price}
             min={1}
             name="price"
+            placeholder="Enter your price..."
             type="number"
             className="mx-12 w-full px-4 py-2 rounded-lg input-color"
           />
@@ -251,6 +252,7 @@ const SearchPageAddForm = ({ openForm }) => {
             onChange={handleOnChange}
             value={formData.maxMembers}
             min={1}
+            placeholder="Enter max members..."
             name="maxMembers"
             type="number"
             className="mx-12 w-full px-4 py-2 rounded-lg input-color"

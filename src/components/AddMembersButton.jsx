@@ -8,6 +8,8 @@ import { FaUser } from "react-icons/fa";
 import Loading from "./Loading";
 import toast from "react-hot-toast";
 import { MdPersonAdd } from "react-icons/md";
+import { FaTimes } from "react-icons/fa";
+
 const AddMembersButton = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [sharedSub, setSharedSub] = useState([]);
@@ -210,6 +212,13 @@ const AddMembersButton = () => {
               <Loading />
             </div>
           )}
+          <button
+            type="button"
+            onClick={handleOpenForm}
+            className="absolute right-4 top-4 hover:cursor-pointer hover:scale-105 rounded"
+          >
+            <FaTimes size={22} />
+          </button>
           <h3 className="text-xl">Add Member</h3>
           <label htmlFor="subscription" className="self-start -mb-2">
             Select Subscription

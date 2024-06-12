@@ -219,7 +219,9 @@ const SubsManager = () => {
           </div>
 
           {isFormOpen && (
-            <AddSubsForm closeForm={formCloses} handleSubmit={handleSubmit} />
+            <AnimatePresence>
+              <AddSubsForm closeForm={formCloses} handleSubmit={handleSubmit} />
+            </AnimatePresence>
           )}
         </div>
         <img
