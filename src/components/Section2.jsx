@@ -9,6 +9,8 @@ const Section2 = () => {
   //*Row 2
   const imgRef2 = useRef(null);
   const textRef2 = useRef(null);
+  const imgRefPhone2 = useRef(null);
+  const isInViewPhone2 = useInView(imgRefPhone2, { once: true });
   const isInView2 = useInView(imgRef2, { once: true });
   const isInViewtext2 = useInView(textRef2, { once: true });
   //*Row 3
@@ -19,6 +21,8 @@ const Section2 = () => {
   //*Row 4
   const imgRef4 = useRef(null);
   const textRef4 = useRef(null);
+  const imgRefPhone4 = useRef(null);
+  const isInViewPhone4 = useInView(imgRefPhone4, { once: true });
   const isInView4 = useInView(imgRef4, { once: true });
   const isInViewtext4 = useInView(textRef4, { once: true });
   return (
@@ -49,12 +53,12 @@ const Section2 = () => {
           </p>
         </div>
         <img
-          ref={imgRef2}
+          ref={imgRefPhone2}
           src="/images/Add.svg"
           alt=""
           width={250}
-          className={` md:hidden md:justify-self-center mx-auto transition-all duration-1000${
-            isInView2 ? "opacity-100" : "opacity-0 translate-x-24"
+          className={`md:hidden  justify-self-center transition-all duration-1000  ${
+            isInViewPhone2 ? "opacity-100" : "opacity-0 translate-x-24"
           }`}
         />
         <div
@@ -106,12 +110,12 @@ const Section2 = () => {
           </p>
         </div>
         <img
-          ref={imgRef4}
+          ref={imgRefPhone4}
           src="/images/Manage.svg"
           alt=""
           width={250}
           className={`md:hidden justify-self-center transition-all duration-1000 ${
-            isInView4 ? "opacity-100" : "opacity-0 translate-x-24"
+            isInViewPhone4 ? "opacity-100" : "opacity-0 translate-x-24"
           }`}
         />
         <div
