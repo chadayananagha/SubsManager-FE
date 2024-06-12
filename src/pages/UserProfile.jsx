@@ -129,8 +129,9 @@ const UserProfile = () => {
     <div className="flex-1 relative">
       <Toaster position="top-center" reverseOrder={false} />
       <img
-        className="absolute top-20 right-8 lg:right-0 xl:right-10 2xl:right-16 2xl:top-24 4xl:right-24 4xl:top-32 lg:h-1/3 xl:h-1/2 hidden lg:block -z-20 opacity-70"
-        src="/images/profilePicBg.png"
+        className="absolute top-6 lg:right-4 xl:right-4 2xl:right-0 2xl:top-16 4xl:right-24 4xl:top-6 lg:h-1/3 xl:h-1/2 hidden lg:block -z-20 opacity-70"
+        style={{ left: "calc(100% - 20rem)", top: "10rem" }}
+        src="/images/profilePicBg3.png"
         alt="Sidebar illustration"
       />
       <div className="flex items-center justify-center my-32">
