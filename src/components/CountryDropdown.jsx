@@ -30,6 +30,7 @@ const CountryDropdown = ({ userData, handleEditChange }) => {
     { name: "Hong Kong", code: "HK" },
     { name: "Hungary", code: "HU" },
     { name: "Iceland", code: "IS" },
+    { name: "India", code: "IN" },
     { name: "Ireland", code: "IE" },
     { name: "Israel", code: "IL" },
     { name: "Italy", code: "IT" },
