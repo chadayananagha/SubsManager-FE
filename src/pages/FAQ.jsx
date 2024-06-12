@@ -86,11 +86,13 @@ const FAQ = () => {
 				<div className='collapse-content px-8'>
 					<ul className='list-disc leading-7 text-white/80'>
 						<li>Go to the manage subscriptions page.</li>
-						<li>Choose the subscription you want to cancel membership</li>
 						<li>Click the button “Add members”</li>
 						<li>
-							You will continue to enjoy the subscription for the current month
-							and no longer be charged for future months.
+							Select the subscription you have and enter all necessary
+							information
+						</li>
+						<li>
+							You will continue to enjoy the subscription with other members
 						</li>
 					</ul>
 				</div>
