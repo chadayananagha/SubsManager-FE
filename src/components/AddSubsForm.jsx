@@ -145,6 +145,7 @@ const AddSubsForm = ({ closeForm, handleSubmit }) => {
           <input
             type="date"
             name="expirationDate"
+            min={today}
             value={formData.expirationDate}
             required
             placeholder="yyyy-mm-dd"
