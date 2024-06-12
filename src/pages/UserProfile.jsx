@@ -287,9 +287,7 @@ const UserProfile = () => {
 
             <h2 className="text-xl font-semibold mb-4">Edit Profile</h2>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">
-                First name
-              </label>
+              <label className="block text-sm font-medium ">First name</label>
               <input
                 type="text"
                 name="firstName"
@@ -300,9 +298,7 @@ const UserProfile = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">
-                Last name
-              </label>
+              <label className="block text-sm font-medium ">Last name</label>
               <input
                 type="text"
                 name="lastName"
@@ -313,22 +309,21 @@ const UserProfile = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium ">
                 Email address
               </label>
               <input
                 type="email"
                 name="email"
                 placeholder="Enter yout email..."
+                readOnly
                 value={userData.email}
                 onChange={handleEditChange}
-                className="mt-1 block w-full  border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition input-color"
+                className="mt-1 block w-full  border-gray-300 rounded p-2 focus:outline-none focus:ring-0 transition input-color editEmail"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">
-                Country
-              </label>
+              <label className="block text-sm font-medium ">Country</label>
 
               <CountryDropdown
                 userData={userData}

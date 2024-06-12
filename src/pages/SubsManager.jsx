@@ -199,7 +199,7 @@ const SubsManager = () => {
                           {subscription.public ? "Public" : "Private"}
                         </p>
                       </div>
-                      <div className="float-right hover:cursor-pointer">
+                      <div className="float-right hover:cursor-pointer hover:text-red-600 transition-all duration-400">
                         <MdDelete onClick={() => deleteSubscription(index)} />
                       </div>
                     </div>
