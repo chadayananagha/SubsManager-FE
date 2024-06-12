@@ -137,6 +137,7 @@ const AddSubsForm = ({ closeForm, handleSubmit }) => {
             value={formData.plan.maxMembers}
             onChange={handlePlanChange}
             required
+            min={1}
             className="w-full px-3 py-2 input-color rounded"
           />
         </div>
