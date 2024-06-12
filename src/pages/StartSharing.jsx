@@ -18,12 +18,12 @@ const StartSharing = () => {
   return (
     <>
       <div className="relative pt-24 bg-base100 flex-1 overflow-clip ">
-        <div className="flex flex-col items-center gap-4">
-          <h1 className=" text-6xl">
+        <div className="flex flex-col items-center just gap-4">
+          <h1 className=" text-6xl text-center text-balance">
             Welcome{" "}
             <span className="text-primary">{decodedToken?.username}</span>
           </h1>
-          <h2 className="text-xl">
+          <h2 className="text-xl text-center text-balance">
             Share a subscription or start searching for one
           </h2>
         </div>

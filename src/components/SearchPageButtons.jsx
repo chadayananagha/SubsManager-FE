@@ -9,7 +9,7 @@ import { DiAptana } from "react-icons/di";
 const SearchPageButtons = ({ openForm }) => {
   const { token } = useContext(AuthContext);
   return token ? (
-    <div className="grid-cols-2 grid items-center justify-center gap-16 mt-24 mx-12">
+    <div className="flex flex-col sm:grid-cols-2 sm:grid items-center justify-center gap-16 mt-24 mx-12 ">
       <motion.div
         onClick={openForm}
         initial={{ x: -100 }}
@@ -46,11 +46,11 @@ const SearchPageButtons = ({ openForm }) => {
         className="col-span-2 justify-self-center z-10"
       >
         <Link to="/subsmanager">
-          <div className="w-80 py-4 bg-primary rounded-lg text-center cursor-pointer relative group overflow-hidden hover:scale-110 transition-transform duration-500">
+          <div className="w-60 sm:w-80 py-4  bg-primary rounded-lg text-center cursor-pointer relative group overflow-hidden hover:scale-110 transition-transform duration-500 my-4 ">
             <p className="relative z-10 font-bold text-primary-content  ">
               Manage Subscriptions
             </p>
-            <DiAptana className="absolute text-primary-content -bottom-3  -right-3 text-6xl z-0  group-hover:-translate-x-[480%] group-hover:-translate-y-1/4  group-hover:rotate-180  transition-all duration-500" />
+            <DiAptana className="absolute text-primary-content -bottom-3  -right-3 text-6xl z-0  group-hover:-translate-x-[350%] sm:group-hover:-translate-x-[480%] group-hover:-translate-y-1/4  group-hover:rotate-180  transition-all duration-500" />
           </div>
         </Link>
       </motion.div>
