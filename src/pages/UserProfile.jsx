@@ -8,6 +8,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import Loading from "../components/Loading";
 import CountryDropdown from "../components/CountryDropdown";
 import ReactCountryFlag from "react-country-flag";
+import { toast, Toaster } from "react-hot-toast";
 
 const UserProfile = () => {
   const { userId, token, updateProfilePic } = useContext(AuthContext);
@@ -57,7 +58,7 @@ const UserProfile = () => {
       : "btn bg-base-300";
   };
 
-  const localAPI = "http://localhost:8080";
+  // const localAPI = "http://localhost:8080";
   const deployedAPI = "https://subsmanager-be.onrender.com";
 
   const calculateProfileCompletionScore = (data) => {
@@ -105,7 +106,6 @@ const UserProfile = () => {
   };
 
   const handleSave = async () => {
-    console.log("$$$$$$$$$$$$$$$$$", userData);
     try {
       const response = await axios.put(
         `${deployedAPI}/users/${userId}`,
@@ -116,8 +116,10 @@ const UserProfile = () => {
         calculateProfileCompletionScore(updatedData);
       setUserData(updatedData);
       setIsEditing(false);
+      toast.success("Profile updated successfully!"); // Add this line for toast notification
     } catch (error) {
       console.error("Error updating user data:", error);
+      toast.error("Failed to update profile."); // Add this line for error notification
     }
   };
 
@@ -125,6 +127,7 @@ const UserProfile = () => {
 
   return (
     <div className="flex-1 relative">
+      <Toaster position="top-center" reverseOrder={false} />
       <img
         className="absolute top-20 right-8 lg:right-0 xl:right-10 2xl:right-16 2xl:top-24 4xl:right-24 4xl:top-32 lg:h-1/3 xl:h-1/2 hidden lg:block -z-20 opacity-70"
         src="/images/profilePicBg.png"
@@ -294,7 +297,8 @@ const UserProfile = () => {
                 name="email"
                 value={userData.email}
                 onChange={handleEditChange}
-                className="mt-1 block w-full border border-gray-300 rounded p-2 focus:border-primary focus:ring-primary transition"
+                className="mt-1 block w-full border bg-base-100 rounded p-2 focus:outline-none focus:ring-0 "
+                readOnly
               />
             </div>
             <div className="mb-4">

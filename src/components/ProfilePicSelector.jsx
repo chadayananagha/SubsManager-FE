@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import { MdOutlineImageSearch } from "react-icons/md";
+import { toast } from "react-hot-toast";
 import defaultImage from "/images/defaultPic.png";
-import Image1 from "/images/User1.png";
 import Image2 from "/images/User2.png";
 import Image3 from "/images/User3.png";
 import Image4 from "/images/User4.png";
@@ -35,7 +35,7 @@ const ProfilePicSelector = ({ userData, setUserData, userId }) => {
     Image10,
   ];
 
-  const localAPI = "http://localhost:8080";
+  // const localAPI = "http://localhost:8080";
   const deployedAPI = "https://subsmanager-be.onrender.com";
 
   const handleImageClick = async (image, index) => {
@@ -85,6 +85,7 @@ const ProfilePicSelector = ({ userData, setUserData, userId }) => {
         profilePic: imagePreviewUrl,
       });
       updateProfilePic(imagePreviewUrl);
+      toast.success("Profile picture updated successfully!");
       setIsUploading(false);
       setIsModalOpen(false); // Close the modal after uploading
     } catch (error) {
@@ -92,8 +93,7 @@ const ProfilePicSelector = ({ userData, setUserData, userId }) => {
       setIsUploading(false);
     }
   };
-  // console.log(defaultImage);
-  // console.log(userData);
+
   return (
     <div>
       <div className="relative w-32 h-32 ">
